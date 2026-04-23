@@ -105,14 +105,6 @@ See `index.html` for live specimens including forms, switches, avatars, badges, 
 
 ---
 
-## Deploying to GitHub Pages
-
-1. Push this repo to `main`.
-2. On GitHub: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-3. The workflow in `.github/workflows/pages.yml` publishes on every push.
-4. Your site is live at `https://calmido.github.io/design-system/`.
-
----
 
 ## Updating
 
