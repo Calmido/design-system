@@ -2,7 +2,7 @@
 
 The source of truth for Calmido and wiebeltme.nl — colors, typography, components, and signature widgets.
 
-**Live site:** https://calmido.github.io/design-system/ *(enable GitHub Pages, see below)*
+**Live site:** https://calmido.github.io/design-system/
 
 ---
 
