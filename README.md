@@ -77,7 +77,7 @@ Three families — all free / Google Fonts:
 | Calm_Body L | Open Sans 400 | 16 / 24 |
 | Calm_Body M | Open Sans 400 | 14 / 20 |
 | Calm_Body S | Open Sans 400 | 12 / 16 |
-| Calm_label s | Open Sans 600 | 11 / 16 · 0.08em tracked |
+| Calm_Label s | Open Sans 600 | 11 / 16 · 0.08em tracked |
 
 ---
 
