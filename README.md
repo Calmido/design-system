@@ -13,6 +13,7 @@ The source of truth for Calmido and wiebeltme.nl — colors, typography, compone
 | [`index.html`](./index.html) | The full browsable design system (open in any browser) |
 | `Calmido-DesignSystem.html` | Redirect stub for the legacy deep-link URL |
 | `assets/` | SVG assets referenced by the system |
+| `icons/` | Icon set — 24×24 SVGs with `currentColor` fill (see [Icons](#icons)) |
 
 Open `index.html` locally or visit the Pages URL above. GitHub Pages is
 configured (legacy mode, `main` / root) to auto-deploy on every push.
@@ -114,6 +115,40 @@ Generic content-card primitive used for download cards, testimonials, feature hi
 - Variants: light (default) · inverse (over dark surfaces)
 - Linked vs static: when a `cta` href is present, render as `<a>` with a hover state; otherwise render as `<div>`
 - Specs: radius 16 · padding 24 · gap 16 · icon slot 40×40 (radius 12 tile, 50% for avatars) · cta has `::after` arrow + underline
+
+---
+
+## Icons
+
+The icon set lives in `icons/`. Each icon is a standalone 24×24 SVG with
+`fill="currentColor"`, so consumers control the color via CSS (`color`) or
+inline `style`.
+
+### Layout
+
+| Path | Purpose |
+|---|---|
+| `icons/extracted/*.svg` | Extracted icons, named by Figma grid position (`icon_NNN_rY_cX.svg`) — rename to a semantic name as you adopt each one |
+| `icons/Fonts and Icons.svg` | Source export from Figma (the full icon sheet) |
+| `icons/extract.mjs` | Node script that splits the source sheet into individual SVGs |
+
+### Naming
+
+The filename **is** the icon name. There is no manifest / index file —
+`icons/account.svg` is consumed as `<Icon name="account" />`. Rename freely;
+the filesystem is the registry.
+
+### Re-extracting from Figma
+
+When the Figma icon sheet changes, replace `icons/Fonts and Icons.svg` with
+the new export and run:
+
+```bash
+node icons/extract.mjs
+```
+
+Outputs land in `icons/extracted/` with grid-position names. Rename the new
+ones; existing renamed icons stay untouched.
 
 ---
 
