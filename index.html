@@ -250,7 +250,7 @@
   /* ── Icon grid ─────────────────────────────────────────────── */
   .icon-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 14px; }
   .icon-tile { aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; background: var(--c-white); border: 1px solid var(--c-light-grey); border-radius: 12px; color: var(--c-dark-blue); }
-  .icon-tile svg { width: 24px; height: 24px; }
+  .icon-tile svg, .icon-tile img { width: 24px; height: 24px; }
   .icon-caption { text-align: center; font-family: var(--font-mono); font-size: 10px; color: var(--c-dark-grey); margin-top: 6px; letter-spacing: 0.02em; }
 
   /* ── Radii / Spacing / Shadow ──────────────────────────────── */
@@ -821,6 +821,25 @@
         <div><div class="icon-tile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg></div><div class="icon-caption">error</div></div>
       </div>
       <small class="tok">Drawn inline — these are reference glyphs matching the 24×24 grid used by all Material-style icons in the file (130+ components in /external).</small>
+    </div>
+
+    <div class="panel">
+      <h3>Report categories</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Used in the report flow when a user classifies an unwanted call.</p>
+      <div class="icon-grid">
+        <div><div class="icon-tile">
+          <img src="icons/report_categories/category_phishing.svg" alt="" />
+        </div><div class="icon-caption">category_phishing</div></div>
+
+        <div><div class="icon-tile">
+          <img src="icons/report_categories/category_telemarketing.svg" alt="" />
+        </div><div class="icon-caption">category_telemarketing</div></div>
+
+        <div><div class="icon-tile">
+          <img src="icons/report_categories/category_harassment.svg" alt="" />
+        </div><div class="icon-caption">category_harassment</div></div>
+      </div>
+      <small class="tok">Loaded from <code>icons/report_categories/</code>. SVGs use <code>currentColor</code> — set <code>color</code> on the parent to recolor.</small>
     </div>
   </section>
 

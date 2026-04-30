@@ -13,7 +13,7 @@ The source of truth for Calmido and wiebeltme.nl — colors, typography, compone
 | [`index.html`](./index.html) | The full browsable design system (open in any browser) |
 | `Calmido-DesignSystem.html` | Redirect stub for the legacy deep-link URL |
 | `assets/` | SVG assets referenced by the system |
-| `icons/` | Icon set — 24×24 SVGs with `currentColor` fill (see [Icons](#icons)) |
+| `icons/` | Icon set — 24×24 SVGs with `currentColor` fill, grouped into subfolders by domain (see [Icons](#icons)) |
 
 Open `index.html` locally or visit the Pages URL above. GitHub Pages is
 configured (legacy mode, `main` / root) to auto-deploy on every push.
@@ -126,25 +126,17 @@ inline `style`.
 
 ### Layout
 
-| Path | Purpose |
-|---|---|
-| `icons/*.svg` | The icon set — semantically named, ready to use. **Only these count as part of the design system.** |
-| `icons/extracted/*.svg` | Staging area for unadopted icons (raw Figma output, grid-position names). Rename and move up to `icons/` to promote. |
+Each icon is a standalone 24×24 SVG with `fill="currentColor"`. Top-level
+icons sit directly in `icons/` (e.g. `icons/call.svg`); related sets are
+grouped under a subfolder (e.g. `icons/report_categories/category_phishing.svg`).
 
 ### Naming
 
 The filename **is** the icon name. There is no manifest / index file —
-`icons/account.svg` is consumed as `<Icon name="account" />`. The filesystem
-is the registry.
-
-### Promoting an icon
-
-1. Open the file in `icons/extracted/`
-2. Rename it to a semantic name (e.g., `account.svg`, `arrow_forward.svg`)
-3. Move it up one level to `icons/`
-
-Anything left in `icons/extracted/` is unadopted and not considered part of
-the design system.
+`icons/call.svg` is consumed as `<Icon name="call" />`, and
+`icons/report_categories/category_phishing.svg` as
+`<Icon group="report_categories" name="category_phishing" />`. The
+filesystem is the registry.
 
 ---
 
