@@ -11,10 +11,11 @@ The source of truth for Calmido and wiebeltme.nl — colors, typography, compone
 | File | Purpose |
 |---|---|
 | [`index.html`](./index.html) | The full browsable design system (open in any browser) |
+| `Calmido-DesignSystem.html` | Redirect stub for the legacy deep-link URL |
 | `assets/` | SVG assets referenced by the system |
-| `.github/workflows/pages.yml` | Auto-deploys `index.html` to GitHub Pages on every push to `main` |
 
-Open `index.html` locally or visit the Pages URL above.
+Open `index.html` locally or visit the Pages URL above. GitHub Pages is
+configured (legacy mode, `main` / root) to auto-deploy on every push.
 
 ---
 
