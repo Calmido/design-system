@@ -65,19 +65,20 @@ Three families — all free / Google Fonts:
 
 | Style | Font | Size / line-height |
 |---|---|---|
-| Calm_Display XL | Geologica 700 | 50 / 58 |
-| Calm_Display M | Geologica 700 | 45 / 52 |
-| Calm_Display S | Geologica 300 | 45 / 52 |
-| Calm_Headline L | Geologica 700 | 36 / 44 |
-| Calm_Headline M | Geologica 700 | 32 / 40 |
-| Calm_Headline S | Geologica 700 | 28 / 36 |
-| Calm_Title L | Geologica 700 | 24 / 32 |
-| Calm_Title M | Geologica 700 | 22 / 28 |
-| Calm_Title S | Open Sans 700 | 16 / 24 |
-| Calm_Body L | Open Sans 400 | 16 / 24 |
-| Calm_Body M | Open Sans 400 | 14 / 20 |
-| Calm_Body S | Open Sans 400 | 12 / 16 |
-| Calm_Label s | Open Sans 600 | 11 / 16 · 0.08em tracked |
+| Calm_Display_XL | Geologica 700 | 50 / 58 |
+| Calm_Display_M | Geologica 700 | 45 / 52 |
+| Calm_Display_S | Geologica 300 | 45 / 52 |
+| Calm_Headline_L | Geologica 700 | 36 / 44 |
+| Calm_Headline_M | Geologica 700 | 32 / 40 |
+| Calm_Headline_S | Geologica 700 | 28 / 36 |
+| Calm_Title_L | Geologica 700 | 24 / 32 |
+| Calm_Title_M | Geologica 700 | 22 / 28 |
+| Calm_Title_S | Open Sans 700 | 16 / 24 |
+| Calm_Body_L | Open Sans 400 | 16 / 24 |
+| Calm_Body_M | Open Sans 400 | 14 / 20 |
+| Calm_Body_S | Open Sans 400 | 12 / 16 |
+| Calm_Label_S | Open Sans 600 | 11 / 16 · 0.08em tracked |
+| Calm_Mono_M | Courier Prime 700 | 18 / 24 |
 
 ---
 
@@ -96,12 +97,22 @@ Three families — all free / Google Fonts:
 
 Styles reference (all pill 100px radius, 40px tall):
 
-- **Filled** — `#40EDAB` bg, `#030815` ink
-- **Outlined** — `#6F797A` border, `#004F54` ink
-- **Tonal** — `#DBF6ED` bg, `#324D4D` ink
-- **Text** — `#10C186` ink, no bg
+- **Filled** — `#40EDAB` bg, `#081748` ink · hover flips to `#07369E` bg + white ink
+- **Outlined** — `#07369E` border + ink · hover flips to `#07369E` bg + white ink
+- **Tonal** — `#DBF6ED` bg, `#081748` ink · hover flips to `#10C186` bg + white ink
+- **Text** — `#10C186` ink, no bg · hover adds soft green tint
+- **Disabled** — `opacity 0.6`, `cursor: not-allowed`
 
-See `index.html` for live specimens including forms, switches, avatars, badges, the full Material-style icon set, and the three Who-is-calling card variants.
+See `index.html` for live specimens including forms, switches, avatars, badges, the full Material-style icon set, the three Who-is-calling card variants, and the generic **Section card** primitive (light + inverse, linked + static).
+
+### Section card
+
+Generic content-card primitive used for download cards, testimonials, feature highlights, and similar grid content.
+
+- Slots (all optional, fixed order): `label` · `icon + title + subTitle` · `body` · `cta`
+- Variants: light (default) · inverse (over dark surfaces)
+- Linked vs static: when a `cta` href is present, render as `<a>` with a hover state; otherwise render as `<div>`
+- Specs: radius 16 · padding 24 · gap 16 · icon slot 40×40 (radius 12 tile, 50% for avatars) · cta has `::after` arrow + underline
 
 ---
 

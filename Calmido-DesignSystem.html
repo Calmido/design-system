@@ -113,7 +113,7 @@
   .t-body-m     { font-family: "Open Sans"; font-weight: 400; font-size: 14px; line-height: 20px; letter-spacing: 0.01em; }
   .t-body-s     { font-family: "Open Sans"; font-weight: 400; font-size: 12px; line-height: 16px; letter-spacing: 0.02em; }
   .t-label-s    { font-family: "Open Sans"; font-weight: 600; font-size: 11px; line-height: 16px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-dark-grey); }
-  .t-mono       { font-family: var(--font-mono); font-weight: 700; font-size: 18px; line-height: 24px; color: var(--c-dark-blue); }
+  .t-mono-m     { font-family: var(--font-mono); font-weight: 700; font-size: 18px; line-height: 24px; color: var(--c-dark-blue); }
 
   .type-fams { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 8px; }
   .fam-card { padding: 24px; border: 1px solid var(--c-light-grey); border-radius: var(--r-lg); background: var(--c-white); }
@@ -131,17 +131,17 @@
     transition: filter .15s ease, background .15s ease, transform .05s ease;
   }
   .btn:active { transform: translateY(1px); }
-  .btn--filled   { background: var(--c-bright-green); color: var(--c-filled-label); }
-  .btn--filled:hover { filter: brightness(0.96); }
-  .btn--outlined { background: transparent; color: var(--c-outlined-label); border: 1px solid var(--c-dark-grey); }
-  .btn--outlined:hover { background: rgba(16,193,134,0.06); }
-  .btn--tonal    { background: var(--c-tonal-green); color: var(--c-tonal-label); }
+  .btn--filled   { background: var(--c-bright-green); color: var(--c-dark-blue); }
+  .btn--filled:hover { background: var(--c-blue); color: var(--c-white); }
+  .btn--outlined { background: transparent; color: var(--c-blue); border: 1px solid var(--c-blue); }
+  .btn--outlined:hover { background: var(--c-blue); color: var(--c-white); }
+  .btn--tonal    { background: var(--c-tonal-green); color: var(--c-dark-blue); }
+  .btn--tonal:hover { background: var(--c-dark-green); color: var(--c-white); }
   .btn--text     { background: transparent; color: var(--c-dark-green); padding: 0 12px; }
   .btn--text:hover { background: rgba(16,193,134,0.08); }
   .btn--icon-only { width: 40px; padding: 0; }
+  .btn:disabled { opacity: 0.6; cursor: not-allowed; }
   .btn .ico { width: 18px; height: 18px; }
-  .btn--filled .ico { color: var(--c-filled-label); }
-  .btn--outlined .ico { color: var(--c-outlined-label); }
 
   .download-btn {
     display: inline-flex; align-items: center; gap: 12px; height: 52px; padding: 0 22px;
@@ -168,11 +168,12 @@
   }
   .input-std label { font-family: "Open Sans"; font-weight: 600; font-size: 12px; letter-spacing: 0.04em; color: var(--c-dark-grey); text-transform: uppercase; }
   .input-std input {
-    height: 44px; padding: 0 16px; border-radius: var(--r-sm);
+    width: 100%; height: 40px; padding: 0 16px; border-radius: var(--r-pill);
     border: 1px solid var(--c-dark-grey); background: var(--c-white);
-    font-family: "Open Sans"; font-size: 16px; color: var(--c-dark-blue);
+    font-family: "Open Sans"; font-size: 14px; color: var(--c-dark-blue);
+    box-sizing: border-box;
   }
-  .input-std input:focus { outline: 2px solid var(--c-dark-green); outline-offset: -1px; border-color: var(--c-dark-green); }
+  .input-std input:focus { outline: none; border-color: var(--c-dark-green); }
   .input-std .help { font-family: "Open Sans"; font-size: 12px; color: var(--c-dark-grey); }
 
   /* number-check input (seen on Wie belt me pages) */
@@ -263,6 +264,76 @@
   .sh-2 { box-shadow: 0 6px 18px rgba(8,23,72,0.08); }
   .sh-3 { box-shadow: 0 18px 40px rgba(8,23,72,0.18); }
 
+  /* ── Section Card (generic content card primitive) ──────────── */
+  .scard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .scard-grid--two { grid-template-columns: repeat(2, 1fr); }
+
+  .scard {
+    display: flex; flex-direction: column; gap: 16px;
+    padding: 24px; border-radius: var(--r-lg);
+    background: var(--c-white); border: 1px solid var(--c-light-grey);
+    color: var(--c-dark-blue); text-decoration: none;
+    transition: background-color .2s ease, border-color .2s ease;
+  }
+  a.scard:hover { border-color: var(--c-bright-green); }
+
+  .scard__label {
+    margin: 0; color: var(--c-bright-green);
+    font-family: "Open Sans"; font-weight: 600; font-size: 11px; line-height: 16px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .scard__head { display: flex; align-items: center; gap: 12px; }
+  .scard__icon {
+    flex: 0 0 auto; width: 40px; height: 40px; border-radius: 12px;
+    display: grid; place-items: center;
+    background: var(--c-tonal-green); color: var(--c-dark-blue);
+  }
+  .scard__icon svg { width: 24px; height: 24px; }
+  .scard__head-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .scard__title {
+    margin: 0;
+    font-family: var(--font-display); font-weight: 700; font-size: 22px; line-height: 28px;
+  }
+  .scard__subtitle {
+    margin: 0; color: var(--c-dark-grey);
+    font-family: "Open Sans"; font-weight: 400; font-size: 12px; line-height: 16px;
+  }
+  .scard__body {
+    margin: 0;
+    font-family: "Open Sans"; font-weight: 400; font-size: 14px; line-height: 20px;
+  }
+  .scard__cta {
+    margin-top: auto; align-self: flex-start;
+    color: var(--c-bright-green);
+    font-family: var(--font-display); font-weight: 700; font-size: 14px;
+    text-decoration: underline; text-underline-offset: 4px;
+  }
+  .scard__cta::after { content: ' →'; }
+
+  /* Inverse — for use over dark section backgrounds */
+  .scard--inverse {
+    background: rgba(255,255,255,0.04);
+    border-color: rgba(255,255,255,0.10);
+    color: var(--c-white);
+  }
+  a.scard--inverse:hover {
+    background: rgba(64,237,171,0.04);
+    border-color: rgba(64,237,171,0.5);
+  }
+  .scard--inverse .scard__icon { background: var(--c-white); color: var(--c-dark-blue); }
+  .scard--inverse .scard__title { color: var(--c-white); text-decoration: underline; text-underline-offset: 4px; }
+  .scard--inverse .scard__subtitle { color: rgba(255,255,255,0.6); }
+  .scard--inverse .scard__body { color: rgba(255,255,255,0.75); }
+
+  /* Avatar variant of icon — for testimonial-style cards */
+  .scard__icon--avatar { background: transparent; border-radius: 50%; overflow: hidden; padding: 0; }
+  .scard__icon--avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+  .scard-stage--dark {
+    background: var(--c-dark-blue); border-radius: var(--r-lg);
+    padding: 28px;
+  }
+
   /* Toc */
   .toc { display:flex; flex-wrap:wrap; gap:10px; margin-top:24px;}
   .toc a { font-family: var(--font-mono); font-size: 12px; color: var(--c-dark-blue); padding: 6px 12px; border: 1px solid var(--c-light-grey); border-radius: 100px; text-decoration: none; background: var(--c-white); }
@@ -304,6 +375,7 @@
     <a href="#avatars">Avatars &amp; badges</a>
     <a href="#icons">Icons</a>
     <a href="#widgets">Widgets</a>
+    <a href="#section-card">Section card</a>
   </nav>
 
   <!-- ─────────────────────────────── BRAND ─────────────────────────────── -->
@@ -481,7 +553,7 @@
       </div>
       <div class="type-row">
         <span class="tag">Mono — numbers</span>
-        <span class="sample t-mono">+31 6 18 22 50 07</span>
+        <span class="sample t-mono-m">+31 6 18 22 50 07</span>
         <span class="spec">Courier Prime 700 · 18 / 24</span>
       </div>
     </div>
@@ -545,7 +617,7 @@
         <button class="btn btn--tonal">Later</button>
         <button class="btn btn--text">Skip this</button>
       </div>
-      <small class="tok">Filled = #40EDAB · Outlined border = #6F797A · Tonal = #DBF6ED · Text uses Dark Green.</small>
+      <small class="tok">Filled = #40EDAB on Dark Blue · Outlined = Calmido Blue border + ink · Tonal = #DBF6ED on Dark Blue · Text uses Dark Green. Hover on filled/outlined/tonal flips to a solid surface with white ink.</small>
     </div>
 
     <div class="panel">
@@ -557,6 +629,17 @@
         <button class="btn btn--filled btn--icon-only" aria-label="add"><svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></button>
         <button class="btn btn--outlined btn--icon-only" aria-label="back"><svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20z"/></svg></button>
       </div>
+    </div>
+
+    <div class="panel">
+      <h3>Disabled</h3>
+      <div class="btn-row">
+        <button class="btn btn--filled" disabled>Get Calmido</button>
+        <button class="btn btn--outlined" disabled>Learn more</button>
+        <button class="btn btn--tonal" disabled>Later</button>
+        <button class="btn btn--text" disabled>Skip this</button>
+      </div>
+      <small class="tok">Disabled = opacity 0.6 · cursor not-allowed.</small>
     </div>
 
     <div class="panel">
@@ -807,6 +890,107 @@
         </div>
       </div>
       <small class="tok">Card radius 18 · padding 20 · badge pill 26×100 · shadow: 0 12 28 rgba(0,0,0,0.14).</small>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────── SECTION CARD ─────────────────────────────── -->
+  <section id="section-card" class="block">
+    <h2 class="sec">Section card</h2>
+    <p class="sec-sub">generic content card · used for download · testimonials · feature highlights</p>
+
+    <div class="panel">
+      <h3>Light surface</h3>
+      <div class="scard-grid">
+
+        <!-- Linked card with icon + cta (download style) -->
+        <a class="scard" href="#section-card">
+          <div class="scard__head">
+            <span class="scard__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24c-2.86-1.21-6.08-1.21-8.94 0L5.65 5.67c-.19-.29-.58-.38-.87-.2-.28.18-.37.54-.21.83L6.4 9.48C3.3 11.25 1.28 14.44 1 18h22c-.28-3.56-2.3-6.75-5.4-8.52zM7 15.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25S8.25 13.31 8.25 14 7.69 15.25 7 15.25zm10 0c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+            </span>
+            <div class="scard__head-text">
+              <h4 class="scard__title">Calmido for Android</h4>
+            </div>
+          </div>
+          <p class="scard__body">Full-featured phone app. No registration needed.</p>
+          <span class="scard__cta">Download in Google Play</span>
+        </a>
+
+        <!-- Static testimonial card with avatar + subtitle -->
+        <div class="scard">
+          <div class="scard__head">
+            <span class="scard__icon scard__icon--avatar" aria-hidden="true">
+              <img src="https://i.pravatar.cc/80?img=12" alt="" width="40" height="40">
+            </span>
+            <div class="scard__head-text">
+              <h4 class="scard__title">Alex Bloemendaal</h4>
+              <p class="scard__subtitle">Account Manager</p>
+            </div>
+          </div>
+          <p class="scard__body" style="font-style: italic;">&ldquo;With Calmido I never miss calls from important clients anymore, even when they use new numbers.&rdquo;</p>
+        </div>
+
+        <!-- Static label-led card -->
+        <div class="scard">
+          <p class="scard__label">Built for the AI era</p>
+          <div class="scard__head">
+            <div class="scard__head-text">
+              <h4 class="scard__title">Trusted by 12k+ households</h4>
+            </div>
+          </div>
+          <p class="scard__body">Community-powered protection against deepfake voice scams.</p>
+        </div>
+
+      </div>
+      <small class="tok">Card radius 16 · padding 24 · gap 16 · icon slot 40×40 (radius 12 default, 50% for avatars).</small>
+    </div>
+
+    <div class="panel">
+      <h3>Inverse — over dark surfaces</h3>
+      <div class="scard-stage--dark">
+        <div class="scard-grid scard-grid--two">
+
+          <a class="scard scard--inverse" href="#section-card">
+            <div class="scard__head">
+              <span class="scard__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 11.97c-.02-2.52 2.05-3.73 2.14-3.8-1.17-1.71-2.99-1.95-3.63-1.97-1.55-.15-3 .91-3.77.91-.77 0-1.96-.89-3.23-.87-1.66.03-3.18.96-4.04 2.45-1.73 3-.44 7.44 1.22 9.89.83 1.2 1.81 2.53 3.1 2.48 1.25-.05 1.72-.8 3.23-.8s1.94.8 3.25.78c1.34-.02 2.19-1.21 3-2.41.94-1.39 1.33-2.73 1.35-2.8-.03-.01-2.59-.99-2.62-3.86zM14.6 4.49c.68-.83 1.14-1.98 1.02-3.13-.99.04-2.19.66-2.89 1.48-.63.73-1.18 1.91-1.03 3.03 1.1.08 2.23-.56 2.9-1.38z"/></svg>
+              </span>
+              <div class="scard__head-text">
+                <h4 class="scard__title">Calmido for iPhone</h4>
+              </div>
+            </div>
+            <p class="scard__body">Screens every incoming call. Stay in control.</p>
+            <span class="scard__cta">Download in the App Store</span>
+          </a>
+
+          <a class="scard scard--inverse" href="#section-card">
+            <div class="scard__head">
+              <span class="scard__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24c-2.86-1.21-6.08-1.21-8.94 0L5.65 5.67c-.19-.29-.58-.38-.87-.2-.28.18-.37.54-.21.83L6.4 9.48C3.3 11.25 1.28 14.44 1 18h22c-.28-3.56-2.3-6.75-5.4-8.52z"/></svg>
+              </span>
+              <div class="scard__head-text">
+                <h4 class="scard__title">Calmido for Android</h4>
+              </div>
+            </div>
+            <p class="scard__body">Full-featured phone app. No registration needed.</p>
+            <span class="scard__cta">Download in Google Play</span>
+          </a>
+
+        </div>
+      </div>
+      <small class="tok">Inverse uses rgba(255,255,255,0.04) bg + 0.10 border. Hover (linked only) tints toward bright-green.</small>
+    </div>
+
+    <div class="panel">
+      <h3>Slots</h3>
+      <p class="t-body-m" style="margin: 0 0 12px;">All slots are optional. Composition order is fixed:</p>
+      <ol class="t-body-m" style="margin: 0; padding-left: 20px;">
+        <li><b>label</b> — Calm_Label_S, bright-green, uppercase</li>
+        <li><b>head</b> — icon (40×40 tile or avatar) + title (Calm_Title_M) + optional subtitle (Calm_Body_S)</li>
+        <li><b>body</b> — Calm_Body_M, supports HTML</li>
+        <li><b>cta</b> — bright-green, underlined, arrow appended via <code>::after</code></li>
+      </ol>
+      <small class="tok">When a card has a cta and href, render as <code>&lt;a&gt;</code> (linked, hover state). Otherwise <code>&lt;div&gt;</code> (static).</small>
     </div>
   </section>
 
