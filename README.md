@@ -128,27 +128,23 @@ inline `style`.
 
 | Path | Purpose |
 |---|---|
-| `icons/extracted/*.svg` | Extracted icons, named by Figma grid position (`icon_NNN_rY_cX.svg`) — rename to a semantic name as you adopt each one |
-| `icons/Fonts and Icons.svg` | Source export from Figma (the full icon sheet) |
-| `icons/extract.mjs` | Node script that splits the source sheet into individual SVGs |
+| `icons/*.svg` | The icon set — semantically named, ready to use. **Only these count as part of the design system.** |
+| `icons/extracted/*.svg` | Staging area for unadopted icons (raw Figma output, grid-position names). Rename and move up to `icons/` to promote. |
 
 ### Naming
 
 The filename **is** the icon name. There is no manifest / index file —
-`icons/account.svg` is consumed as `<Icon name="account" />`. Rename freely;
-the filesystem is the registry.
+`icons/account.svg` is consumed as `<Icon name="account" />`. The filesystem
+is the registry.
 
-### Re-extracting from Figma
+### Promoting an icon
 
-When the Figma icon sheet changes, replace `icons/Fonts and Icons.svg` with
-the new export and run:
+1. Open the file in `icons/extracted/`
+2. Rename it to a semantic name (e.g., `account.svg`, `arrow_forward.svg`)
+3. Move it up one level to `icons/`
 
-```bash
-node icons/extract.mjs
-```
-
-Outputs land in `icons/extracted/` with grid-position names. Rename the new
-ones; existing renamed icons stay untouched.
+Anything left in `icons/extracted/` is unadopted and not considered part of
+the design system.
 
 ---
 
