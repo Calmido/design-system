@@ -248,9 +248,31 @@
   .who-card--light .who-meta .badge { background: rgba(7,54,158,0.08); color: var(--c-blue); }
 
   /* ── Icon grid ─────────────────────────────────────────────── */
+  /* All listed icons share one color. Change --ico-fill below to recolor
+     the entire showcase grid. */
   .icon-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 14px; }
-  .icon-tile { aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; background: var(--c-white); border: 1px solid var(--c-light-grey); border-radius: 12px; color: var(--c-dark-blue); }
-  .icon-tile svg, .icon-tile img { width: 24px; height: 24px; }
+  .icon-tile {
+    --ico-fill: #000;
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--c-white);
+    border: 1px solid var(--c-light-grey);
+    border-radius: 12px;
+    color: var(--ico-fill);
+  }
+  .icon-tile svg { width: 24px; height: 24px; }
+  /* File-backed icons render as a mask in currentColor, so all listed
+     icons pick up --ico-fill regardless of what the source SVG declares. */
+  .icon-tile .ico-mask {
+    display: block;
+    width: 24px;
+    height: 24px;
+    background-color: currentColor;
+    -webkit-mask: var(--ico) center / contain no-repeat;
+    mask: var(--ico) center / contain no-repeat;
+  }
   .icon-caption { text-align: center; font-family: var(--font-mono); font-size: 10px; color: var(--c-dark-grey); margin-top: 6px; letter-spacing: 0.02em; }
 
   /* ── Radii / Spacing / Shadow ──────────────────────────────── */
@@ -773,75 +795,38 @@
     <p class="sec-sub">Material-style · 24&nbsp;px · #081748 ink</p>
 
     <div class="panel">
-      <h3>Calmido-specific</h3>
+      <h3>General</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Common-purpose icons used across the apps. Loaded directly from <code>icons/</code>.</p>
       <div class="icon-grid">
-        <div><div class="icon-tile">
-          <!-- Calmido C -->
-          <svg viewBox="0 0 20 19" fill="currentColor"><path d="M 14.063 10.785 L 20 10.785 C 19.426 15.744 15.469 19 10.077 19 L 10 19 C 4.297 19 0 15.195 0 9.5 C 0 3.805 4.167 0 10 0 L 10.077 0 C 15.469 0 19.426 3.253 20 8.212 L 14.063 8.212 C 13.543 6.61 12.057 5.379 10.08 5.379 L 10.003 5.379 C 7.529 5.379 5.836 7.112 5.836 9.5 C 5.836 11.888 7.529 13.621 10.003 13.621 L 10.08 13.621 C 12.06 13.621 13.543 12.413 14.063 10.788 L 14.063 10.785 Z"/></svg>
-        </div><div class="icon-caption">calmido_c</div></div>
-
-        <div><div class="icon-tile">
-          <svg width="24" height="24" viewBox="0 0 22.010 20" fill="currentColor"><use href="#hs"/></svg>
-        </div><div class="icon-caption">handshake</div></div>
-
-        <div><div class="icon-tile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div><div class="icon-caption">verified_user</div></div>
-
-        <div><div class="icon-tile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg></div><div class="icon-caption">shield</div></div>
-
-        <div><div class="icon-tile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V14H8v-2h2V9.5C10 7.57 11.57 6 13.5 6H16v2h-2c-.55 0-1 .45-1 1v3h3l-.5 2H13v7.95c5.05-.5 9-4.76 9-9.95 0-5.52-4.48-10-10-10z"/></svg></div><div class="icon-caption">skull</div></div>
-
-        <div><div class="icon-tile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97A15.04 15.04 0 0 1 6.59 10.5l1.95-1.66c.27-.27.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3.3 3 3.54 3 4.29 3 13.28 10.73 21 19.71 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg></div><div class="icon-caption">call</div></div>
-
-        <div><div class="icon-tile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div><div class="icon-caption">add</div></div>
-
-        <div><div class="icon-tile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg></div><div class="icon-caption">arrow_forward</div></div>
-
-        <div><div class="icon-tile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><div class="icon-caption">check</div></div>
-
-        <div><div class="icon-tile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-8a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg></div><div class="icon-caption">visibility</div></div>
-
-        <div><div class="icon-tile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div><div class="icon-caption">star</div></div>
-
-        <div><div class="icon-tile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div><div class="icon-caption">favorite</div></div>
-
-        <div><div class="icon-tile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3zm5 10a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2z"/></svg></div><div class="icon-caption">mic</div></div>
-
-        <div><div class="icon-tile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 5.9a2.1 2.1 0 1 1 0 4.2 2.1 2.1 0 0 1 0-4.2m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"/></svg></div><div class="icon-caption">person</div></div>
-
-        <div><div class="icon-tile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4v14h16V6z"/></svg></div><div class="icon-caption">factory</div></div>
-
-        <div><div class="icon-tile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg></div><div class="icon-caption">cloud</div></div>
-
-        <div><div class="icon-tile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H7a2 2 0 0 0-2 2v16l7-3 7 3V5a2 2 0 0 0-2-2z"/></svg></div><div class="icon-caption">bookmark</div></div>
-
-        <div><div class="icon-tile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 18h16v-2H4v2zm0-5h16v-2H4v2zm0-7v2h16V6H4z"/></svg></div><div class="icon-caption">menu</div></div>
-
-        <div><div class="icon-tile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.43 12.98c.04-.32.07-.64.07-.98 0-.34-.03-.66-.07-.98l2.11-1.65a.5.5 0 0 0 .12-.64l-2-3.46a.5.5 0 0 0-.61-.22l-2.49 1a7.03 7.03 0 0 0-1.69-.98l-.38-2.65A.5.5 0 0 0 14 2h-4a.5.5 0 0 0-.49.42l-.38 2.65c-.61.25-1.17.58-1.69.98l-2.49-1a.5.5 0 0 0-.61.22l-2 3.46a.5.5 0 0 0 .12.64l2.11 1.65c-.04.32-.07.65-.07.98 0 .33.03.66.07.98l-2.11 1.65a.5.5 0 0 0-.12.64l2 3.46c.14.24.43.34.68.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.05.28.27.49.55.49h4c.25 0 .47-.21.5-.49l.38-2.65c.61-.25 1.17-.58 1.69-.98l2.49 1c.25.12.54.02.68-.22l2-3.46a.5.5 0 0 0-.12-.64l-2.11-1.65zM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7z"/></svg></div><div class="icon-caption">settings</div></div>
-
-        <div><div class="icon-tile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg></div><div class="icon-caption">error</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/Calmido%20C%20icon.svg')"></span></div><div class="icon-caption">Calmido C icon</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/attention.svg')"></span></div><div class="icon-caption">attention</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/business.svg')"></span></div><div class="icon-caption">business</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/dialpad.svg')"></span></div><div class="icon-caption">dialpad</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/edit.svg')"></span></div><div class="icon-caption">edit</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/handshake.svg')"></span></div><div class="icon-caption">handshake</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/key.svg')"></span></div><div class="icon-caption">key</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/language.svg')"></span></div><div class="icon-caption">language</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/person_add.svg')"></span></div><div class="icon-caption">person_add</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/report.svg')"></span></div><div class="icon-caption">report</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/search.svg')"></span></div><div class="icon-caption">search</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/skull_1.svg')"></span></div><div class="icon-caption">skull_1</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/skull_2.svg')"></span></div><div class="icon-caption">skull_2</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/thumb_down.svg')"></span></div><div class="icon-caption">thumb_down</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/thumb_up.svg')"></span></div><div class="icon-caption">thumb_up</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/unlock.svg')"></span></div><div class="icon-caption">unlock</div></div>
       </div>
-      <small class="tok">Drawn inline — these are reference glyphs matching the 24×24 grid used by all Material-style icons in the file (130+ components in /external).</small>
+      <small class="tok">Rendered as CSS masks so they all share <code>--ico-fill</code> regardless of what each source SVG declares.</small>
     </div>
 
     <div class="panel">
       <h3>Call</h3>
       <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Live-call UI: dial state, hangup, missed, audio routing.</p>
       <div class="icon-grid">
-        <div><div class="icon-tile">
-          <img src="icons/call/call.svg" alt="" />
-        </div><div class="icon-caption">call</div></div>
-
-        <div><div class="icon-tile">
-          <img src="icons/call/call_hangup.svg" alt="" />
-        </div><div class="icon-caption">call_hangup</div></div>
-
-        <div><div class="icon-tile">
-          <img src="icons/call/call_missed.svg" alt="" />
-        </div><div class="icon-caption">call_missed</div></div>
-
-        <div><div class="icon-tile">
-          <img src="icons/call/bluetooth.svg" alt="" />
-        </div><div class="icon-caption">bluetooth</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/call/bluetooth.svg')"></span></div><div class="icon-caption">bluetooth</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/call/call.svg')"></span></div><div class="icon-caption">call</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/call/call_hangup.svg')"></span></div><div class="icon-caption">call_hangup</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/call/call_missed.svg')"></span></div><div class="icon-caption">call_missed</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/call/headphone.svg')"></span></div><div class="icon-caption">headphone</div></div>
       </div>
       <small class="tok">Loaded from <code>icons/call/</code>.</small>
     </div>
@@ -850,19 +835,17 @@
       <h3>Report categories</h3>
       <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Used in the report flow when a user classifies an unwanted call.</p>
       <div class="icon-grid">
-        <div><div class="icon-tile">
-          <img src="icons/report_categories/category_phishing.svg" alt="" />
-        </div><div class="icon-caption">category_phishing</div></div>
-
-        <div><div class="icon-tile">
-          <img src="icons/report_categories/category_telemarketing.svg" alt="" />
-        </div><div class="icon-caption">category_telemarketing</div></div>
-
-        <div><div class="icon-tile">
-          <img src="icons/report_categories/category_harassment.svg" alt="" />
-        </div><div class="icon-caption">category_harassment</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/report_categories/back_hand.svg')"></span></div><div class="icon-caption">back_hand</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/report_categories/callback_fraud.svg')"></span></div><div class="icon-caption">callback_fraud</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/report_categories/phishing.svg')"></span></div><div class="icon-caption">phishing</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/report_categories/recruitment.svg')"></span></div><div class="icon-caption">recruitment</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/report_categories/robocalls.svg')"></span></div><div class="icon-caption">robocalls</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/report_categories/scam.svg')"></span></div><div class="icon-caption">scam</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/report_categories/silence.svg')"></span></div><div class="icon-caption">silence</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/report_categories/spoofing.svg')"></span></div><div class="icon-caption">spoofing</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/report_categories/telemarketing.svg')"></span></div><div class="icon-caption">telemarketing</div></div>
       </div>
-      <small class="tok">Loaded from <code>icons/report_categories/</code>. SVGs use <code>currentColor</code> — set <code>color</code> on the parent to recolor.</small>
+      <small class="tok">Loaded from <code>icons/report_categories/</code>.</small>
     </div>
   </section>
 
