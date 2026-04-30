@@ -143,6 +143,17 @@
   .btn:disabled { opacity: 0.6; cursor: not-allowed; }
   .btn .ico { width: 18px; height: 18px; }
 
+  /* ── Links (textual) ─────────────────────────────────────────── */
+  .link {
+    color: var(--c-blue);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    cursor: pointer;
+    transition: color .15s ease;
+  }
+  .link::after { content: ' →'; }
+  .link:hover { color: var(--c-dark-green); }
+
   /* ── Inputs ───────────────────────────────────────────────────── */
   .input-pill {
     display: flex; align-items: center; gap: 10px;
@@ -363,6 +374,7 @@
     <a href="#type">Typography</a>
     <a href="#spacing">Radii &amp; spacing</a>
     <a href="#buttons">Buttons</a>
+    <a href="#links">Links</a>
     <a href="#forms">Forms</a>
     <a href="#avatars">Avatars &amp; badges</a>
     <a href="#icons">Icons</a>
@@ -634,6 +646,22 @@
       <small class="tok">Disabled = opacity 0.6 · cursor not-allowed.</small>
     </div>
 
+  </section>
+
+  <!-- ─────────────────────────────── LINKS ─────────────────────────────── -->
+  <section id="links" class="block">
+    <h2 class="sec">Links</h2>
+    <p class="sec-sub">textual links · underline + arrow</p>
+
+    <div class="panel">
+      <h3>Inline link</h3>
+      <p class="t-body-l">
+        Read more about how Calmido works in our
+        <a class="link" href="#">privacy policy</a>
+        or browse the <a class="link" href="#">community guidelines</a>.
+      </p>
+      <small class="tok">.link · Calmido Blue · underline 4px offset · &nbsp;→&nbsp; via ::after · hover flips to Dark Green.</small>
+    </div>
   </section>
 
   <!-- ─────────────────────────────── FORMS ─────────────────────────────── -->
