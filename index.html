@@ -250,7 +250,7 @@
   /* ── Icon grid ─────────────────────────────────────────────── */
   /* All listed icons share one color. Change --ico-fill below to recolor
      the entire showcase grid. */
-  .icon-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 14px; }
+  .icon-grid { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 14px; }
   .icon-tile {
     --ico-fill: #000;
     aspect-ratio: 1/1;
@@ -273,7 +273,7 @@
     -webkit-mask: var(--ico) center / contain no-repeat;
     mask: var(--ico) center / contain no-repeat;
   }
-  .icon-caption { text-align: center; font-family: var(--font-mono); font-size: 10px; color: var(--c-dark-grey); margin-top: 6px; letter-spacing: 0.02em; }
+  .icon-caption { text-align: center; font-family: var(--font-mono); font-size: 10px; color: var(--c-dark-grey); margin-top: 6px; letter-spacing: 0.02em; overflow-wrap: anywhere; }
 
   /* ── Radii / Spacing / Shadow ──────────────────────────────── */
   .radii { display: flex; gap: 18px; align-items: flex-end; }
