@@ -796,19 +796,25 @@
 
     <div class="panel">
       <h3>General</h3>
-      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Common-purpose icons used across the apps. Loaded directly from <code>icons/</code>.</p>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Loaded from <code>icons/</code>.</p>
       <div class="icon-grid">
-        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/logo-1.svg')"></span></div><div class="icon-caption">logo-1</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/attention.svg')"></span></div><div class="icon-caption">attention</div></div>
-        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/business.svg')"></span></div><div class="icon-caption">business</div></div>
-        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/dialpad.svg')"></span></div><div class="icon-caption">dialpad</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/avatar.svg')"></span></div><div class="icon-caption">avatar</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/business-1.svg')"></span></div><div class="icon-caption">business-1</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/check.svg')"></span></div><div class="icon-caption">check</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/download.svg')"></span></div><div class="icon-caption">download</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/edit.svg')"></span></div><div class="icon-caption">edit</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/handshake.svg')"></span></div><div class="icon-caption">handshake</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/key.svg')"></span></div><div class="icon-caption">key</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/language.svg')"></span></div><div class="icon-caption">language</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/lock.svg')"></span></div><div class="icon-caption">lock</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/logo-1.svg')"></span></div><div class="icon-caption">logo-1</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/north_east.svg')"></span></div><div class="icon-caption">north_east</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/person_add.svg')"></span></div><div class="icon-caption">person_add</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/report.svg')"></span></div><div class="icon-caption">report</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/search.svg')"></span></div><div class="icon-caption">search</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/shield_lock.svg')"></span></div><div class="icon-caption">shield_lock</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/shield_star.svg')"></span></div><div class="icon-caption">shield_star</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/skull_1.svg')"></span></div><div class="icon-caption">skull_1</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/skull_2.svg')"></span></div><div class="icon-caption">skull_2</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/thumb_down.svg')"></span></div><div class="icon-caption">thumb_down</div></div>
@@ -820,23 +826,26 @@
 
     <div class="panel">
       <h3>Call</h3>
-      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Live-call UI: dial state, hangup, missed, audio routing.</p>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Loaded from <code>icons/call/</code>.</p>
       <div class="icon-grid">
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/call/bluetooth.svg')"></span></div><div class="icon-caption">bluetooth</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/call/call.svg')"></span></div><div class="icon-caption">call</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/call/call_hangup.svg')"></span></div><div class="icon-caption">call_hangup</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/call/call_missed.svg')"></span></div><div class="icon-caption">call_missed</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/call/call_missed_outgoing.svg')"></span></div><div class="icon-caption">call_missed_outgoing</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/call/call_received.svg')"></span></div><div class="icon-caption">call_received</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/call/dialpad.svg')"></span></div><div class="icon-caption">dialpad</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/call/headphone.svg')"></span></div><div class="icon-caption">headphone</div></div>
       </div>
-      <small class="tok">Loaded from <code>icons/call/</code>.</small>
+      <small class="tok">Rendered as CSS masks so they all share <code>--ico-fill</code> regardless of what each source SVG declares.</small>
     </div>
 
     <div class="panel">
       <h3>Report categories</h3>
-      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Used in the report flow when a user classifies an unwanted call.</p>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Loaded from <code>icons/report_categories/</code>.</p>
       <div class="icon-grid">
-        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/report_categories/harassment.svg')"></span></div><div class="icon-caption">harassment</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/report_categories/callback_fraud.svg')"></span></div><div class="icon-caption">callback_fraud</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/report_categories/harassment.svg')"></span></div><div class="icon-caption">harassment</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/report_categories/phishing.svg')"></span></div><div class="icon-caption">phishing</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/report_categories/recruitment.svg')"></span></div><div class="icon-caption">recruitment</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/report_categories/robocalls.svg')"></span></div><div class="icon-caption">robocalls</div></div>
@@ -845,7 +854,7 @@
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/report_categories/spoofing.svg')"></span></div><div class="icon-caption">spoofing</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/report_categories/telemarketing.svg')"></span></div><div class="icon-caption">telemarketing</div></div>
       </div>
-      <small class="tok">Loaded from <code>icons/report_categories/</code>.</small>
+      <small class="tok">Rendered as CSS masks so they all share <code>--ico-fill</code> regardless of what each source SVG declares.</small>
     </div>
   </section>
 
