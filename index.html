@@ -354,7 +354,7 @@
   }
   .scard__body {
     margin: 0;
-    font-family: "Open Sans"; font-weight: 400; font-size: 14px; line-height: 20px;
+    font-family: "Open Sans"; font-weight: 400; font-size: 16px; line-height: 24px;
   }
   .scard__cta {
     margin-top: auto; align-self: flex-start;
@@ -406,7 +406,7 @@
   .scard--full .scard__title { font-size: 28px; line-height: 34px; }
   .scard--full .scard__subtitle { color: var(--c-dark-green); font-size: 16px; line-height: 22px; font-weight: 600; }
   .scard--full .scard__body { color: var(--c-body-ink); font-size: 16px; line-height: 24px; }
-  .scard--full.scard--inverse .scard__body { color: var(--c-white); font-weight: 300; }
+  .scard--full.scard--inverse .scard__body { color: rgba(255,255,255,0.75); }
   .scard--full.scard--inverse .scard__label { color: rgba(255,255,255,0.5); }
   .scard--full.scard--inverse .scard__icon { color: var(--c-dark-green); }
 
@@ -1062,7 +1062,7 @@
         </div>
 
       </div>
-      <small class="tok">Card radius 16 · padding 24 · gap 16 · icon slot 40×40 (radius 12). Title <code>Calm_Title_M</code> · subtitle <code>Calm_Body_S</code> · body <code>Calm_Body_M</code>.</small>
+      <small class="tok">Card radius 16 · padding 24 · gap 16 · icon slot 40×40 (radius 12). Title <code>Calm_Title_M</code> · subtitle <code>Calm_Body_S</code> · body <code>Calm_Body_L</code>.</small>
     </div>
 
     <div class="panel">
@@ -1197,7 +1197,7 @@
 
         </div>
       </div>
-      <small class="tok">Combine <code>.scard--full</code> with <code>.scard--inverse</code> on dark surfaces. Body becomes <code>--c-white</code> with <code>font-weight: 300</code>; label dims to <code>rgba(255,255,255,0.5)</code>.</small>
+      <small class="tok">Combine <code>.scard--full</code> with <code>.scard--inverse</code> on dark surfaces. Body uses <code>rgba(255,255,255,0.75)</code> (matches footer description); label dims to <code>rgba(255,255,255,0.5)</code>.</small>
     </div>
 
     <div class="panel">
