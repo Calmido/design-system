@@ -155,6 +155,33 @@
   .link::after { content: ' →'; }
   .link:hover { color: var(--c-dark-green); }
 
+  /* ── Arrow list ──────────────────────────────────────────────── */
+  .arrow-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .arrow-list li { display: flex; align-items: center; gap: 10px; }
+  .arrow-list li::before {
+    content: '';
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    background-color: var(--c-dark-green);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 25 25'%3E%3Cpath d='M16.8493 13.5417H4.16699V11.4584H16.8493L11.016 5.62508L12.5003 4.16675L20.8337 12.5001L12.5003 20.8334L11.016 19.3751L16.8493 13.5417Z'/%3E%3C/svg%3E") no-repeat center / contain;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 25 25'%3E%3Cpath d='M16.8493 13.5417H4.16699V11.4584H16.8493L11.016 5.62508L12.5003 4.16675L20.8337 12.5001L12.5003 20.8334L11.016 19.3751L16.8493 13.5417Z'/%3E%3C/svg%3E") no-repeat center / contain;
+  }
+  .arrow-list a {
+    color: var(--c-blue);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: color .15s ease;
+  }
+  .arrow-list a:hover { color: var(--c-dark-green); }
+
   /* ── Inputs ───────────────────────────────────────────────────── */
   .input-pill {
     display: flex; align-items: center; gap: 10px;
@@ -686,6 +713,18 @@
       </p>
       <small class="tok">.link · Calmido Blue · underline 4px offset · &nbsp;→&nbsp; via ::after · hover flips to Dark Green.</small>
     </div>
+
+    <div class="panel">
+      <h3>Arrow list</h3>
+      <ul class="arrow-list t-body-l">
+        <li><a href="#">Veelgestelde vragen</a></li>
+        <li><a href="#">Algemene voorwaarden</a></li>
+        <li><a href="#">Privacyverklaring</a></li>
+        <li><a href="#">Account verwijderen</a></li>
+        <li><a href="#">About us</a></li>
+      </ul>
+      <small class="tok">.arrow-list · vertical stack · 18px arrow_forward icon (inline SVG mask, color via <code>background-color</code>) · items wrapping an <code>&lt;a&gt;</code> get the same Calmido Blue underline + Dark Green hover as <code>.link</code>; plain-text items inherit body color.</small>
+    </div>
   </section>
 
   <!-- ─────────────────────────────── FORMS ─────────────────────────────── -->
@@ -801,6 +840,7 @@
       <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Loaded from <code>icons/</code>.</p>
       <div class="icon-grid">
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/android.svg')"></span></div><div class="icon-caption">android</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/arrow_forward.svg')"></span></div><div class="icon-caption">arrow_forward</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/attention.svg')"></span></div><div class="icon-caption">attention</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/avatar.svg')"></span></div><div class="icon-caption">avatar</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/business_1.svg')"></span></div><div class="icon-caption">business_1</div></div>
