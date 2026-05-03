@@ -292,8 +292,9 @@
   }
   .icon-tile svg { width: 24px; height: 24px; }
   /* File-backed icons render as a mask in currentColor, so all listed
-     icons pick up --ico-fill regardless of what the source SVG declares. */
-  .icon-tile .ico-mask {
+     icons pick up --ico-fill regardless of what the source SVG declares.
+     Default 24×24; override width/height inline when used in larger slots. */
+  .ico-mask {
     display: block;
     width: 24px;
     height: 24px;
@@ -381,6 +382,37 @@
   /* Avatar variant of icon — for testimonial-style cards */
   .scard__icon--avatar { background: transparent; border-radius: 50%; overflow: hidden; padding: 0; }
   .scard__icon--avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* Full — taller stacked layout for feature pillars (icon → title → subtitle → body) */
+  .scard--full {
+    position: relative;
+    gap: 14px;
+    padding: 32px 28px;
+    border-radius: 24px;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .2s ease;
+  }
+  .scard--full .scard__label {
+    position: absolute;
+    top: 24px; right: 28px;
+    margin: 0;
+    color: var(--c-dark-grey);
+    font-family: var(--font-mono); font-size: 18px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: none;
+  }
+  .scard--full:hover { transform: translateY(-2px); box-shadow: 0 20px 40px -24px rgba(8,23,72,0.15); }
+  .scard--full .scard__head { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .scard--full .scard__head-text { gap: 14px; }
+  .scard--full .scard__icon { width: 56px; height: 56px; border-radius: 16px; color: var(--c-blue); }
+  .scard--full .scard__title { font-size: 28px; line-height: 34px; }
+  .scard--full .scard__subtitle { color: var(--c-dark-green); font-size: 16px; line-height: 22px; font-weight: 600; }
+  .scard--full .scard__body { color: var(--c-body-ink); font-size: 16px; line-height: 24px; }
+
+  /* Testimonial — quote card with circular avatar + italic body */
+  .scard--testimonial { padding: 24px; border-radius: 24px; }
+  .scard--testimonial .scard__icon { background: transparent; border-radius: 50%; overflow: hidden; padding: 0; }
+  .scard--testimonial .scard__icon img { width: 100%; height: 100%; object-fit: cover; }
+  .scard--testimonial .scard__title { font-size: 16px; line-height: 22px; }
+  .scard--testimonial .scard__body { font-style: italic; color: var(--c-body-ink); }
 
   .scard-stage--dark {
     background: var(--c-dark-blue); border-radius: var(--r-lg);
@@ -981,14 +1013,14 @@
     <p class="sec-sub">generic content card · used for download · testimonials · feature highlights</p>
 
     <div class="panel">
-      <h3>Light surface</h3>
+      <h3>Default (normal variant)</h3>
       <div class="scard-grid">
 
         <!-- Linked card with icon + cta (download style) -->
         <a class="scard" href="#section-card">
           <div class="scard__head">
             <span class="scard__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24c-2.86-1.21-6.08-1.21-8.94 0L5.65 5.67c-.19-.29-.58-.38-.87-.2-.28.18-.37.54-.21.83L6.4 9.48C3.3 11.25 1.28 14.44 1 18h22c-.28-3.56-2.3-6.75-5.4-8.52zM7 15.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25S8.25 13.31 8.25 14 7.69 15.25 7 15.25zm10 0c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+              <span class="ico-mask" style="--ico:url('icons/android.svg')"></span>
             </span>
             <div class="scard__head-text">
               <h4 class="scard__title">Calmido for Android</h4>
@@ -998,19 +1030,20 @@
           <span class="scard__cta">Download in Google Play</span>
         </a>
 
-        <!-- Static testimonial card with avatar + subtitle -->
-        <div class="scard">
+        <!-- Linked card with icon + subtitle + cta -->
+        <a class="scard" href="#section-card">
           <div class="scard__head">
-            <span class="scard__icon scard__icon--avatar" aria-hidden="true">
-              <img src="https://i.pravatar.cc/80?img=12" alt="" width="40" height="40">
+            <span class="scard__icon" aria-hidden="true">
+              <span class="ico-mask" style="--ico:url('icons/handshake.svg')"></span>
             </span>
             <div class="scard__head-text">
-              <h4 class="scard__title">Alex Bloemendaal</h4>
-              <p class="scard__subtitle">Account Manager</p>
+              <h4 class="scard__title">Frequently asked questions</h4>
+              <p class="scard__subtitle">Quick answers about screening, privacy, and account control.</p>
             </div>
           </div>
-          <p class="scard__body" style="font-style: italic;">&ldquo;With Calmido I never miss calls from important clients anymore, even when they use new numbers.&rdquo;</p>
-        </div>
+          <p class="scard__body">Browse common topics or jump straight to a specific question.</p>
+          <span class="scard__cta">Read FAQ</span>
+        </a>
 
         <!-- Static label-led card -->
         <div class="scard">
@@ -1024,7 +1057,91 @@
         </div>
 
       </div>
-      <small class="tok">Card radius 16 · padding 24 · gap 16 · icon slot 40×40 (radius 12 default, 50% for avatars).</small>
+      <small class="tok">Card radius 16 · padding 24 · gap 16 · icon slot 40×40 (radius 12). Title <code>Calm_Title_M</code> · subtitle <code>Calm_Body_S</code> · body <code>Calm_Body_M</code>.</small>
+    </div>
+
+    <div class="panel">
+      <h3>Full (feature pillars)</h3>
+      <div class="scard-grid">
+
+        <div class="scard scard--full">
+          <p class="scard__label">01</p>
+          <div class="scard__head">
+            <span class="scard__icon" aria-hidden="true">
+              <span class="ico-mask" style="--ico:url('icons/attention.svg'); width:32px; height:32px"></span>
+            </span>
+            <div class="scard__head-text">
+              <h4 class="scard__title">Know who to trust</h4>
+              <p class="scard__subtitle">The community reports. Calmido warns you instantly.</p>
+            </div>
+          </div>
+          <p class="scard__body">When a number has been flagged — for scam, phishing, a callback trick, a silent call — you see it before you pick up.</p>
+        </div>
+
+        <div class="scard scard--full">
+          <p class="scard__label">02</p>
+          <div class="scard__head">
+            <span class="scard__icon" aria-hidden="true">
+              <span class="ico-mask" style="--ico:url('icons/visibility.svg'); width:32px; height:32px"></span>
+            </span>
+            <div class="scard__head-text">
+              <h4 class="scard__title">See who's actually calling</h4>
+              <p class="scard__subtitle">Public data. Your contacts. Names only with consent.</p>
+            </div>
+          </div>
+          <p class="scard__body">Calmido shows what's safe to show: company names from public business data, people already in your contacts, and registered users who chose to be visible.</p>
+        </div>
+
+        <div class="scard scard--full">
+          <p class="scard__label">03</p>
+          <div class="scard__head">
+            <span class="scard__icon" aria-hidden="true">
+              <span class="ico-mask" style="--ico:url('icons/shield_check.svg'); width:32px; height:32px"></span>
+            </span>
+            <div class="scard__head-text">
+              <h4 class="scard__title">Built on your side</h4>
+              <p class="scard__subtitle">Independent foundation. Privacy-first by design.</p>
+            </div>
+          </div>
+          <p class="scard__body">No ad-targeting, no profile-building, no upselling. We're funded by users, not by the data they generate.</p>
+        </div>
+
+      </div>
+      <small class="tok">.scard--full · radius 24 · padding 32 28 · gap 14 · icon slot 56×56 (radius 16) · label absolute top-right (mono 18px) · hover lift -2px. Title <code>Calm_Title_L</code> · subtitle <code>Calm_Title_S</code> (Dark Green) · body <code>Calm_Body_L</code>.</small>
+    </div>
+
+    <div class="panel">
+      <h3>Testimonial</h3>
+      <div class="scard-grid scard-grid--two">
+
+        <div class="scard scard--testimonial">
+          <div class="scard__head">
+            <span class="scard__icon" aria-hidden="true">
+              <img src="https://i.pravatar.cc/80?img=12" alt="" width="40" height="40">
+            </span>
+            <div class="scard__head-text">
+              <h4 class="scard__title">Alex Bloemendaal</h4>
+              <p class="scard__subtitle">Account Manager</p>
+            </div>
+          </div>
+          <p class="scard__body">&ldquo;With Calmido I never miss calls from important clients anymore, even when they use new numbers.&rdquo;</p>
+        </div>
+
+        <div class="scard scard--testimonial">
+          <div class="scard__head">
+            <span class="scard__icon" aria-hidden="true">
+              <img src="https://i.pravatar.cc/80?img=32" alt="" width="40" height="40">
+            </span>
+            <div class="scard__head-text">
+              <h4 class="scard__title">Saskia van der Werf</h4>
+              <p class="scard__subtitle">Mantelzorger</p>
+            </div>
+          </div>
+          <p class="scard__body">&ldquo;Eindelijk weet ik wie er belt voordat ik opneem — geen schrik meer voor onbekende nummers.&rdquo;</p>
+        </div>
+
+      </div>
+      <small class="tok">.scard--testimonial · radius 24 · circular avatar (40×40) in icon slot · italic body in <code>--c-body-ink</code>. Title <code>Calm_Title_S</code> · subtitle <code>Calm_Body_S</code> · body <code>Calm_Body_M</code>.</small>
     </div>
 
     <div class="panel">
@@ -1035,7 +1152,7 @@
           <a class="scard scard--inverse" href="#section-card">
             <div class="scard__head">
               <span class="scard__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 11.97c-.02-2.52 2.05-3.73 2.14-3.8-1.17-1.71-2.99-1.95-3.63-1.97-1.55-.15-3 .91-3.77.91-.77 0-1.96-.89-3.23-.87-1.66.03-3.18.96-4.04 2.45-1.73 3-.44 7.44 1.22 9.89.83 1.2 1.81 2.53 3.1 2.48 1.25-.05 1.72-.8 3.23-.8s1.94.8 3.25.78c1.34-.02 2.19-1.21 3-2.41.94-1.39 1.33-2.73 1.35-2.8-.03-.01-2.59-.99-2.62-3.86zM14.6 4.49c.68-.83 1.14-1.98 1.02-3.13-.99.04-2.19.66-2.89 1.48-.63.73-1.18 1.91-1.03 3.03 1.1.08 2.23-.56 2.9-1.38z"/></svg>
+                <span class="ico-mask" style="--ico:url('icons/ios.svg')"></span>
               </span>
               <div class="scard__head-text">
                 <h4 class="scard__title">Calmido for iPhone</h4>
@@ -1048,7 +1165,7 @@
           <a class="scard scard--inverse" href="#section-card">
             <div class="scard__head">
               <span class="scard__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24c-2.86-1.21-6.08-1.21-8.94 0L5.65 5.67c-.19-.29-.58-.38-.87-.2-.28.18-.37.54-.21.83L6.4 9.48C3.3 11.25 1.28 14.44 1 18h22c-.28-3.56-2.3-6.75-5.4-8.52z"/></svg>
+                <span class="ico-mask" style="--ico:url('icons/android.svg')"></span>
               </span>
               <div class="scard__head-text">
                 <h4 class="scard__title">Calmido for Android</h4>
@@ -1064,14 +1181,21 @@
     </div>
 
     <div class="panel">
-      <h3>Slots</h3>
+      <h3>Slots &amp; variants</h3>
       <p class="t-body-m" style="margin: 0 0 12px;">All slots are optional. Composition order is fixed:</p>
-      <ol class="t-body-m" style="margin: 0; padding-left: 20px;">
-        <li><b>label</b> — Calm_Label_S, bright-green, uppercase</li>
-        <li><b>head</b> — icon (40×40 tile or avatar) + title (Calm_Title_M) + optional subtitle (Calm_Body_S)</li>
-        <li><b>body</b> — Calm_Body_M, supports HTML</li>
+      <ol class="t-body-m" style="margin: 0 0 16px; padding-left: 20px;">
+        <li><b>label</b> — Calm_Label_S, bright-green, uppercase (or mono numeral, top-right, in <code>--full</code>)</li>
+        <li><b>head</b> — icon (40×40 tile, 56×56 in <code>--full</code>, circular avatar in <code>--testimonial</code>) + title + optional subtitle</li>
+        <li><b>body</b> — supports HTML; italic in <code>--testimonial</code></li>
         <li><b>cta</b> — bright-green, underlined, arrow appended via <code>::after</code></li>
       </ol>
+      <p class="t-body-m" style="margin: 0 0 12px;"><b>Variants</b> stack on the base <code>.scard</code>:</p>
+      <ul class="t-body-m" style="margin: 0; padding-left: 20px;">
+        <li><code>normal</code> (default) — radius 16 · padding 24 · Calm_Title_M</li>
+        <li><code>--full</code> — radius 24 · padding 32 28 · Calm_Title_L · hover lift · for feature pillars</li>
+        <li><code>--testimonial</code> — radius 24 · circular avatar · italic body · Calm_Title_S</li>
+        <li><code>--inverse</code> — for use over dark surfaces (combinable with above)</li>
+      </ul>
       <small class="tok">When a card has a cta and href, render as <code>&lt;a&gt;</code> (linked, hover state). Otherwise <code>&lt;div&gt;</code> (static).</small>
     </div>
   </section>
