@@ -1018,7 +1018,7 @@
     <p class="sec-sub">generic content card · used for download · testimonials · feature highlights</p>
 
     <div class="panel">
-      <h3>Default (normal variant)</h3>
+      <h3>Default</h3>
       <div class="scard-grid">
 
         <!-- Linked card with icon + cta (download style) -->
@@ -1066,7 +1066,43 @@
     </div>
 
     <div class="panel">
-      <h3>Full (feature pillars)</h3>
+      <h3>Default + inverse</h3>
+      <div class="scard-stage--dark">
+        <div class="scard-grid scard-grid--two">
+
+          <a class="scard scard--inverse" href="#section-card">
+            <div class="scard__head">
+              <span class="scard__icon" aria-hidden="true">
+                <span class="ico-mask" style="--ico:url('icons/ios.svg')"></span>
+              </span>
+              <div class="scard__head-text">
+                <h4 class="scard__title">Calmido for iPhone</h4>
+              </div>
+            </div>
+            <p class="scard__body">Screens every incoming call. Stay in control.</p>
+            <span class="scard__cta">Download in the App Store</span>
+          </a>
+
+          <a class="scard scard--inverse" href="#section-card">
+            <div class="scard__head">
+              <span class="scard__icon" aria-hidden="true">
+                <span class="ico-mask" style="--ico:url('icons/android.svg')"></span>
+              </span>
+              <div class="scard__head-text">
+                <h4 class="scard__title">Calmido for Android</h4>
+              </div>
+            </div>
+            <p class="scard__body">Full-featured phone app. No registration needed.</p>
+            <span class="scard__cta">Download in Google Play</span>
+          </a>
+
+        </div>
+      </div>
+      <small class="tok">Inverse uses rgba(255,255,255,0.04) bg + 0.10 border. Hover (linked only) tints toward bright-green.</small>
+    </div>
+
+    <div class="panel">
+      <h3>Full</h3>
       <div class="scard-grid">
 
         <div class="scard scard--full">
@@ -1116,7 +1152,7 @@
     </div>
 
     <div class="panel">
-      <h3>Full + inverse — over dark surfaces</h3>
+      <h3>Full + inverse</h3>
       <div class="scard-stage--dark">
         <div class="scard-grid">
 
@@ -1196,42 +1232,6 @@
 
       </div>
       <small class="tok">.scard--testimonial · radius 24 · circular avatar (40×40) in icon slot · italic body in <code>--c-body-ink</code>. Title <code>Calm_Title_S</code> · subtitle <code>Calm_Body_S</code> · body <code>Calm_Body_M</code>.</small>
-    </div>
-
-    <div class="panel">
-      <h3>Inverse — over dark surfaces</h3>
-      <div class="scard-stage--dark">
-        <div class="scard-grid scard-grid--two">
-
-          <a class="scard scard--inverse" href="#section-card">
-            <div class="scard__head">
-              <span class="scard__icon" aria-hidden="true">
-                <span class="ico-mask" style="--ico:url('icons/ios.svg')"></span>
-              </span>
-              <div class="scard__head-text">
-                <h4 class="scard__title">Calmido for iPhone</h4>
-              </div>
-            </div>
-            <p class="scard__body">Screens every incoming call. Stay in control.</p>
-            <span class="scard__cta">Download in the App Store</span>
-          </a>
-
-          <a class="scard scard--inverse" href="#section-card">
-            <div class="scard__head">
-              <span class="scard__icon" aria-hidden="true">
-                <span class="ico-mask" style="--ico:url('icons/android.svg')"></span>
-              </span>
-              <div class="scard__head-text">
-                <h4 class="scard__title">Calmido for Android</h4>
-              </div>
-            </div>
-            <p class="scard__body">Full-featured phone app. No registration needed.</p>
-            <span class="scard__cta">Download in Google Play</span>
-          </a>
-
-        </div>
-      </div>
-      <small class="tok">Inverse uses rgba(255,255,255,0.04) bg + 0.10 border. Hover (linked only) tints toward bright-green.</small>
     </div>
 
     <div class="panel">
