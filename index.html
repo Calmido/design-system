@@ -406,6 +406,9 @@
   .scard--full .scard__title { font-size: 28px; line-height: 34px; }
   .scard--full .scard__subtitle { color: var(--c-dark-green); font-size: 16px; line-height: 22px; font-weight: 600; }
   .scard--full .scard__body { color: var(--c-body-ink); font-size: 16px; line-height: 24px; }
+  .scard--full.scard--inverse .scard__body { color: var(--c-white); font-weight: 300; }
+  .scard--full.scard--inverse .scard__label { color: rgba(255,255,255,0.5); }
+  .scard--full.scard--inverse .scard__icon { color: var(--c-dark-green); }
 
   /* Testimonial — quote card with circular avatar + italic body */
   .scard--testimonial { padding: 24px; border-radius: 24px; }
@@ -871,12 +874,14 @@
       <h3>General</h3>
       <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Loaded from <code>icons/</code>.</p>
       <div class="icon-grid">
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/accessibility.svg')"></span></div><div class="icon-caption">accessibility</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/android.svg')"></span></div><div class="icon-caption">android</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/arrow_forward.svg')"></span></div><div class="icon-caption">arrow_forward</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/attention.svg')"></span></div><div class="icon-caption">attention</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/avatar.svg')"></span></div><div class="icon-caption">avatar</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/business_1.svg')"></span></div><div class="icon-caption">business_1</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/business_2.svg')"></span></div><div class="icon-caption">business_2</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/business_foundation.svg')"></span></div><div class="icon-caption">business_foundation</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/check.svg')"></span></div><div class="icon-caption">check</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/download.svg')"></span></div><div class="icon-caption">download</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/edit.svg')"></span></div><div class="icon-caption">edit</div></div>
@@ -1108,6 +1113,55 @@
 
       </div>
       <small class="tok">.scard--full · radius 24 · padding 32 28 · gap 14 · icon slot 56×56 (radius 16) · label absolute top-right (mono 18px) · hover lift -2px. Title <code>Calm_Title_L</code> · subtitle <code>Calm_Title_S</code> (Dark Green) · body <code>Calm_Body_L</code>.</small>
+    </div>
+
+    <div class="panel">
+      <h3>Full + inverse — over dark surfaces</h3>
+      <div class="scard-stage--dark">
+        <div class="scard-grid">
+
+          <div class="scard scard--full scard--inverse">
+            <p class="scard__label">01</p>
+            <div class="scard__head">
+              <span class="scard__icon" aria-hidden="true">
+                <span class="ico-mask" style="--ico:url('icons/shield_check.svg'); width:32px; height:32px"></span>
+              </span>
+              <div class="scard__head-text">
+                <h4 class="scard__title">Data safety and privacy</h4>
+              </div>
+            </div>
+            <p class="scard__body">We don't collect data we don't need and encrypt everything in transit and at rest.</p>
+          </div>
+
+          <div class="scard scard--full scard--inverse">
+            <p class="scard__label">02</p>
+            <div class="scard__head">
+              <span class="scard__icon" aria-hidden="true">
+                <span class="ico-mask" style="--ico:url('icons/business_foundation.svg'); width:32px; height:32px"></span>
+              </span>
+              <div class="scard__head-text">
+                <h4 class="scard__title">Accessibility</h4>
+              </div>
+            </div>
+            <p class="scard__body">Apps, website and communications accessible for everyone — supporting standards such as WCAG.</p>
+          </div>
+
+          <div class="scard scard--full scard--inverse">
+            <p class="scard__label">03</p>
+            <div class="scard__head">
+              <span class="scard__icon" aria-hidden="true">
+                <span class="ico-mask" style="--ico:url('icons/accessibility.svg'); width:32px; height:32px"></span>
+              </span>
+              <div class="scard__head-text">
+                <h4 class="scard__title">Calmido Foundation</h4>
+              </div>
+            </div>
+            <p class="scard__body">A foundation structure protects our long-term mission — focus on users, not just profit.</p>
+          </div>
+
+        </div>
+      </div>
+      <small class="tok">Combine <code>.scard--full</code> with <code>.scard--inverse</code> on dark surfaces. Body becomes <code>--c-white</code> with <code>font-weight: 300</code>; label dims to <code>rgba(255,255,255,0.5)</code>.</small>
     </div>
 
     <div class="panel">
