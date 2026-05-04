@@ -374,8 +374,10 @@
     color: var(--c-bright-green);
     font-family: var(--font-display); font-weight: 700; font-size: 14px;
     text-decoration: underline; text-underline-offset: 4px;
+    transition: color .15s ease;
   }
   .scard__cta::after { content: ' →'; }
+  a.scard:hover .scard__cta { color: var(--c-dark-green); }
 
   /* Inverse — for use over dark section backgrounds */
   .scard--inverse {
@@ -773,7 +775,7 @@
         <a class="link" href="#">privacy policy</a>
         or browse the <a class="link" href="#">community guidelines</a>.
       </p>
-      <small class="tok">.link · Calmido Blue · underline 4px offset · &nbsp;→&nbsp; via ::after · hover flips to Dark Green. Inside any card body (<code>.scard__body</code> or <code>.icard__body</code>), the same <code>.link</code> swaps to Bright Green with Dark Green hover.</small>
+      <small class="tok">.link · Calmido Blue · underline 4px offset · &nbsp;→&nbsp; via ::after · hover flips to Dark Green. Inside any card body (<code>.scard__body</code> or <code>.icard__body</code>), the same <code>.link</code> matches the card CTA: Bright Green underlined with arrow, hover flips to Dark Green.</small>
     </div>
 
     <div class="panel">
