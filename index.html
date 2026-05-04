@@ -380,7 +380,7 @@
   .scard--inverse .scard__body { color: rgba(255,255,255,0.75); }
   .scard--inverse .scard__body strong { color: var(--c-white); }
 
-  /* Avatar variant of icon — for testimonial-style cards */
+  /* Avatar variant of icon */
   .scard__icon--avatar { background: transparent; border-radius: 50%; overflow: hidden; padding: 0; }
   .scard__icon--avatar img { width: 100%; height: 100%; object-fit: cover; }
 
@@ -412,16 +412,24 @@
   .scard--full.scard--inverse .scard__icon { color: var(--c-dark-green); }
 
   /* Testimonial — quote card with circular avatar + italic body */
-  .scard--testimonial { padding: 24px; border-radius: 24px; }
-  .scard--testimonial .scard__icon { background: transparent; border-radius: 50%; overflow: hidden; padding: 0; }
-  .scard--testimonial .scard__icon img { width: 100%; height: 100%; object-fit: cover; }
-  .scard--testimonial .scard__title { font-size: 16px; line-height: 22px; }
-  .scard--testimonial .scard__body { font-style: italic; color: var(--c-body-ink); }
-
   .scard-stage--dark {
     background: var(--c-dark-blue); border-radius: var(--r-lg);
     padding: 28px;
   }
+
+  /* ── Info Card (column-style mini-card, no chrome) ──────────── */
+  .icard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+  .icard { display: flex; flex-direction: column; gap: 12px; }
+  .icard__icon { display: flex; margin-bottom: 4px; }
+  .icard__icon img,
+  .icard__icon .ico-mask { width: 28px; height: 28px; color: var(--c-dark-blue); }
+  .icard__label { margin: 0; color: var(--c-body-ink); }
+  .icard__title { margin: 0; color: var(--c-dark-blue); }
+  .icard__body  { margin: 0; color: var(--c-body-ink); }
+  .icard--inverse .icard__icon .ico-mask { color: var(--c-white); }
+  .icard--inverse .icard__label { color: var(--c-white); }
+  .icard--inverse .icard__title { color: var(--c-white); }
+  .icard--inverse .icard__body  { color: var(--c-white); }
 
   /* Toc */
   .toc { display:flex; flex-wrap:wrap; gap:10px; margin-top:24px;}
@@ -466,6 +474,7 @@
     <a href="#icons">Icons</a>
     <a href="#widgets">Widgets</a>
     <a href="#section-card">Section card</a>
+    <a href="#info-card">Info card</a>
   </nav>
 
   <!-- ─────────────────────────────── BRAND ─────────────────────────────── -->
@@ -1016,7 +1025,7 @@
   <!-- ─────────────────────────────── SECTION CARD ─────────────────────────────── -->
   <section id="section-card" class="block">
     <h2 class="sec">Section card</h2>
-    <p class="sec-sub">generic content card · used for download · testimonials · feature highlights</p>
+    <p class="sec-sub">generic content card · used for download · feature highlights</p>
 
     <div class="panel">
       <h3>Default</h3>
@@ -1202,56 +1211,111 @@
     </div>
 
     <div class="panel">
-      <h3>Testimonial</h3>
-      <div class="scard-grid scard-grid--two">
-
-        <div class="scard scard--testimonial">
-          <div class="scard__head">
-            <span class="scard__icon" aria-hidden="true">
-              <img src="https://i.pravatar.cc/80?img=12" alt="" width="40" height="40">
-            </span>
-            <div class="scard__head-text">
-              <h4 class="scard__title">Alex Bloemendaal</h4>
-              <p class="scard__subtitle">Account Manager</p>
-            </div>
-          </div>
-          <p class="scard__body">&ldquo;With Calmido I never miss calls from important clients anymore, even when they use new numbers.&rdquo;</p>
-        </div>
-
-        <div class="scard scard--testimonial">
-          <div class="scard__head">
-            <span class="scard__icon" aria-hidden="true">
-              <img src="https://i.pravatar.cc/80?img=32" alt="" width="40" height="40">
-            </span>
-            <div class="scard__head-text">
-              <h4 class="scard__title">Saskia van der Werf</h4>
-              <p class="scard__subtitle">Mantelzorger</p>
-            </div>
-          </div>
-          <p class="scard__body">&ldquo;Eindelijk weet ik wie er belt voordat ik opneem — geen schrik meer voor onbekende nummers.&rdquo;</p>
-        </div>
-
-      </div>
-      <small class="tok">.scard--testimonial · radius 24 · circular avatar (40×40) in icon slot · italic body in <code>--c-body-ink</code>. Title <code>Calm_Title_S</code> · subtitle <code>Calm_Body_S</code> · body <code>Calm_Body_M</code>.</small>
-    </div>
-
-    <div class="panel">
       <h3>Slots &amp; variants</h3>
       <p class="t-body-m" style="margin: 0 0 12px;">All slots are optional. Composition order is fixed:</p>
       <ol class="t-body-m" style="margin: 0 0 16px; padding-left: 20px;">
         <li><b>label</b> — Calm_Label_S, bright-green, uppercase (or mono numeral, top-right, in <code>--full</code>)</li>
-        <li><b>head</b> — icon (40×40 tile, 56×56 in <code>--full</code>, circular avatar in <code>--testimonial</code>) + title + optional subtitle</li>
-        <li><b>body</b> — supports HTML; italic in <code>--testimonial</code></li>
+        <li><b>head</b> — icon (40×40 tile, 56×56 in <code>--full</code>) + title + optional subtitle</li>
+        <li><b>body</b> — supports HTML</li>
         <li><b>cta</b> — bright-green, underlined, arrow appended via <code>::after</code></li>
       </ol>
       <p class="t-body-m" style="margin: 0 0 12px;"><b>Variants</b> stack on the base <code>.scard</code>:</p>
       <ul class="t-body-m" style="margin: 0; padding-left: 20px;">
         <li><code>normal</code> (default) — radius 16 · padding 24 · Calm_Title_M</li>
         <li><code>--full</code> — radius 24 · padding 32 28 · Calm_Title_L · hover lift · for feature pillars</li>
-        <li><code>--testimonial</code> — radius 24 · circular avatar · italic body · Calm_Title_S</li>
         <li><code>--inverse</code> — for use over dark surfaces (combinable with above)</li>
       </ul>
       <small class="tok">When a card has a cta and href, render as <code>&lt;a&gt;</code> (linked, hover state). Otherwise <code>&lt;div&gt;</code> (static).</small>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────── INFO CARD ─────────────────────────────── -->
+  <section id="info-card" class="block">
+    <h2 class="sec">Info card</h2>
+    <p class="sec-sub">column-style mini-card · no chrome · used inside multi-column rows (values · protection · threats)</p>
+
+    <div class="panel">
+      <h3>Default</h3>
+      <div class="icard-grid">
+
+        <div class="icard">
+          <div class="icard__icon" aria-hidden="true">
+            <span class="ico-mask" style="--ico:url('icons/shield_check.svg')"></span>
+          </div>
+          <p class="icard__label t-label-s">Why it matters</p>
+          <h4 class="icard__title t-title-m">See who's actually calling</h4>
+          <p class="icard__body t-body-l">Public data, your contacts, and registered users who chose to be visible — combined into one signal you can trust before you pick up.</p>
+        </div>
+
+        <div class="icard">
+          <div class="icard__icon" aria-hidden="true">
+            <span class="ico-mask" style="--ico:url('icons/visibility.svg')"></span>
+          </div>
+          <p class="icard__label t-label-s">Community-powered</p>
+          <h4 class="icard__title t-title-m">Reports protect everyone</h4>
+          <p class="icard__body t-body-l">One report flags a number for the next person dialled. Mass-dialling scams get caught quickly because lots of people receive them.</p>
+        </div>
+
+        <div class="icard">
+          <div class="icard__icon" aria-hidden="true">
+            <span class="ico-mask" style="--ico:url('icons/handshake.svg')"></span>
+          </div>
+          <p class="icard__label t-label-s">Independent</p>
+          <h4 class="icard__title t-title-m">Built on your side</h4>
+          <p class="icard__body t-body-l">No ad-targeting, no profile-building. Funded by users — governed by a foundation that protects the long-term mission.</p>
+        </div>
+
+      </div>
+      <small class="tok">No background, no border, no padding — pure column. Gap 12 between slots. Title <code>Calm_Title_M</code> · label <code>Calm_Label_S</code> · body <code>Calm_Body_L</code>. Icon slot 28×28 (auto-tints to <code>currentColor</code>).</small>
+    </div>
+
+    <div class="panel">
+      <h3>Inverse</h3>
+      <div class="scard-stage--dark">
+        <div class="icard-grid">
+
+          <div class="icard icard--inverse">
+            <div class="icard__icon" aria-hidden="true">
+              <span class="ico-mask" style="--ico:url('icons/shield_check.svg')"></span>
+            </div>
+            <p class="icard__label t-label-s">Before</p>
+            <h4 class="icard__title t-title-m">Voice was the signal</h4>
+            <p class="icard__body t-body-l">Recorded messages or live attackers who gave themselves away — wrong accent, bad grammar, strange pacing. You could recognise both.</p>
+          </div>
+
+          <div class="icard icard--inverse">
+            <div class="icard__icon" aria-hidden="true">
+              <span class="ico-mask" style="--ico:url('icons/attention.svg')"></span>
+            </div>
+            <p class="icard__label t-label-s">Now</p>
+            <h4 class="icard__title t-title-m">AI fakes the signal</h4>
+            <p class="icard__body t-body-l">Cloned voices interact in real time, react to your tone, adapt mid-call. The conversational tells that used to expose a scam are convincingly faked.</p>
+          </div>
+
+          <div class="icard icard--inverse">
+            <div class="icard__icon" aria-hidden="true">
+              <span class="ico-mask" style="--ico:url('icons/visibility.svg')"></span>
+            </div>
+            <p class="icard__label t-label-s">What replaces it</p>
+            <h4 class="icard__title t-title-m">Verified identity</h4>
+            <p class="icard__body t-body-l">Number ownership, community reports, and structural privacy — together they replace the voice-based defence that no longer works.</p>
+          </div>
+
+        </div>
+      </div>
+      <small class="tok">Add <code>.icard--inverse</code> when sitting on a dark surface — title, label, body and icon all flip to <code>--c-white</code>.</small>
+    </div>
+
+    <div class="panel">
+      <h3>Slots &amp; usage</h3>
+      <p class="t-body-m" style="margin: 0 0 12px;">All slots are optional. Composition order is fixed:</p>
+      <ol class="t-body-m" style="margin: 0 0 16px; padding-left: 20px;">
+        <li><b>icon</b> — 28×28 currentColor mask (or any inline SVG/img); margin-bottom 4 separates from text</li>
+        <li><b>label</b> — Calm_Label_S, eyebrow above the title</li>
+        <li><b>title</b> — Calm_Title_M, primary ink (or white in <code>--inverse</code>)</li>
+        <li><b>body</b> — Calm_Body_L, supports HTML</li>
+      </ol>
+      <small class="tok">Use info-card inside a multi-column grid (e.g. <code>content_section_grid</code> + <code>grid_column_4</code>). For chrome (background, border, padding) use <a href="#section-card">section-card</a> instead.</small>
     </div>
   </section>
 
