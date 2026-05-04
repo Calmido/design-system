@@ -378,6 +378,7 @@
   .scard--inverse .scard__title { color: var(--c-white); text-decoration: underline; text-underline-offset: 4px; }
   .scard--inverse .scard__subtitle { color: rgba(255,255,255,0.6); }
   .scard--inverse .scard__body { color: rgba(255,255,255,0.75); }
+  .scard--inverse .scard__body strong { color: var(--c-white); }
 
   /* Avatar variant of icon — for testimonial-style cards */
   .scard__icon--avatar { background: transparent; border-radius: 50%; overflow: hidden; padding: 0; }
@@ -1166,7 +1167,7 @@
                 <h4 class="scard__title">Data safety and privacy</h4>
               </div>
             </div>
-            <p class="scard__body">We don't collect data we don't need and encrypt everything in transit and at rest.</p>
+            <p class="scard__body"><strong>We don't collect data we don't need</strong> and encrypt everything in transit and at rest.</p>
           </div>
 
           <div class="scard scard--full scard--inverse">
@@ -1197,7 +1198,7 @@
 
         </div>
       </div>
-      <small class="tok">Combine <code>.scard--full</code> with <code>.scard--inverse</code> on dark surfaces. Body uses <code>rgba(255,255,255,0.75)</code> (matches footer description); label dims to <code>rgba(255,255,255,0.5)</code>.</small>
+      <small class="tok">Combine <code>.scard--full</code> with <code>.scard--inverse</code> on dark surfaces. Body uses <code>rgba(255,255,255,0.75)</code> (matches footer description); label dims to <code>rgba(255,255,255,0.5)</code>. Inline <code>&lt;strong&gt;</code> inside the body lifts to full white so emphasis stays readable against the dimmed body.</small>
     </div>
 
     <div class="panel">
