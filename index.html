@@ -155,8 +155,10 @@
   .link::after { content: ' →'; }
   .link:hover { color: var(--c-dark-green); }
 
-  /* Inside info-card bodies, .link uses bright-green with dark-green hover. */
+  /* Inside any card body, .link uses bright-green with dark-green hover (underline + arrow inherited). */
+  .scard__body .link,
   .icard__body .link        { color: var(--c-bright-green); }
+  .scard__body .link:hover,
   .icard__body .link:hover  { color: var(--c-dark-green); }
 
   /* ── Inline marker highlight ─────────────────────────────────── */
@@ -771,7 +773,7 @@
         <a class="link" href="#">privacy policy</a>
         or browse the <a class="link" href="#">community guidelines</a>.
       </p>
-      <small class="tok">.link · Calmido Blue · underline 4px offset · &nbsp;→&nbsp; via ::after · hover flips to Dark Green. Inside an info-card body, the same <code>.link</code> swaps to Bright Green with Dark Green hover.</small>
+      <small class="tok">.link · Calmido Blue · underline 4px offset · &nbsp;→&nbsp; via ::after · hover flips to Dark Green. Inside any card body (<code>.scard__body</code> or <code>.icard__body</code>), the same <code>.link</code> swaps to Bright Green with Dark Green hover.</small>
     </div>
 
     <div class="panel">
