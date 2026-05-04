@@ -146,14 +146,14 @@
 
   /* ── Links (textual) ─────────────────────────────────────────── */
   .link {
-    color: var(--c-blue);
+    color: var(--c-dark-green);
     text-decoration: underline;
     text-underline-offset: 4px;
     cursor: pointer;
     transition: color .15s ease;
   }
   .link::after { content: ' →'; }
-  .link:hover { color: var(--c-dark-green); }
+  .link:hover { color: var(--c-bright-green); }
 
   /* ── Inline marker highlight ─────────────────────────────────── */
   .mark {
@@ -762,7 +762,7 @@
         <a class="link" href="#">privacy policy</a>
         or browse the <a class="link" href="#">community guidelines</a>.
       </p>
-      <small class="tok">.link · Calmido Blue · underline 4px offset · &nbsp;→&nbsp; via ::after · hover flips to Dark Green.</small>
+      <small class="tok">.link · Dark Green · underline 4px offset · &nbsp;→&nbsp; via ::after · hover flips to Bright Green.</small>
     </div>
 
     <div class="panel">
@@ -774,7 +774,7 @@
         <li><a href="#">Account verwijderen</a></li>
         <li><a href="#">About us</a></li>
       </ul>
-      <small class="tok">.arrow-list · vertical stack · 18px arrow_forward icon (inline SVG mask, color via <code>background-color</code>) · items wrapping an <code>&lt;a&gt;</code> get the same Calmido Blue underline + Dark Green hover as <code>.link</code>; plain-text items inherit body color.</small>
+      <small class="tok">.arrow-list · vertical stack · 18px arrow_forward icon (inline SVG mask, color via <code>background-color</code>) · items wrapping an <code>&lt;a&gt;</code> get the same Dark Green underline + Bright Green hover as <code>.link</code>; plain-text items inherit body color.</small>
     </div>
   </section>
 
