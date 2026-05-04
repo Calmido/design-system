@@ -436,10 +436,15 @@
   .icard__icon .ico-mask { width: 28px; height: 28px; color: var(--c-dark-blue); }
   .icard__label { margin: 0; color: var(--c-body-ink); }
   .icard__title { margin: 0; color: var(--c-dark-blue); }
+  .icard__subtitle {
+    margin: 0; color: var(--c-dark-green);
+    font-family: "Open Sans"; font-weight: 600; font-size: 14px; line-height: 20px;
+  }
   .icard__body  { margin: 0; color: var(--c-body-ink); }
   .icard--inverse .icard__icon .ico-mask { color: var(--c-white); }
   .icard--inverse .icard__label { color: var(--c-white); }
   .icard--inverse .icard__title { color: var(--c-white); }
+  .icard--inverse .icard__subtitle { color: var(--c-bright-green); }
   .icard--inverse .icard__body  { color: var(--c-white); }
 
   /* Toc */
@@ -1247,7 +1252,8 @@
           </div>
           <p class="icard__label t-label-s">Label</p>
           <h4 class="icard__title t-title-m">Title</h4>
-          <p class="icard__body t-body-l">Body — standard usage with icon, label, title and body.</p>
+          <p class="icard__subtitle">Subtitle</p>
+          <p class="icard__body t-body-l">Body — standard usage with icon, label, title, subtitle and body.</p>
         </div>
 
         <!-- Card 3 — all slots + rich inline body -->
@@ -1257,6 +1263,7 @@
           </div>
           <p class="icard__label t-label-s">Label</p>
           <h4 class="icard__title t-title-m">Title</h4>
+          <p class="icard__subtitle">Subtitle</p>
           <p class="icard__body t-body-l">Body — supports <strong>bold text</strong>, <span style="color:var(--c-bright-green)">highlighted text</span>, <span class="mark">marker text</span>, and <a class="link" href="#section-card">a link</a> inline.</p>
         </div>
 
@@ -1282,7 +1289,8 @@
             </div>
             <p class="icard__label t-label-s">Label</p>
             <h4 class="icard__title t-title-m">Title</h4>
-            <p class="icard__body t-body-l">Body — standard usage with icon, label, title and body.</p>
+            <p class="icard__subtitle">Subtitle</p>
+            <p class="icard__body t-body-l">Body — standard usage with icon, label, title, subtitle and body.</p>
           </div>
 
           <!-- Card 3 — all slots + rich inline body -->
@@ -1292,6 +1300,7 @@
             </div>
             <p class="icard__label t-label-s">Label</p>
             <h4 class="icard__title t-title-m">Title</h4>
+            <p class="icard__subtitle">Subtitle</p>
             <p class="icard__body t-body-l">Body — supports <strong>bold text</strong>, <span style="color:var(--c-bright-green)">highlighted text</span>, <span class="mark">marker text</span>, and <a class="link" href="#section-card">a link</a> inline.</p>
           </div>
 
@@ -1320,6 +1329,7 @@
         <li><b>icon</b> — 28×28 currentColor mask (or any inline SVG/img); margin-bottom 4 separates from text</li>
         <li><b>label</b> — Calm_Label_S, eyebrow above the title</li>
         <li><b>title</b> — Calm_Title_M, primary ink (or white in <code>--inverse</code>)</li>
+        <li><b>subtitle</b> — 14/20 Open Sans 600, Dark Green (or Bright Green in <code>--inverse</code>); sits between title and body</li>
         <li><b>body</b> — Calm_Body_L, supports HTML</li>
       </ol>
       <small class="tok">When a card has a cta and href, render <code>.scard</code> as <code>&lt;a&gt;</code> (linked, hover state). Otherwise <code>&lt;div&gt;</code> (static). Use <code>.icard</code> inside a multi-column grid (e.g. <code>content_section_grid</code> + <code>grid_column_4</code>) when no chrome (background, border, padding) is needed.</small>
