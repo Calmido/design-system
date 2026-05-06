@@ -70,12 +70,12 @@ Three families — all free / Google Fonts:
 | Calm_Display_XL | Geologica 700 | 57 / 64 |
 | Calm_Display_M | Geologica 700 | 45 / 52 |
 | Calm_Display_S | Geologica 300 | 45 / 52 |
-| Calm_Headline_L | Geologica 700 | 36 / 44 |
-| Calm_Headline_M | Geologica 700 | 32 / 40 |
-| Calm_Headline_S | Geologica 700 | 28 / 36 |
-| Calm_Title_L | Geologica 700 | 24 / 32 |
-| Calm_Title_M | Geologica 700 | 22 / 28 |
-| Calm_Title_S | Open Sans 700 | 16 / 24 |
+| Calm_Headline_L | Geologica 700 | 32 / 36 |
+| Calm_Headline_M | Geologica 700 | 28 / 36 |
+| Calm_Headline_S | Geologica 700 | 24 / 32 |
+| Calm_Title_L | Geologica 300 | 22 / 28 |
+| Calm_Title_M | Geologica 700 | 16 / 24 |
+| Calm_Title_S | Open Sans 700 | 14 / 20 |
 | Calm_Body_L | Open Sans 400 | 16 / 24 |
 | Calm_Body_M | Open Sans 400 | 14 / 20 |
 | Calm_Body_S | Open Sans 400 | 12 / 16 |
