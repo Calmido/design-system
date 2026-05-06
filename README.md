@@ -80,7 +80,6 @@ Three families — all free / Google Fonts:
 | Calm_Body_M | Open Sans 400 | 14 / 20 |
 | Calm_Body_S | Open Sans 400 | 12 / 16 |
 | Calm_Label_S | Open Sans 400 | 9 / 12 · 0.08em tracked |
-| Calm_Mono_M | Courier Prime 700 | 18 / 24 |
 
 ---
 
