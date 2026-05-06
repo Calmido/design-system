@@ -28,6 +28,14 @@
     --c-alert-red:         #FD5240;
     --c-dark-red:          #690005;
 
+    /* ── semantic font ink ── */
+    /* Re-points to brand colours. Add class="inverse" on a parent to flip
+       both tokens to their inverse pairs (e.g. on dark surfaces). */
+    --c-font-title:          var(--c-blue);       /* #07369E */
+    --c-font-title-inverse:  var(--c-white);      /* #FFFFFF */
+    --c-font-body:           var(--c-dark-blue);  /* #081748 */
+    --c-font-body-inverse:   #FFFFFFBF;
+
     /* neutrals observed in canvas (f7f7f8 base, 242 238 237 warm) */
     --c-canvas:            #F7F7F8;
     --c-canvas-warm:       #F2EEED;
@@ -100,19 +108,27 @@
   .type-row .tag { font-family: var(--font-mono); font-size: 12px; color: var(--c-dark-grey); letter-spacing: 0.04em; }
   .type-row .spec { font-family: var(--font-mono); font-size: 11px; color: var(--c-dark-grey); text-align: right; white-space: nowrap; }
 
-  .t-display-xl { font-family: var(--font-display); font-weight: 700; font-size: 57px; line-height: 64px; letter-spacing: -0.01em; }
-  .t-display-m  { font-family: var(--font-display); font-weight: 700; font-size: 45px; line-height: 52px; letter-spacing: -0.005em; }
-  .t-display-s  { font-family: var(--font-display); font-weight: 300; font-size: 45px; line-height: 52px; letter-spacing: -0.005em; }
-  .t-headline-l { font-family: var(--font-display); font-weight: 700; font-size: 32px; line-height: 36px; }
-  .t-headline-m { font-family: var(--font-display); font-weight: 700; font-size: 28px; line-height: 36px; }
-  .t-headline-s { font-family: var(--font-display); font-weight: 700; font-size: 24px; line-height: 32px; }
-  .t-title-l    { font-family: var(--font-display); font-weight: 300; font-size: 22px; line-height: 28px; color: var(--c-blue); }
-  .t-title-m    { font-family: var(--font-display); font-weight: 700; font-size: 16px; line-height: 24px; }
-  .t-title-s    { font-family: "Open Sans"; font-weight: 700; font-size: 14px; line-height: 20px; }
-  .t-body-l     { font-family: "Open Sans"; font-weight: 400; font-size: 16px; line-height: 24px; color: var(--c-dark-blue); }
-  .t-body-m     { font-family: "Open Sans"; font-weight: 400; font-size: 14px; line-height: 20px; letter-spacing: 0.01em; color: var(--c-dark-blue); }
-  .t-body-s     { font-family: "Open Sans"; font-weight: 400; font-size: 12px; line-height: 16px; letter-spacing: 0.02em; color: var(--c-dark-blue); }
-  .t-label-s    { font-family: "Open Sans"; font-weight: 400; font-size: 9px; line-height: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-dark-blue); }
+  .t-display-xl { font-family: var(--font-display); font-weight: 700; font-size: 57px; line-height: 64px; letter-spacing: -0.01em; color: var(--c-font-title); }
+  .t-display-m  { font-family: var(--font-display); font-weight: 700; font-size: 45px; line-height: 52px; letter-spacing: -0.005em; color: var(--c-font-title); }
+  .t-display-s  { font-family: var(--font-display); font-weight: 300; font-size: 45px; line-height: 52px; letter-spacing: -0.005em; color: var(--c-font-title); }
+  .t-headline-l { font-family: var(--font-display); font-weight: 700; font-size: 32px; line-height: 36px; color: var(--c-font-title); }
+  .t-headline-m { font-family: var(--font-display); font-weight: 700; font-size: 28px; line-height: 36px; color: var(--c-font-title); }
+  .t-headline-s { font-family: var(--font-display); font-weight: 700; font-size: 24px; line-height: 32px; color: var(--c-font-title); }
+  .t-title-l    { font-family: var(--font-display); font-weight: 300; font-size: 22px; line-height: 28px; color: var(--c-font-title); }
+  .t-title-m    { font-family: var(--font-display); font-weight: 700; font-size: 16px; line-height: 24px; color: var(--c-font-title); }
+  .t-title-s    { font-family: "Open Sans"; font-weight: 700; font-size: 14px; line-height: 20px; color: var(--c-font-title); }
+  .t-body-l     { font-family: "Open Sans"; font-weight: 400; font-size: 16px; line-height: 24px; color: var(--c-font-body); }
+  .t-body-m     { font-family: "Open Sans"; font-weight: 400; font-size: 14px; line-height: 20px; letter-spacing: 0.01em; color: var(--c-font-body); }
+  .t-body-s     { font-family: "Open Sans"; font-weight: 400; font-size: 12px; line-height: 16px; letter-spacing: 0.02em; color: var(--c-font-body); }
+  .t-label-s    { font-family: "Open Sans"; font-weight: 400; font-size: 9px; line-height: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-font-body); }
+
+  /* Inverse ink — re-binds the two semantic font tokens within scope.
+     Drop class="inverse" onto any container (typically a dark surface)
+     and every .t-* class inside flips to its inverse pair. */
+  .inverse {
+    --c-font-title: var(--c-font-title-inverse);
+    --c-font-body:  var(--c-font-body-inverse);
+  }
 
   .type-fams { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 8px; }
   .fam-card { padding: 24px; border: 1px solid var(--c-light-grey); border-radius: var(--r-lg); background: var(--c-white); }
@@ -700,6 +716,11 @@
         <span class="sample t-title-l">Ronald Van de Berg</span>
         <span class="spec">Geologica 300 · 22 / 28</span>
       </div>
+      <div class="type-row inverse" style="background: var(--c-dark-blue); padding: 18px; border-radius: 12px; border-top: 0; margin-top: 8px;">
+        <span class="tag" style="color: var(--c-mid-grey);">Calm_Title L · inverse</span>
+        <span class="sample t-title-l">Ronald Van de Berg</span>
+        <span class="spec" style="color: var(--c-mid-grey);">var(--c-font-title-inverse)</span>
+      </div>
       <div class="type-row">
         <span class="tag">Calm_Title M</span>
         <span class="sample t-title-m">Herkend en opgenomen</span>
@@ -714,6 +735,11 @@
         <span class="tag">Calm_Body L</span>
         <span class="sample t-body-l">We combine verified attestations from real organisations with reports from real people — so you know who's calling before you answer.</span>
         <span class="spec">Open Sans 400 · 16 / 24</span>
+      </div>
+      <div class="type-row inverse" style="background: var(--c-dark-blue); padding: 18px; border-radius: 12px; border-top: 0; margin-top: 8px;">
+        <span class="tag" style="color: var(--c-mid-grey);">Calm_Body L · inverse</span>
+        <span class="sample t-body-l">We combine verified attestations from real organisations with reports from real people — so you know who's calling before you answer.</span>
+        <span class="spec" style="color: var(--c-mid-grey);">var(--c-font-body-inverse)</span>
       </div>
       <div class="type-row">
         <span class="tag">Calm_Body M</span>
