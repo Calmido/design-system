@@ -67,7 +67,7 @@ Three families — all free / Google Fonts:
 
 | Style | Font | Size / line-height |
 |---|---|---|
-| Calm_Display_XL | Geologica 700 | 50 / 58 |
+| Calm_Display_XL | Geologica 700 | 57 / 64 |
 | Calm_Display_M | Geologica 700 | 45 / 52 |
 | Calm_Display_S | Geologica 300 | 45 / 52 |
 | Calm_Headline_L | Geologica 700 | 36 / 44 |
