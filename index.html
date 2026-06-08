@@ -293,24 +293,136 @@
   .badge--unknown  { background: var(--c-light-grey); color: var(--c-dark-grey); }
   .badge svg { width: 14px; height: 14px; }
 
-  /* ── Widgets: Who-is-calling card ────────────────────────────── */
-  .widget-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  .who-card {
-    background: var(--c-infocard-dark); color: var(--c-white);
-    border-radius: 18px; padding: 20px; min-height: 220px;
-    display: flex; flex-direction: column; gap: 14px;
-    box-shadow: 0 12px 28px rgba(0,0,0,0.14);
+  /* ── Calmido Caller Card ───────────────────────────────────────
+     Shared 320×200 caller-card spec used by the website, Android and iOS.
+     Mirrors calmido-website/components/card/CallerCard.{js,css}. */
+  .cc-grid { display: grid; grid-template-columns: repeat(auto-fill, 320px); gap: 24px; justify-content: start; }
+  .cc-cell { margin: 0; display: flex; flex-direction: column; gap: 8px; }
+  .cc-caption { font-family: var(--font-mono); font-size: 11px; color: var(--c-dark-grey); letter-spacing: 0.04em; text-transform: uppercase; }
+
+  /* Dotted-card surface — tiled grid of translucent white circles over a background.
+     Mirrors .calmido_dotted_card in calmido-website/app/primitives.css. */
+  .calmido_dotted_card {
+    --dotted-card-bg: transparent;
+    --dotted-card-dot-opacity: 0.16;
+    --dotted-card-width: 100%;
+    --dotted-card-cols: 8;
+    --dotted-card-dot-gap: 0%;
+    background:
+      radial-gradient(
+          circle closest-side at center,
+          rgba(255, 255, 255, var(--dotted-card-dot-opacity)) calc(100% - var(--dotted-card-dot-gap)),
+          transparent 100%
+        )
+        0 0 / calc(var(--dotted-card-width) / var(--dotted-card-cols))
+              calc(var(--dotted-card-width) / var(--dotted-card-cols)),
+      var(--dotted-card-bg);
   }
-  .who-card--light { background: var(--c-white); color: var(--c-dark-blue); box-shadow: 0 1px 0 rgba(8,23,72,0.06), 0 12px 28px rgba(8,23,72,0.06); border: 1px solid var(--c-light-grey); }
-  .who-card--red   { background: var(--c-stop-red); color: var(--c-white); }
-  .who-head { display: flex; gap: 12px; align-items: center; }
-  .who-head .title { font-family: var(--font-display); font-weight: 700; font-size: 20px; line-height: 26px; }
-  .who-head .sub   { font-family: var(--font-mono); font-size: 12px; color: var(--c-mid-grey); margin-top: 2px; }
-  .who-card--light .who-head .sub { color: var(--c-dark-grey); }
-  .who-num { font-family: var(--font-mono); font-size: 16px; letter-spacing: 0.04em; opacity: 0.9; }
-  .who-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
-  .who-meta .badge { background: rgba(255,255,255,0.10); color: var(--c-white); }
-  .who-card--light .who-meta .badge { background: rgba(7,54,158,0.08); color: var(--c-blue); }
+
+  .caller-card {
+    position: relative;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    border-radius: var(--r-lg);
+    color: var(--c-dark-blue);
+    overflow: hidden;
+    width: 320px;
+    height: 200px;
+    --dotted-card-bg: linear-gradient(135deg, var(--c-bright-green) 0%, var(--c-dark-green) 100%);
+    --dotted-card-width: 320px;
+    --dotted-card-cols: 8;
+    --dotted-card-dot-gap: 0%;
+  }
+  .caller-card__row { min-width: 0; }
+  .caller-card__row--top    { display: flex; align-items: flex-start; gap: 10px; padding: 10px 10px 0; }
+  .caller-card__row--middle { display: flex; align-items: center; padding: 0 16px; }
+  .caller-card__row--bottom { display: flex; flex-direction: column; justify-content: flex-end; padding: 0 16px 16px; min-width: 0; }
+
+  .caller-card__flags { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  .caller-card__logo {
+    width: 20px; height: 20px;
+    background-color: currentColor;
+    -webkit-mask: url('icons/logo_1.svg') center / contain no-repeat;
+            mask: url('icons/logo_1.svg') center / contain no-repeat;
+    flex-shrink: 0;
+  }
+  .caller-card__flag {
+    width: 20px; height: 20px;
+    background-color: currentColor;
+    -webkit-mask-position: center; -webkit-mask-repeat: no-repeat; -webkit-mask-size: contain;
+            mask-position: center;         mask-repeat: no-repeat;         mask-size: contain;
+  }
+  .caller-card__flag--verified  { -webkit-mask-image: url('icons/verified.svg');    mask-image: url('icons/verified.svg'); }
+  .caller-card__flag--shielded  { -webkit-mask-image: url('icons/shield_lock.svg'); mask-image: url('icons/shield_lock.svg'); }
+  .caller-card__flag--handshake { -webkit-mask-image: url('icons/handshake.svg');   mask-image: url('icons/handshake.svg'); }
+  .caller-card__flag--locked    { -webkit-mask-image: url('icons/lock.svg');        mask-image: url('icons/lock.svg'); }
+
+  .caller-card__top-label {
+    flex: 1; min-width: 0;
+    font-family: var(--font-body); font-weight: 700; font-size: 12px; line-height: 20px;
+    text-transform: uppercase; color: currentColor;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  .caller-card__icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 50px; height: 50px; border-radius: 50%;
+    background-color: var(--c-dark-green);
+    overflow: hidden; flex-shrink: 0;
+  }
+  .caller-card__icon img { filter: brightness(0) invert(1); width: 28px; height: 28px; display: block; }
+  .caller-card__icon--photo img { filter: none; width: 100%; height: 100%; object-fit: cover; }
+
+  .caller-card__name {
+    margin: 0; font-family: var(--font-body); font-weight: 700;
+    font-size: 22px; line-height: 1.15; color: var(--c-dark-blue);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .caller-card__name--small { font-size: 18px; }
+  .caller-card__meta {
+    margin: 0; font-family: var(--font-body); font-weight: 400;
+    font-size: 12px; line-height: 1.4; color: var(--c-dark-blue);
+    text-transform: uppercase; opacity: 0.85;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .caller-card__meta-sep { margin: 0 0.25em; opacity: 0.7; }
+
+  /* Variants */
+  .caller-card--neutral  { --dotted-card-bg: linear-gradient(135deg, #B8BAC2 0%, var(--c-light-grey) 90%); }
+  .caller-card--neutral .caller-card__icon { background-color: var(--c-dark-grey); }
+
+  .caller-card--reported { --dotted-card-bg: linear-gradient(135deg, #FCB569 0%, #DF1803 90%); }
+  .caller-card--reported .caller-card__icon { background-color: var(--c-alert-red); }
+  .caller-card--reported .caller-card__icon-mask {
+    width: 28px; height: 28px; background-color: var(--c-white);
+    -webkit-mask: url('icons/attention.svg') center / contain no-repeat;
+            mask: url('icons/attention.svg') center / contain no-repeat;
+  }
+  .caller-card--reported,
+  .caller-card--reported .caller-card__name,
+  .caller-card--reported .caller-card__meta { color: var(--c-white); }
+
+  .caller-card--locked   { --dotted-card-bg: linear-gradient(135deg, var(--c-alert-red) 0%, #C91300 90%); }
+  .caller-card--locked .caller-card__icon { background-color: var(--c-white); }
+  .caller-card--locked .caller-card__icon-mask {
+    width: 28px; height: 28px; background-color: var(--c-alert-red);
+    -webkit-mask: url('icons/lock.svg') center / contain no-repeat;
+            mask: url('icons/lock.svg') center / contain no-repeat;
+  }
+  .caller-card--locked,
+  .caller-card--locked .caller-card__name,
+  .caller-card--locked .caller-card__meta { color: var(--c-white); }
+
+  .caller-card--shielded { --dotted-card-bg: linear-gradient(135deg, var(--c-bg-dark) 0%, #000 100%); --dotted-card-dot-opacity: 0.06; }
+  .caller-card--shielded .caller-card__icon { background-color: transparent; border-radius: 0; }
+  .caller-card--shielded .caller-card__icon-mask {
+    width: 50px; height: 50px; background-color: var(--c-bright-green);
+    -webkit-mask: url('icons/lock_person.svg') center / contain no-repeat;
+            mask: url('icons/lock_person.svg') center / contain no-repeat;
+  }
+  .caller-card--shielded,
+  .caller-card--shielded .caller-card__name,
+  .caller-card--shielded .caller-card__meta { color: var(--c-bright-green); }
 
   /* ── Icon grid ─────────────────────────────────────────────── */
   /* All listed icons share one color. Change --ico-fill below to recolor
@@ -512,7 +624,7 @@
     <a href="#forms">Forms</a>
     <a href="#avatars">Avatars &amp; badges</a>
     <a href="#icons">Icons</a>
-    <a href="#widgets">Widgets</a>
+    <a href="#widgets">Caller card</a>
     <a href="#section-card">Section card</a>
   </nav>
 
@@ -1083,73 +1195,313 @@
     </div>
   </section>
 
-  <!-- ─────────────────────────────── WIDGETS ─────────────────────────────── -->
+  <!-- ─────────────────────────────── CALLER CARD ─────────────────────────────── -->
   <section id="widgets" class="block">
-    <h2 class="sec">Signature widgets</h2>
-    <p class="sec-sub">who-is-calling card · based on Page-1 / Who-is-calling-*</p>
+    <h2 class="sec">Calmido Caller Card</h2>
+    <p class="sec-sub">shared 320×200 spec · web · android · ios</p>
 
     <div class="panel">
-      <div class="widget-grid">
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">
+        Canonical caller card used across all Calmido surfaces. Source of truth lives in
+        <code>calmido-website/components/card/CallerCard/</code>; the Android and iOS implementations
+        mirror this spec. Three equal rows (1fr each): top row carries the Calmido logo or a
+        topLabel plus up to 3 flag icons; middle row carries the avatar; bottom row carries name +
+        phone · location.
+      </p>
+      <small class="tok">Card 320×200 · radius <code>--r-lg</code> (16px) · dotted background via <code>.calmido_dotted_card</code> · flag/icon glyphs are CSS masks driven by <code>currentColor</code>.</small>
+    </div>
 
-        <!-- Dark / default -->
-        <div class="who-card">
-          <div class="who-head">
-            <span class="avatar avatar--initials">RV</span>
-            <div>
-              <div class="title">Ronald van de Berg</div>
-              <div class="sub">private · 2 wederzijdse contacten</div>
-            </div>
-          </div>
-          <div class="who-num">+31 6 18 22 50 07</div>
-          <div class="who-meta">
-            <span class="badge badge--verified">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Verified
-            </span>
-            <span class="badge">TARIDE · attested</span>
-          </div>
-        </div>
+    <div class="panel">
+      <h3>Member</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Default variant — bright-green → dark-green gradient, Calmido C logo top-left, avatar fallback on dark-green disc.</p>
+      <div class="cc-grid">
 
-        <!-- Light -->
-        <div class="who-card who-card--light">
-          <div class="who-head">
-            <span class="avatar avatar--business">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 3v2H5v14h4v-4h2v4h8V9h-6V3h-.5z"/></svg>
-            </span>
-            <div>
-              <div class="title">Gemeente Amsterdam</div>
-              <div class="sub">geregistreerd zakelijk nummer</div>
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">minimal</figcaption>
+          <article class="caller-card calmido_dotted_card">
+            <div class="caller-card__row caller-card__row--top">
+              <span class="caller-card__logo" aria-hidden="true"></span>
             </div>
-          </div>
-          <div class="who-num" style="color: var(--c-dark-blue);">+31 20 624 11 11</div>
-          <div class="who-meta">
-            <span class="badge badge--business">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4v14h16V6z"/></svg>Business
-            </span>
-            <span class="badge badge--verified">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Verified
-            </span>
-          </div>
-        </div>
+            <div class="caller-card__row caller-card__row--middle">
+              <div class="caller-card__icon"><img src="icons/avatar.svg" alt=""></div>
+            </div>
+            <div class="caller-card__row caller-card__row--bottom">
+              <h4 class="caller-card__name">Anna Smith</h4>
+              <p class="caller-card__meta">+31 6 12345678<span class="caller-card__meta-sep"> · </span>The Netherlands</p>
+            </div>
+          </article>
+        </figure>
 
-        <!-- Red / scam -->
-        <div class="who-card who-card--red">
-          <div class="who-head">
-            <span class="avatar" style="background: rgba(255,255,255,0.18);">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
-            </span>
-            <div>
-              <div class="title">Onbekende beller</div>
-              <div class="sub" style="color:rgba(255,255,255,0.8);">42 meldingen · vermoed AI-stem</div>
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">verified</figcaption>
+          <article class="caller-card calmido_dotted_card">
+            <div class="caller-card__row caller-card__row--top">
+              <span class="caller-card__logo" aria-hidden="true"></span>
+              <div class="caller-card__flags" aria-hidden="true">
+                <span class="caller-card__flag caller-card__flag--verified"></span>
+              </div>
             </div>
-          </div>
-          <div class="who-num">+31 97 01 12 34 56</div>
-          <div class="who-meta">
-            <span class="badge">Block</span>
-            <span class="badge">Report</span>
-          </div>
-        </div>
+            <div class="caller-card__row caller-card__row--middle">
+              <div class="caller-card__icon"><img src="icons/avatar.svg" alt=""></div>
+            </div>
+            <div class="caller-card__row caller-card__row--bottom">
+              <h4 class="caller-card__name">Sarah Kuijpers de Jong</h4>
+              <p class="caller-card__meta">+31 6 12345678<span class="caller-card__meta-sep"> · </span>The Netherlands</p>
+            </div>
+          </article>
+        </figure>
+
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">3 flags</figcaption>
+          <article class="caller-card calmido_dotted_card">
+            <div class="caller-card__row caller-card__row--top">
+              <span class="caller-card__logo" aria-hidden="true"></span>
+              <div class="caller-card__flags" aria-hidden="true">
+                <span class="caller-card__flag caller-card__flag--verified"></span>
+                <span class="caller-card__flag caller-card__flag--shielded"></span>
+                <span class="caller-card__flag caller-card__flag--handshake"></span>
+              </div>
+            </div>
+            <div class="caller-card__row caller-card__row--middle">
+              <div class="caller-card__icon"><img src="icons/avatar.svg" alt=""></div>
+            </div>
+            <div class="caller-card__row caller-card__row--bottom">
+              <h4 class="caller-card__name">Mark Helmsworth</h4>
+              <p class="caller-card__meta">+31 6 12345678<span class="caller-card__meta-sep"> · </span>The Netherlands</p>
+            </div>
+          </article>
+        </figure>
+
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">4 flags (last is dropped)</figcaption>
+          <article class="caller-card calmido_dotted_card">
+            <div class="caller-card__row caller-card__row--top">
+              <span class="caller-card__logo" aria-hidden="true"></span>
+              <div class="caller-card__flags" aria-hidden="true">
+                <span class="caller-card__flag caller-card__flag--verified"></span>
+                <span class="caller-card__flag caller-card__flag--shielded"></span>
+                <span class="caller-card__flag caller-card__flag--handshake"></span>
+              </div>
+            </div>
+            <div class="caller-card__row caller-card__row--middle">
+              <div class="caller-card__icon"><img src="icons/avatar.svg" alt=""></div>
+            </div>
+            <div class="caller-card__row caller-card__row--bottom">
+              <h4 class="caller-card__name">Cap test</h4>
+              <p class="caller-card__meta">+31 6 12345678<span class="caller-card__meta-sep"> · </span>The Netherlands</p>
+            </div>
+          </article>
+        </figure>
+
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">long name → ellipsis</figcaption>
+          <article class="caller-card calmido_dotted_card">
+            <div class="caller-card__row caller-card__row--top">
+              <span class="caller-card__logo" aria-hidden="true"></span>
+            </div>
+            <div class="caller-card__row caller-card__row--middle">
+              <div class="caller-card__icon"><img src="icons/avatar.svg" alt=""></div>
+            </div>
+            <div class="caller-card__row caller-card__row--bottom">
+              <h4 class="caller-card__name">Liouse Marie Bartolotti Rijnders Van Den Berg</h4>
+              <p class="caller-card__meta">+31 6 12345678<span class="caller-card__meta-sep"> · </span>The Netherlands</p>
+            </div>
+          </article>
+        </figure>
+
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">long meta → ellipsis</figcaption>
+          <article class="caller-card calmido_dotted_card">
+            <div class="caller-card__row caller-card__row--top">
+              <span class="caller-card__logo" aria-hidden="true"></span>
+            </div>
+            <div class="caller-card__row caller-card__row--middle">
+              <div class="caller-card__icon"><img src="icons/avatar.svg" alt=""></div>
+            </div>
+            <div class="caller-card__row caller-card__row--bottom">
+              <h4 class="caller-card__name">Anna Smith</h4>
+              <p class="caller-card__meta">+31 6 12345678<span class="caller-card__meta-sep"> · </span>The Province Of Some Very Long Region Name</p>
+            </div>
+          </article>
+        </figure>
+
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">phone only</figcaption>
+          <article class="caller-card calmido_dotted_card">
+            <div class="caller-card__row caller-card__row--top">
+              <span class="caller-card__logo" aria-hidden="true"></span>
+            </div>
+            <div class="caller-card__row caller-card__row--middle">
+              <div class="caller-card__icon"><img src="icons/avatar.svg" alt=""></div>
+            </div>
+            <div class="caller-card__row caller-card__row--bottom">
+              <p class="caller-card__meta">+31 6 12345678</p>
+            </div>
+          </article>
+        </figure>
+
       </div>
-      <small class="tok">Card radius 18 · padding 20 · badge pill 26×100 · shadow: 0 12 28 rgba(0,0,0,0.14).</small>
+    </div>
+
+    <div class="panel">
+      <h3>Business</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">topLabel replaces the logo and ellipsis-truncates next to the flag row; avatar falls back to <code>business_1.svg</code>; name drops to 18px when topLabel is set.</p>
+      <div class="cc-grid">
+
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">with topLabel</figcaption>
+          <article class="caller-card calmido_dotted_card">
+            <div class="caller-card__row caller-card__row--top">
+              <span class="caller-card__top-label">Matteo Restaurant Rotterdam</span>
+            </div>
+            <div class="caller-card__row caller-card__row--middle">
+              <div class="caller-card__icon"><img src="icons/business_1.svg" alt=""></div>
+            </div>
+            <div class="caller-card__row caller-card__row--bottom">
+              <h4 class="caller-card__name caller-card__name--small">Mario Andretti</h4>
+              <p class="caller-card__meta">+31 20 1234567<span class="caller-card__meta-sep"> · </span>The Netherlands</p>
+            </div>
+          </article>
+        </figure>
+
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">topLabel + 2 flags</figcaption>
+          <article class="caller-card calmido_dotted_card">
+            <div class="caller-card__row caller-card__row--top">
+              <span class="caller-card__top-label">Bravotop Sales</span>
+              <div class="caller-card__flags" aria-hidden="true">
+                <span class="caller-card__flag caller-card__flag--verified"></span>
+                <span class="caller-card__flag caller-card__flag--shielded"></span>
+              </div>
+            </div>
+            <div class="caller-card__row caller-card__row--middle">
+              <div class="caller-card__icon"><img src="icons/business_1.svg" alt=""></div>
+            </div>
+            <div class="caller-card__row caller-card__row--bottom">
+              <h4 class="caller-card__name caller-card__name--small">John Galinsky</h4>
+              <p class="caller-card__meta">+31 20 1234567<span class="caller-card__meta-sep"> · </span>The Netherlands</p>
+            </div>
+          </article>
+        </figure>
+
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">long topLabel → ellipsis</figcaption>
+          <article class="caller-card calmido_dotted_card">
+            <div class="caller-card__row caller-card__row--top">
+              <span class="caller-card__top-label">Some Very Long Restaurant Name In A Very Long City</span>
+            </div>
+            <div class="caller-card__row caller-card__row--middle">
+              <div class="caller-card__icon"><img src="icons/business_1.svg" alt=""></div>
+            </div>
+            <div class="caller-card__row caller-card__row--bottom">
+              <h4 class="caller-card__name caller-card__name--small">Test Owner</h4>
+              <p class="caller-card__meta">+31 6 12345678<span class="caller-card__meta-sep"> · </span>The Netherlands</p>
+            </div>
+          </article>
+        </figure>
+
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">long topLabel + 3 flags (flags win)</figcaption>
+          <article class="caller-card calmido_dotted_card">
+            <div class="caller-card__row caller-card__row--top">
+              <span class="caller-card__top-label">Some Very Long Restaurant Name In A Very Long City</span>
+              <div class="caller-card__flags" aria-hidden="true">
+                <span class="caller-card__flag caller-card__flag--verified"></span>
+                <span class="caller-card__flag caller-card__flag--shielded"></span>
+                <span class="caller-card__flag caller-card__flag--handshake"></span>
+              </div>
+            </div>
+            <div class="caller-card__row caller-card__row--middle">
+              <div class="caller-card__icon"><img src="icons/business_1.svg" alt=""></div>
+            </div>
+            <div class="caller-card__row caller-card__row--bottom">
+              <h4 class="caller-card__name caller-card__name--small">Test Owner</h4>
+              <p class="caller-card__meta">+31 6 12345678<span class="caller-card__meta-sep"> · </span>The Netherlands</p>
+            </div>
+          </article>
+        </figure>
+
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">no topLabel</figcaption>
+          <article class="caller-card calmido_dotted_card">
+            <div class="caller-card__row caller-card__row--top"></div>
+            <div class="caller-card__row caller-card__row--middle">
+              <div class="caller-card__icon"><img src="icons/business_1.svg" alt=""></div>
+            </div>
+            <div class="caller-card__row caller-card__row--bottom">
+              <h4 class="caller-card__name">Generic Business Co</h4>
+              <p class="caller-card__meta">+31 20 1234567<span class="caller-card__meta-sep"> · </span>The Netherlands</p>
+            </div>
+          </article>
+        </figure>
+
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>Warning · shielded · locked</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Fixed-avatar variants — middle-row glyph is a CSS mask, not an image. <code>reported</code> swaps to an orange→red gradient; <code>locked</code> to a red→deep-red gradient with white surfaces; <code>shielded</code> to near-black with bright-green ink; <code>neutral</code> to grey.</p>
+      <div class="cc-grid">
+
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">reported</figcaption>
+          <article class="caller-card calmido_dotted_card caller-card--reported">
+            <div class="caller-card__row caller-card__row--top"></div>
+            <div class="caller-card__row caller-card__row--middle">
+              <div class="caller-card__icon"><span class="caller-card__icon-mask" aria-hidden="true"></span></div>
+            </div>
+            <div class="caller-card__row caller-card__row--bottom">
+              <h4 class="caller-card__name">Reported Caller</h4>
+              <p class="caller-card__meta">+31 6 12345678<span class="caller-card__meta-sep"> · </span>The Netherlands</p>
+            </div>
+          </article>
+        </figure>
+
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">shielded</figcaption>
+          <article class="caller-card calmido_dotted_card caller-card--shielded">
+            <div class="caller-card__row caller-card__row--top">
+              <span class="caller-card__logo" aria-hidden="true"></span>
+            </div>
+            <div class="caller-card__row caller-card__row--middle">
+              <div class="caller-card__icon"><span class="caller-card__icon-mask" aria-hidden="true"></span></div>
+            </div>
+            <div class="caller-card__row caller-card__row--bottom">
+              <h4 class="caller-card__name">Protected Member</h4>
+              <p class="caller-card__meta">+31 6 12345678<span class="caller-card__meta-sep"> · </span>The Netherlands</p>
+            </div>
+          </article>
+        </figure>
+
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">locked</figcaption>
+          <article class="caller-card calmido_dotted_card caller-card--locked">
+            <div class="caller-card__row caller-card__row--top"></div>
+            <div class="caller-card__row caller-card__row--middle">
+              <div class="caller-card__icon"><span class="caller-card__icon-mask" aria-hidden="true"></span></div>
+            </div>
+            <div class="caller-card__row caller-card__row--bottom">
+              <h4 class="caller-card__name">Locked Member</h4>
+              <p class="caller-card__meta">+31 6 12345678<span class="caller-card__meta-sep"> · </span>The Netherlands</p>
+            </div>
+          </article>
+        </figure>
+
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">neutral</figcaption>
+          <article class="caller-card calmido_dotted_card caller-card--neutral">
+            <div class="caller-card__row caller-card__row--top"></div>
+            <div class="caller-card__row caller-card__row--middle">
+              <div class="caller-card__icon"><img src="icons/avatar.svg" alt=""></div>
+            </div>
+            <div class="caller-card__row caller-card__row--bottom">
+              <h4 class="caller-card__name">Unknown Caller</h4>
+              <p class="caller-card__meta">+31 6 12345678<span class="caller-card__meta-sep"> · </span>The Netherlands</p>
+            </div>
+          </article>
+        </figure>
+
+      </div>
     </div>
   </section>
 
