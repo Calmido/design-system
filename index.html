@@ -1217,6 +1217,69 @@
     </div>
 
     <div class="panel">
+      <h3>Name slot &amp; per-variant labels</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">
+        The name slot in the bottom row is always populated. Each variant ships a default English
+        label (and localised counterparts) that is rendered when no per-instance
+        <code>displayName</code> is supplied. The anonymising variants
+        — <strong>Locked</strong>, <strong>Reported</strong>, <strong>Shielded</strong> — go a step
+        further: their label always wins, even when a <code>displayName</code> is set, so a leaked
+        name from an upstream adapter can never surface on the card. The identity variants
+        — <strong>Member</strong>, <strong>Business</strong>, <strong>Neutral</strong> — show
+        <code>displayName</code> when present and fall back to the label only when it is blank.
+      </p>
+      <table style="width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 12px;">
+        <thead>
+          <tr style="text-align: left; color: var(--c-dark-grey); text-transform: uppercase; letter-spacing: 0.08em;">
+            <th style="padding: 8px 12px; border-bottom: 1px solid var(--c-light-grey);">Variant</th>
+            <th style="padding: 8px 12px; border-bottom: 1px solid var(--c-light-grey);">Default label (EN)</th>
+            <th style="padding: 8px 12px; border-bottom: 1px solid var(--c-light-grey);">displayName precedence</th>
+            <th style="padding: 8px 12px; border-bottom: 1px solid var(--c-light-grey);">Example</th>
+          </tr>
+        </thead>
+        <tbody style="font-family: var(--font-display); font-size: 14px; color: var(--c-dark-blue);">
+          <tr>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Member</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Calmido Member</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">displayName wins · label is fallback</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">“Anna Smith” → “Anna Smith”. blank → “Calmido Member”.</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Business</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Unknown Caller</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">displayName wins · label is fallback</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">“John Galinsky” + topLabel “Bravotop Sales” → name shows “John Galinsky”. blank → “Unknown Caller”.</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Neutral</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Unknown Caller</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">displayName wins · label is fallback</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">contact-only “Marie Dupont” → “Marie Dupont”. blank → “Unknown Caller”.</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Reported</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Reported Caller</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">label always wins · displayName ignored</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">any displayName → “Reported Caller”.</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Locked</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Locked Member</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">label always wins · displayName ignored</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">any displayName → “Locked Member”.</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 12px;">Shielded</td>
+            <td style="padding: 10px 12px;">Anonymous Caller</td>
+            <td style="padding: 10px 12px;">label always wins · displayName ignored</td>
+            <td style="padding: 10px 12px;">a shielded member with displayName “The Donnie” → “Anonymous Caller”.</td>
+          </tr>
+        </tbody>
+      </table>
+      <small class="tok" style="margin-top: 12px; display: block;">String resources: Android <code>R.string.call_screen_caller_*</code>; web mirrors the same keys via the i18n table. Override behaviour is owned by the variant enum — see <code>CallerCardVariant.overwriteName</code> in <code>app/src/main/java/com/calmido/app/ui/card/CallerCard.kt</code>.</small>
+    </div>
+
+    <div class="panel">
       <h3>Member</h3>
       <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Default variant — bright-green → dark-green gradient, Calmido C logo top-left, avatar fallback on dark-green disc.</p>
       <div class="cc-grid">
