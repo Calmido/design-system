@@ -1220,13 +1220,13 @@
       <h3>Name slot &amp; per-variant labels</h3>
       <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">
         The name slot in the bottom row is always populated. Each variant ships a default English
-        label (and localised counterparts) that is rendered when no per-instance
-        <code>displayName</code> is supplied. The anonymising variants
-        — <strong>Locked</strong>, <strong>Reported</strong>, <strong>Shielded</strong> — go a step
-        further: their label always wins, even when a <code>displayName</code> is set, so a leaked
-        name from an upstream adapter can never surface on the card. The identity variants
-        — <strong>Member</strong>, <strong>Business</strong>, <strong>Neutral</strong> — show
-        <code>displayName</code> when present and fall back to the label only when it is blank.
+        label (and localised counterparts) that is rendered as the fallback when no per-instance
+        <code>displayName</code> is supplied. Only <strong>Shielded</strong> goes a step further:
+        its label always wins, even when a <code>displayName</code> is set, so a leaked name from
+        an upstream adapter can never surface on the card. The remaining variants — Member,
+        Business, Neutral, Reported, Locked — show <code>displayName</code> when present and fall
+        back to the label only when it is blank, so a caller can still see who the locked or
+        reported person is.
       </p>
       <table style="width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 12px;">
         <thead>
@@ -1259,14 +1259,14 @@
           <tr>
             <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Reported</td>
             <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Reported Caller</td>
-            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">label always wins · displayName ignored</td>
-            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">any displayName → “Reported Caller”.</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">displayName wins · label is fallback</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">“Mark Helmsworth” → “Mark Helmsworth”. blank → “Reported Caller”.</td>
           </tr>
           <tr>
             <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Locked</td>
             <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Locked Member</td>
-            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">label always wins · displayName ignored</td>
-            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">any displayName → “Locked Member”.</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">displayName wins · label is fallback</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">“Anna Smith” → “Anna Smith”. blank → “Locked Member”.</td>
           </tr>
           <tr>
             <td style="padding: 10px 12px;">Shielded</td>
