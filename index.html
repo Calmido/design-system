@@ -335,7 +335,7 @@
   }
   .caller-card__row { min-width: 0; }
   .caller-card__row--top    { display: flex; align-items: flex-start; gap: 10px; padding: 10px 10px 0; }
-  .caller-card__row--middle { display: flex; align-items: center; padding: 0 16px; }
+  .caller-card__row--middle { display: flex; align-items: center; gap: 14px; padding: 0 16px; }
   .caller-card__row--bottom { display: flex; flex-direction: column; justify-content: flex-end; padding: 0 16px 16px; min-width: 0; }
 
   .caller-card__flags { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; }
@@ -361,6 +361,16 @@
     flex: 1; min-width: 0;
     font-family: var(--font-body); font-weight: 700; font-size: 12px; line-height: 20px;
     text-transform: uppercase; color: currentColor;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  /* Warning label — sits next to the middle-row avatar to name a threat
+     (SPOOFING, SCAM, PHISHING, …) while leaving the bottom-row name slot
+     free for the caller identity. */
+  .caller-card__warning {
+    flex: 1; min-width: 0;
+    font-family: var(--font-body); font-weight: 700; font-size: 18px; line-height: 1.15;
+    letter-spacing: 0.04em; text-transform: uppercase; color: currentColor;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
 
@@ -412,6 +422,19 @@
   .caller-card--locked,
   .caller-card--locked .caller-card__name,
   .caller-card--locked .caller-card__meta { color: var(--c-white); }
+
+  .caller-card--spoofing { --dotted-card-bg: linear-gradient(135deg, var(--c-alert-red) 0%, #C91300 90%); }
+  .caller-card--spoofing .caller-card__icon { background-color: var(--c-white); }
+  .caller-card--spoofing .caller-card__icon-mask {
+    width: 34px; height: 34px; background-color: var(--c-alert-red);
+    -webkit-mask: url('icons/skull.svg') center / contain no-repeat;
+            mask: url('icons/skull.svg') center / contain no-repeat;
+  }
+  .caller-card--spoofing,
+  .caller-card--spoofing .caller-card__name,
+  .caller-card--spoofing .caller-card__meta,
+  .caller-card--spoofing .caller-card__top-label,
+  .caller-card--spoofing .caller-card__warning { color: var(--c-white); }
 
   .caller-card--shielded { --dotted-card-bg: linear-gradient(135deg, var(--c-bg-dark) 0%, #000 100%); --dotted-card-dot-opacity: 0.06; }
   .caller-card--shielded .caller-card__icon { background-color: transparent; border-radius: 0; }
@@ -1150,8 +1173,7 @@
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/shield_lock.svg')"></span></div><div class="icon-caption">shield_lock</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/shield_star.svg')"></span></div><div class="icon-caption">shield_star</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/signature.svg')"></span></div><div class="icon-caption">signature</div></div>
-        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/skull_1.svg')"></span></div><div class="icon-caption">skull_1</div></div>
-        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/skull_2.svg')"></span></div><div class="icon-caption">skull_2</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/skull.svg')"></span></div><div class="icon-caption">skull</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/thumb_down.svg')"></span></div><div class="icon-caption">thumb_down</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/thumb_up.svg')"></span></div><div class="icon-caption">thumb_up</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/unlock.svg')"></span></div><div class="icon-caption">unlock</div></div>
@@ -1508,7 +1530,7 @@
 
     <div class="panel">
       <h3>Warning · shielded · locked</h3>
-      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Fixed-avatar variants — middle-row glyph is a CSS mask, not an image. <code>reported</code> swaps to an orange→red gradient; <code>locked</code> to a red→deep-red gradient with white surfaces; <code>shielded</code> to near-black with bright-green ink; <code>neutral</code> to grey.</p>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Fixed-avatar variants — middle-row glyph is a CSS mask, not an image. <code>reported</code> swaps to an orange→red gradient; <code>spoofing</code> shares the <code>locked</code> red→deep-red gradient but pairs a skull glyph with a <code>warning</code> label (SPOOFING, SCAM, PHISHING…) so the name slot stays free for the caller identity; <code>locked</code> to red→deep-red with white surfaces; <code>shielded</code> to near-black with bright-green ink; <code>neutral</code> to grey.</p>
       <div class="cc-grid">
 
         <figure class="cc-cell">
@@ -1520,6 +1542,21 @@
             </div>
             <div class="caller-card__row caller-card__row--bottom">
               <h4 class="caller-card__name">Reported Caller</h4>
+              <p class="caller-card__meta">+31 6 12345678<span class="caller-card__meta-sep"> · </span>The Netherlands</p>
+            </div>
+          </article>
+        </figure>
+
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">spoofing</figcaption>
+          <article class="caller-card calmido_dotted_card caller-card--spoofing">
+            <div class="caller-card__row caller-card__row--top"></div>
+            <div class="caller-card__row caller-card__row--middle">
+              <div class="caller-card__icon"><span class="caller-card__icon-mask" aria-hidden="true"></span></div>
+              <span class="caller-card__warning">SPOOFING</span>
+            </div>
+            <div class="caller-card__row caller-card__row--bottom">
+              <h4 class="caller-card__name">Anna Smith</h4>
               <p class="caller-card__meta">+31 6 12345678<span class="caller-card__meta-sep"> · </span>The Netherlands</p>
             </div>
           </article>
