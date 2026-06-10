@@ -412,29 +412,28 @@
   .caller-card--reported .caller-card__name,
   .caller-card--reported .caller-card__meta { color: var(--c-white); }
 
-  .caller-card--locked   { --dotted-card-bg: linear-gradient(135deg, var(--c-alert-red) 0%, #C91300 90%); }
-  .caller-card--locked .caller-card__icon { background-color: var(--c-white); }
-  .caller-card--locked .caller-card__icon-mask {
-    width: 28px; height: 28px; background-color: var(--c-alert-red);
-    -webkit-mask: url('icons/lock.svg') center / contain no-repeat;
-            mask: url('icons/lock.svg') center / contain no-repeat;
+  /* Alert — shared red→deep-red template for "this caller should not get
+     through" states (locked member, spoofing, scam, …). Swap the glyph
+     per instance with `--cc-glyph` + `--cc-glyph-size`; drop in a
+     `.caller-card__warning` label next to the avatar to name the threat.
+     Defaults below render a locked member. */
+  .caller-card--alert {
+    --dotted-card-bg: linear-gradient(135deg, var(--c-alert-red) 0%, #C91300 90%);
+    --cc-glyph: url('icons/lock.svg');
+    --cc-glyph-size: 28px;
   }
-  .caller-card--locked,
-  .caller-card--locked .caller-card__name,
-  .caller-card--locked .caller-card__meta { color: var(--c-white); }
-
-  .caller-card--spoofing { --dotted-card-bg: linear-gradient(135deg, var(--c-alert-red) 0%, #C91300 90%); }
-  .caller-card--spoofing .caller-card__icon { background-color: var(--c-white); }
-  .caller-card--spoofing .caller-card__icon-mask {
-    width: 34px; height: 34px; background-color: var(--c-alert-red);
-    -webkit-mask: url('icons/skull.svg') center / contain no-repeat;
-            mask: url('icons/skull.svg') center / contain no-repeat;
+  .caller-card--alert .caller-card__icon { background-color: var(--c-white); }
+  .caller-card--alert .caller-card__icon-mask {
+    width: var(--cc-glyph-size); height: var(--cc-glyph-size);
+    background-color: var(--c-alert-red);
+    -webkit-mask: var(--cc-glyph) center / contain no-repeat;
+            mask: var(--cc-glyph) center / contain no-repeat;
   }
-  .caller-card--spoofing,
-  .caller-card--spoofing .caller-card__name,
-  .caller-card--spoofing .caller-card__meta,
-  .caller-card--spoofing .caller-card__top-label,
-  .caller-card--spoofing .caller-card__warning { color: var(--c-white); }
+  .caller-card--alert,
+  .caller-card--alert .caller-card__name,
+  .caller-card--alert .caller-card__meta,
+  .caller-card--alert .caller-card__top-label,
+  .caller-card--alert .caller-card__warning { color: var(--c-white); }
 
   .caller-card--shielded { --dotted-card-bg: linear-gradient(135deg, var(--c-bg-dark) 0%, #000 100%); --dotted-card-dot-opacity: 0.06; }
   .caller-card--shielded .caller-card__icon { background-color: transparent; border-radius: 0; }
@@ -1530,7 +1529,7 @@
 
     <div class="panel">
       <h3>Warning · shielded · locked</h3>
-      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Fixed-avatar variants — middle-row glyph is a CSS mask, not an image. <code>reported</code> swaps to an orange→red gradient; <code>spoofing</code> shares the <code>locked</code> red→deep-red gradient but pairs a skull glyph with a <code>warning</code> label (SPOOFING, SCAM, PHISHING…) so the name slot stays free for the caller identity; <code>locked</code> to red→deep-red with white surfaces; <code>shielded</code> to near-black with bright-green ink; <code>neutral</code> to grey.</p>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Fixed-avatar variants — middle-row glyph is a CSS mask, not an image. <code>reported</code> swaps to an orange→red gradient; <code>alert</code> is the shared red→deep-red template for <em>locked / spoofing / scam / …</em> — defaults render a locked member; override <code>--cc-glyph</code> (and <code>--cc-glyph-size</code>) to swap the glyph and drop in a <code>caller-card__warning</code> label next to the avatar to name the threat. The name slot then falls back to <em>Anonymous</em>/<em>Unknown</em> when no identity is set, like <code>shielded</code> and <code>neutral</code>. <code>shielded</code> uses near-black with bright-green ink; <code>neutral</code> uses grey.</p>
       <div class="cc-grid">
 
         <figure class="cc-cell">
@@ -1548,8 +1547,8 @@
         </figure>
 
         <figure class="cc-cell">
-          <figcaption class="cc-caption">spoofing</figcaption>
-          <article class="caller-card calmido_dotted_card caller-card--spoofing">
+          <figcaption class="cc-caption">spoofing (alert + skull)</figcaption>
+          <article class="caller-card calmido_dotted_card caller-card--alert" style="--cc-glyph: url('icons/skull.svg'); --cc-glyph-size: 34px;">
             <div class="caller-card__row caller-card__row--top"></div>
             <div class="caller-card__row caller-card__row--middle">
               <div class="caller-card__icon"><span class="caller-card__icon-mask" aria-hidden="true"></span></div>
@@ -1579,16 +1578,17 @@
         </figure>
 
         <figure class="cc-cell">
-          <figcaption class="cc-caption">locked</figcaption>
-          <article class="caller-card calmido_dotted_card caller-card--locked">
+          <figcaption class="cc-caption">locked (alert + defaults)</figcaption>
+          <article class="caller-card calmido_dotted_card caller-card--alert">
             <div class="caller-card__row caller-card__row--top">
               <span class="caller-card__logo" aria-hidden="true"></span>
             </div>
             <div class="caller-card__row caller-card__row--middle">
               <div class="caller-card__icon"><span class="caller-card__icon-mask" aria-hidden="true"></span></div>
+              <span class="caller-card__warning">LOCKED</span>
             </div>
             <div class="caller-card__row caller-card__row--bottom">
-              <h4 class="caller-card__name">Locked Member</h4>
+              <h4 class="caller-card__name">Anna Smith</h4>
               <p class="caller-card__meta">+31 6 12345678<span class="caller-card__meta-sep"> · </span>The Netherlands</p>
             </div>
           </article>
