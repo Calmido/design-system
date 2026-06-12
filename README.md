@@ -150,7 +150,7 @@ User-supplied imagery uploaded by members. Every channel (web / Android / iOS) c
 | Output dimensions | 512 × 512 (square) |
 | Aspect | center-crop to square before encode |
 | Upload format | `image/jpeg`, quality `0.85` |
-| Server allowlist | PNG + JPEG only — others rejected as `InvalidPayload` |
+| Server allowlist | PNG + JPEG recommended · GIF, BMP, TIFF, WBMP also accepted (legacy) |
 | Server max dimension | 1024 px each side (downscaled bilinear, same format) |
 | Server max payload | 2 MiB (typical 512² JPEG: 30–80 KB) |
 

@@ -1257,7 +1257,7 @@
           </tr>
           <tr style="border-bottom:1px solid var(--c-content-light-grey);">
             <td style="padding:8px 12px 8px 0;">Server allowlist</td>
-            <td style="padding:8px 12px;">PNG + JPEG only — other formats rejected as <code>InvalidPayload</code></td>
+            <td style="padding:8px 12px;">PNG + JPEG recommended; GIF, BMP, TIFF, WBMP also accepted (legacy)</td>
           </tr>
           <tr style="border-bottom:1px solid var(--c-content-light-grey);">
             <td style="padding:8px 12px 8px 0;">Server max dimension</td>
@@ -1305,7 +1305,7 @@
       </p>
       <ol class="t-body-m" style="margin: 0 0 16px 20px; color: var(--c-dark-grey);">
         <li>Reject if payload &gt; <code>MaxBytes</code> (2 MiB).</li>
-        <li>Decode header; reject if format is not PNG / JPEG.</li>
+        <li>Decode header; accept PNG / JPEG (recommended) plus legacy GIF / BMP / TIFF / WBMP.</li>
         <li>If either side &gt; <code>MaxDimension</code> (1024), scale down preserving aspect ratio, re-encode in the same format.</li>
         <li>Return <code>(format, bytes)</code> — caller stamps <code>mimeType</code> from <code>format</code>.</li>
       </ol>
