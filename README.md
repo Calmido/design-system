@@ -139,6 +139,32 @@ filesystem is the registry.
 
 ---
 
+## Images
+
+User-supplied imagery uploaded by members. Every channel (web / Android / iOS) center-crops and re-encodes locally before upload so the server normalizer never has to resize a well-behaved payload.
+
+### Avatar
+
+| Setting | Value |
+|---|---|
+| Output dimensions | 512 × 512 (square) |
+| Aspect | center-crop to square before encode |
+| Upload format | `image/jpeg`, quality `0.85` |
+| Server allowlist | PNG + JPEG only — others rejected as `InvalidPayload` |
+| Server max dimension | 1024 px each side (downscaled bilinear, same format) |
+| Server max payload | 2 MiB (typical 512² JPEG: 30–80 KB) |
+
+Implementations:
+
+- **Web** — `calmido-website/app/[locale]/(main)/settings/CropModal.js`
+- **Android** — `calmido-phone-android/.../ui/util/AvatarUtils.kt` (`centerCropSquare` + `resize` + JPEG @ 85)
+- **iOS** — `calmido-phone-ios/.../UI/Calmido/MemberEditScreen.swift` (`squareScaled` + `jpegData(0.85)`)
+- **Server** — `domain-service/directory-service/.../converters/AvatarNormalizer.scala`
+
+> Hero / background image upload spec — to be added when the feature is re-enabled.
+
+---
+
 
 ## Updating
 

@@ -646,6 +646,7 @@
     <a href="#forms">Forms</a>
     <a href="#avatars">Avatars &amp; badges</a>
     <a href="#icons">Icons</a>
+    <a href="#images">Images</a>
     <a href="#widgets">Caller card</a>
     <a href="#section-card">Section card</a>
   </nav>
@@ -1218,6 +1219,97 @@
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/report_categories/telemarketing.svg')"></span></div><div class="icon-caption">telemarketing</div></div>
       </div>
       <small class="tok">Rendered as CSS masks so they all share <code>--ico-fill</code> regardless of what each source SVG declares.</small>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────── IMAGES ─────────────────────────────── -->
+  <section id="images" class="block">
+    <h2 class="sec">Images</h2>
+    <p class="sec-sub">upload pipeline · shared spec across web · android · ios</p>
+
+    <div class="panel">
+      <h3>Avatar</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">
+        The member avatar shown on every <a href="#widgets">Caller Card</a>. Every channel
+        center-crops and re-encodes locally so the server's normalizer never has to resize a
+        well-behaved upload. The 1024 / 2&nbsp;MiB caps stay as the hard backstop.
+      </p>
+
+      <table class="t-body-m" style="width:100%; border-collapse:collapse; margin: 8px 0 16px;">
+        <thead>
+          <tr style="text-align:left; border-bottom:1px solid var(--c-content-light-grey);">
+            <th style="padding:8px 12px 8px 0; font-weight:700;">Setting</th>
+            <th style="padding:8px 12px; font-weight:700;">Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--c-content-light-grey);">
+            <td style="padding:8px 12px 8px 0;">Output dimensions</td>
+            <td style="padding:8px 12px;">512 × 512 (square)</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--c-content-light-grey);">
+            <td style="padding:8px 12px 8px 0;">Aspect</td>
+            <td style="padding:8px 12px;">center-crop to square before encode</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--c-content-light-grey);">
+            <td style="padding:8px 12px 8px 0;">Upload format</td>
+            <td style="padding:8px 12px;"><code>image/jpeg</code>, quality <code>0.85</code></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--c-content-light-grey);">
+            <td style="padding:8px 12px 8px 0;">Server allowlist</td>
+            <td style="padding:8px 12px;">PNG + JPEG only — other formats rejected as <code>InvalidPayload</code></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--c-content-light-grey);">
+            <td style="padding:8px 12px 8px 0;">Server max dimension</td>
+            <td style="padding:8px 12px;">1024 px (each side) — downscaled with bilinear interpolation, same format</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 12px 8px 0;">Server max payload</td>
+            <td style="padding:8px 12px;">2 MiB — typical 512² JPEG is 30–80 KB, well under</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin-top:24px;">Per-channel implementation</h3>
+      <table class="t-body-m" style="width:100%; border-collapse:collapse; margin: 8px 0 16px;">
+        <thead>
+          <tr style="text-align:left; border-bottom:1px solid var(--c-content-light-grey);">
+            <th style="padding:8px 12px 8px 0; font-weight:700;">Channel</th>
+            <th style="padding:8px 12px; font-weight:700;">Crop + scale</th>
+            <th style="padding:8px 12px; font-weight:700;">Source</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--c-content-light-grey);">
+            <td style="padding:8px 12px 8px 0;">Web</td>
+            <td style="padding:8px 12px;">crop modal · 512² canvas · <code>toBlob('image/jpeg', 0.85)</code></td>
+            <td style="padding:8px 12px;"><code>calmido-website/app/[locale]/(main)/settings/CropModal.js</code></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--c-content-light-grey);">
+            <td style="padding:8px 12px 8px 0;">Android</td>
+            <td style="padding:8px 12px;"><code>centerCropSquare()</code> · resize to 512² · JPEG @ 85</td>
+            <td style="padding:8px 12px;"><code>calmido-phone-android/.../ui/util/AvatarUtils.kt</code></td>
+          </tr>
+          <tr>
+            <td style="padding:8px 12px 8px 0;">iOS</td>
+            <td style="padding:8px 12px;">center-crop · render to 512² · <code>jpegData(compressionQuality: 0.85)</code></td>
+            <td style="padding:8px 12px;"><code>calmido-phone-ios/.../UI/Calmido/MemberEditScreen.swift</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin-top:24px;">Server normalization</h3>
+      <p class="t-body-m" style="margin: 0 0 8px; color: var(--c-dark-grey);">
+        Live at <code>domain-service/directory-service/.../converters/AvatarNormalizer.scala</code>.
+        Steps in order:
+      </p>
+      <ol class="t-body-m" style="margin: 0 0 16px 20px; color: var(--c-dark-grey);">
+        <li>Reject if payload &gt; <code>MaxBytes</code> (2 MiB).</li>
+        <li>Decode header; reject if format is not PNG / JPEG.</li>
+        <li>If either side &gt; <code>MaxDimension</code> (1024), scale down preserving aspect ratio, re-encode in the same format.</li>
+        <li>Return <code>(format, bytes)</code> — caller stamps <code>mimeType</code> from <code>format</code>.</li>
+      </ol>
+      <small class="tok">Hero / background image upload spec — to be added when re-enabled.</small>
     </div>
   </section>
 
