@@ -245,7 +245,10 @@
   .input-std input.is-error,
   .input-std input.is-error:focus { border-color: var(--c-alert-red); }
   .input-std .help { font-family: "Open Sans"; font-size: 12px; color: var(--c-dark-grey); }
-  .input-std .help--error { color: var(--c-alert-red); }
+  /* Unscoped so it also works under the phone-input panel. Specificity
+     bumped to a chained selector to beat the panel's dark-blue body colour. */
+  .help--error,
+  .help.help--error { color: var(--c-alert-red); }
 
   /* Phone input — flag + dial + chevron on the left, national number on the right.
      Single pill, focus ring on the whole shell. */
