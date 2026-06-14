@@ -244,6 +244,40 @@
   .input-std input:focus { outline: none; border-color: var(--c-dark-green); }
   .input-std .help { font-family: "Open Sans"; font-size: 12px; color: var(--c-dark-grey); }
 
+  /* Phone input — flag + dial + chevron on the left, national number on the right.
+     Single pill, focus ring on the whole shell. */
+  .phone-input {
+    display: inline-flex; align-items: stretch;
+    width: 320px; height: 40px;
+    border: 1px solid var(--c-dark-grey); border-radius: var(--r-pill);
+    background: var(--c-white); box-sizing: border-box; overflow: hidden;
+    font-family: "Open Sans"; font-size: 14px;
+  }
+  .phone-input:focus-within { border-color: var(--c-dark-green); }
+  .phone-input--error,
+  .phone-input--error:focus-within { border-color: var(--c-alert-red); }
+  .phone-input__country {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 0 12px 0 16px;
+    color: var(--c-dark-blue);
+    border-right: 1px solid var(--c-dark-grey);
+  }
+  .phone-input__flag {
+    width: 20px; height: 14px; border-radius: 2px; overflow: hidden;
+    background:
+      linear-gradient(to bottom,
+        #AE1C28 0 33.3%,
+        #FFFFFF 33.3% 66.6%,
+        #21468B 66.6% 100%);
+  }
+  .phone-input__chevron {
+    width: 0; height: 0;
+    border-left: 4px solid transparent; border-right: 4px solid transparent;
+    border-top: 5px solid var(--c-dark-grey);
+  }
+  .phone-input__number { flex: 1; border: 0; outline: 0; padding: 0 16px; background: transparent; color: var(--c-dark-blue); font: inherit; }
+  .phone-input__number::placeholder { color: var(--c-dark-grey); }
+
   /* number-check input (seen on Wie belt me pages) */
   .number-check {
     display: inline-flex; align-items: stretch; background: var(--c-white);
@@ -1060,6 +1094,42 @@
         <label class="input-std"><span>Naam</span><input placeholder="Sarah de Wit" /><span class="help">Deze naam tonen we aan mensen die je bellen.</span></label>
         <label class="input-std"><span>E-mail</span><input type="email" placeholder="sarah@example.nl" value="sarah@wiebeltme.nl" /><span class="help">We sturen een bevestiging.</span></label>
       </div>
+    </div>
+
+    <div class="panel">
+      <h3>Phone input — flag + dial + national</h3>
+      <div style="display:flex; gap:24px; flex-wrap:wrap; align-items:flex-start;">
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <span class="phone-input">
+            <span class="phone-input__country">
+              <span class="phone-input__flag" aria-hidden="true"></span>
+              <span>+31</span>
+              <span class="phone-input__chevron"></span>
+            </span>
+            <input class="phone-input__number" type="tel" placeholder="+31 6 12 34 56 78" />
+          </span>
+          <small class="tok">Default — rest state.</small>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <span class="phone-input phone-input--error">
+            <span class="phone-input__country">
+              <span class="phone-input__flag" aria-hidden="true"></span>
+              <span>+31</span>
+              <span class="phone-input__chevron"></span>
+            </span>
+            <input class="phone-input__number" type="tel" value="020 12345" />
+          </span>
+          <small class="tok">Error — border <code>--c-alert-red</code> (#FD5240), overrides focus.</small>
+        </div>
+      </div>
+      <small class="tok" style="display:block; margin-top:14px;">
+        One pill (40&nbsp;px, radius&nbsp;pill, 1&nbsp;px border <code>--c-dark-grey</code>) holds two zones split by a thin divider.
+        <strong>Left zone:</strong> 20×14&nbsp;px PNG flag (<code>/images/flags/&lt;iso&gt;.png</code>) + <code>+&lt;dial&gt;</code> + chevron, wrapping a native <code>&lt;select&gt;</code> so the dropdown is OS-styled.
+        <strong>Right zone:</strong> <code>&lt;input type="tel"&gt;</code> for the national number (server resolves country + national → canonical E.164 — no client-side parse).
+        Country list comes from <code>/api/server/countries</code>; fallback is the bundled ISO list when the endpoint is unreachable, so any country can still be picked.
+        Focus ring on the whole shell (<code>--c-dark-green</code>); <code>--error</code> swaps to <code>--c-alert-red</code> and beats the focus colour so the red persists while typing.
+        Hide the chevron + lock the select when used <em>read-only</em> (e.g. directory reclaim — the number is fixed).
+      </small>
     </div>
 
     <div class="panel">
