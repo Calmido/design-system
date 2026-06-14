@@ -242,7 +242,10 @@
     box-sizing: border-box;
   }
   .input-std input:focus { outline: none; border-color: var(--c-dark-green); }
+  .input-std input.is-error,
+  .input-std input.is-error:focus { border-color: var(--c-alert-red); }
   .input-std .help { font-family: "Open Sans"; font-size: 12px; color: var(--c-dark-grey); }
+  .input-std .help--error { color: var(--c-alert-red); }
 
   /* Phone input — flag + dial + chevron on the left, national number on the right.
      Single pill, focus ring on the whole shell. */
@@ -1090,10 +1093,12 @@
 
     <div class="panel">
       <h3>Standard input</h3>
-      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 720px;">
+      <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; max-width: 1080px;">
         <label class="input-std"><span>Naam</span><input placeholder="Sarah de Wit" /><span class="help">Deze naam tonen we aan mensen die je bellen.</span></label>
         <label class="input-std"><span>E-mail</span><input type="email" placeholder="sarah@example.nl" value="sarah@wiebeltme.nl" /><span class="help">We sturen een bevestiging.</span></label>
+        <label class="input-std"><span>E-mail</span><input class="is-error" type="email" value="sarah@wie" /><span class="help help--error">Dit lijkt geen geldig e-mailadres.</span></label>
       </div>
+      <small class="tok">Error — input gets <code>.is-error</code> (border <code>--c-alert-red</code>, beats focus) and the <code>.help</code> line swaps to <code>.help--error</code> in the same red. Message renders directly below the field.</small>
     </div>
 
     <div class="panel">
@@ -1110,7 +1115,7 @@
           </span>
           <small class="tok">Default — rest state.</small>
         </div>
-        <div style="display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; flex-direction:column; gap:6px;">
           <span class="phone-input phone-input--error">
             <span class="phone-input__country">
               <span class="phone-input__flag" aria-hidden="true"></span>
@@ -1119,7 +1124,8 @@
             </span>
             <input class="phone-input__number" type="tel" value="020 12345" />
           </span>
-          <small class="tok">Error — border <code>--c-alert-red</code> (#FD5240), overrides focus.</small>
+          <span class="help help--error" style="font-family:'Open Sans'; font-size:12px;">This doesn't look like a valid number, please try again.</span>
+          <small class="tok" style="margin-top:2px;">Error — border <code>--c-alert-red</code> (#FD5240), overrides focus. Message renders directly under the pill in the same red.</small>
         </div>
       </div>
       <small class="tok" style="display:block; margin-top:14px;">
