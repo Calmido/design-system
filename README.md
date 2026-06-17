@@ -26,11 +26,20 @@ configured (legacy mode, `main` / root) to auto-deploy on every push.
 
 | Token | Hex | Usage |
 |---|---|---|
+| Logo Blue | `#05028E` | Canonical brand blue — logo art only (wordmark, C-mark on green, phone surface) |
 | Calmido Blue | `#07369E` | Headlines, primary ink on light |
 | Bright Blue | `#2050FF` | Action accent, links |
 | Dark Blue | `#081748` | Dark surfaces, deep ink |
 | Dark Green | `#10C186` | Primary action, toggle state |
 | Bright Green | `#40EDAB` | Filled button, hero highlight |
+
+> **Logo Blue is the single canonical value for all rendered logo art.**
+> Prior to 2026-06-17 the four logo SVGs disagreed (`#05028E` wordmark,
+> `#09298E` C-mark on green, `#0B2986` phone surface) and downstream
+> surfaces picked different blues each (website `theme-color`,
+> Android app-icon ground, email OTP frame). The reconciliation pins
+> `#05028E` everywhere. Re-export `logo/calmido_*.png` rasters from the
+> updated SVGs and align downstream surfaces — see issue #1.
 
 ### Status
 
