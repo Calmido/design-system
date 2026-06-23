@@ -11,12 +11,34 @@ The source of truth for Calmido and wiebeltme.nl — colors, typography, compone
 | File | Purpose |
 |---|---|
 | [`index.html`](./index.html) | The full browsable design system (open in any browser) |
+| [`tokens.json`](./tokens.json) | **Source of truth** for every design token (colors, type, spacing, radii) |
+| [`tokens.css`](./tokens.css) | Generated CSS custom properties — consumed by `index.html` and downstream surfaces |
+| `scripts/build-tokens.mjs` | Generator: reads `tokens.json` → writes `tokens.css` |
 | `Calmido-DesignSystem.html` | Redirect stub for the legacy deep-link URL |
 | `assets/` | SVG assets referenced by the system |
 | `icons/` | Icon set — 24×24 SVGs with `currentColor` fill, grouped into subfolders by domain (see [Icons](#icons)) |
 
 Open `index.html` locally or visit the Pages URL above. GitHub Pages is
 configured (legacy mode, `main` / root) to auto-deploy on every push.
+
+### Token pipeline
+
+`tokens.json` is the **only** place token values are authored.
+`tokens.css` is a generated artifact, committed so GitHub Pages can serve
+it without running a build, but it must not be edited by hand. After
+changing `tokens.json`, regenerate:
+
+```sh
+npm run build:tokens
+```
+
+The build is zero-dependency (Node ≥ 18, no `npm install` needed). Refs
+of the form `{group.name}` in `tokens.json` resolve to `var(--c-name)` in
+the output (e.g. `--c-font-title: var(--c-blue)`).
+
+> **Phase 2 (not yet wired):** emit Kotlin (`Color.kt`) and Swift
+> (`CalmidoColors.swift`) from the same `tokens.json` so Android + iOS
+> stop hand-copying values. See issue #2 for the full plan.
 
 ---
 

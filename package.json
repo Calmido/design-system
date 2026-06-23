@@ -1,0 +1,8 @@
+{
+  "name": "calmido-design-system",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:tokens": "node scripts/build-tokens.mjs"
+  }
+}

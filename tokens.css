@@ -1,0 +1,64 @@
+/* AUTO-GENERATED from tokens.json by scripts/build-tokens.mjs.
+ * Do not edit by hand — run `npm run build:tokens` after changing tokens.json. */
+:root {
+
+  /* ── Calmido colour tokens (exact values from CSS styles frame) ── */
+  --c-blue:           #07369E;  /* Calmido Blue — headlines, primary ink on light */
+  --c-bright-blue:    #2050FF;  /* action accent, links */
+  --c-dark-blue:      #081748;  /* primary ink on light, dark surfaces */
+  --c-logo-blue:      #05028E;  /* canonical brand blue — logo art only */
+  --c-body-ink:       #3A4268;  /* body prose on light */
+  --c-dark-green:     #10C186;  /* primary action / link */
+  --c-bright-green:   #40EDAB;  /* accent / filled-button bg */
+  --c-tonal-green:    #DBF6ED;  /* tonal button bg */
+  --c-bg-dark:        #202128;
+  --c-infocard-dark:  #16171C;
+  --c-mid-grey:       #C1C3EB;
+  --c-dark-grey:      #6F797A;  /* outlined border / secondary ink */
+  --c-light-grey:     #DADBE0;
+  --c-light-bg:       #FBFBFB;
+  --c-white:          #FFFFFF;
+  --c-stop-red:       #FF3260;
+  --c-alert-red:      #FD5240;
+  --c-dark-red:       #690005;
+  /* ── neutrals observed in canvas (f7f7f8 base, 242 238 237 warm) ── */
+  --c-canvas:         #F7F7F8;
+  --c-canvas-warm:    #F2EEED;
+  /* ── ink on buttons (observed in Figma button specs) ── */
+  --c-filled-label:   #030815;
+  --c-outlined-label: #004F54;
+  --c-tonal-label:    #324D4D;
+
+  /* ── Re-points to brand colours. Add class="inverse" on a parent to flip all three tokens to their inverse pairs (e.g. on dark surfaces). ── */
+  --c-font-title:         var(--c-blue);
+  --c-font-title-inverse: var(--c-white);
+  --c-font-body:          var(--c-dark-blue);
+  --c-font-body-inverse:  #FFFFFFBF;  /* white @ 75% */
+  --c-font-muted:         var(--c-dark-grey);
+  --c-font-muted-inverse: #FFFFFF99;  /* white @ 60% */
+
+  /* ── Font families — three free / Google Fonts ── */
+  --font-display: "Geologica", system-ui, -apple-system, Segoe UI, sans-serif;
+  --font-body:    "Open Sans",  system-ui, -apple-system, Segoe UI, sans-serif;
+  --font-mono:    "Courier Prime", ui-monospace, Menlo, monospace;
+
+  /* ── Spacing scale — multiples of 4px ── */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  20px;
+  --sp-6:  24px;
+  --sp-8:  32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+  --sp-20: 80px;
+  --sp-24: 96px;
+
+  /* ── Radii observed: 4 (input), 16 (card), 20 (pill input), 30 (avatar btn), 100 (button/switch) ── */
+  --r-sm:   4px;
+  --r-md:   12px;
+  --r-lg:   16px;
+  --r-pill: 100px;
+}
