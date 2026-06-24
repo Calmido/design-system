@@ -41,9 +41,14 @@ committed `tokens.css` doesn't match what the generator produces — so the
 artifact can't silently drift from `tokens.json`. See
 [`.github/workflows/ci.yml`](./.github/workflows/ci.yml).
 
-> **Phase 2 (not yet wired):** emit Kotlin (`Color.kt`) and Swift
-> (`CalmidoColors.swift`) from the same `tokens.json` so Android + iOS
-> stop hand-copying values. See issue #2 for the full plan.
+> **Phase 2 (Android done):** `build-tokens.mjs` also emits Kotlin
+> (`CalmidoColors` / `CalmidoFontInk` / `CalmidoSpacing` / `CalmidoRadius`)
+> straight into the Android tree at
+> `calmido-phone-android/app/src/main/java/com/calmido/app/ui/theme/generated/CalmidoTokens.kt`
+> when that checkout sits alongside this repo (skipped on CI). The Android
+> app consumes these instead of hand-copying — token names match the DS
+> (`brightGreen`, `darkGreen`, `blue`, `brightBlue`, `darkBlue`, `midGrey`…).
+> Swift (`CalmidoColors.swift`) is still pending. See issue #2.
 
 ---
 
