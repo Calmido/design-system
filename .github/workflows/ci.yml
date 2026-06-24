@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  tokens-in-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Regenerate tokens.css from tokens.json
+        run: npm run build:tokens
+
+      - name: Assert tokens.css matches tokens.json
+        run: |
+          if ! git diff --exit-code tokens.css; then
+            echo "::error::tokens.css is out of sync with tokens.json. Run 'npm run build:tokens' locally and commit the result."
+            exit 1
+          fi

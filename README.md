@@ -36,6 +36,11 @@ The build is zero-dependency (Node ≥ 18, no `npm install` needed). Refs
 of the form `{group.name}` in `tokens.json` resolve to `var(--c-name)` in
 the output (e.g. `--c-font-title: var(--c-blue)`).
 
+CI runs `npm run build:tokens` on every push / PR and fails if the
+committed `tokens.css` doesn't match what the generator produces — so the
+artifact can't silently drift from `tokens.json`. See
+[`.github/workflows/ci.yml`](./.github/workflows/ci.yml).
+
 > **Phase 2 (not yet wired):** emit Kotlin (`Color.kt`) and Swift
 > (`CalmidoColors.swift`) from the same `tokens.json` so Android + iOS
 > stop hand-copying values. See issue #2 for the full plan.
