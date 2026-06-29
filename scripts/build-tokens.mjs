@@ -1,6 +1,7 @@
 #!/usr/bin/env node
-// Generate tokens.css from tokens.json (and, when the Android checkout is
-// present, the Kotlin CalmidoTokens.kt consumed by calmido-phone-android).
+// Generate tokens.css from tokens.json, and — when sibling checkouts are
+// present — the Kotlin CalmidoTokens.kt consumed by calmido-phone-android
+// and the Swift CalmidoTokens.swift consumed by calmido-phone-ios.
 // Source of truth: tokens.json. Do not hand-edit the generated artifacts.
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -138,4 +139,80 @@ if (existsSync(ANDROID_REPO)) {
   console.log(`Wrote ${KT_OUT}`);
 } else {
   console.log('Android checkout not found alongside design-system; skipped CalmidoTokens.kt');
+}
+
+// ── Swift emitter (iOS) ───────────────────────────────────────────────────
+// Mirror of the Kotlin emitter: writes CalmidoTokens.swift into the iOS
+// source tree so calmido-phone-ios consumes tokens straight from this repo
+// instead of hand-copying hex values.
+const IOS_REPO = resolve(ROOT, '..', 'calmido-phone-ios');
+const SWIFT_OUT = resolve(
+  IOS_REPO,
+  'CalmidoPhone/CalmidoPhone/UI/Theme/generated/CalmidoTokens.swift',
+);
+
+// #RRGGBB → 0xRRGGBB ; #RRGGBBAA → (rgb 0xRRGGBB, alpha XX/255). SwiftUI's
+// Color(hex:) is RGB-only, so opacity-bearing tokens emit a separate ".opacity()".
+function swiftColorLiteral(hex) {
+  const h = hex.replace('#', '').toUpperCase();
+  if (h.length === 6) return `Color(hex: 0x${h})`;
+  if (h.length === 8) {
+    const rgb = h.slice(0, 6);
+    const alpha = (parseInt(h.slice(6, 8), 16) / 255).toFixed(2);
+    return `Color(hex: 0x${rgb}).opacity(${alpha})`;
+  }
+  throw new Error(`Cannot convert hex to Swift Color: ${hex}`);
+}
+
+function swiftEnum(name, body) {
+  return [`enum ${name} {`, ...body, '}', ''];
+}
+
+function emitSwift() {
+  const out = [
+    '// AUTO-GENERATED from Calmido/design-system tokens.json by',
+    '// scripts/build-tokens.mjs. Do not edit by hand — change tokens.json and',
+    '// re-run `npm run build:tokens` in the design-system repo.',
+    '',
+    'import SwiftUI',
+    '',
+  ];
+
+  const colorBody = [];
+  for (const t of tokens.color) {
+    if (t.comment !== undefined) { colorBody.push(`    // ${t.comment}`); continue; }
+    const note = t.note ? `  // ${t.note}` : '';
+    colorBody.push(`    static let ${camel(t.name)} = ${swiftColorLiteral(t.value)}${note}`);
+  }
+  out.push(...swiftEnum('CalmidoColors', colorBody));
+
+  const inkBody = [];
+  for (const t of tokens['font-ink']) {
+    if (t.comment !== undefined) { inkBody.push(`    // ${t.comment}`); continue; }
+    const ref = /^\{color\.([^}]+)\}$/.exec(t.value);
+    const rhs = ref ? `CalmidoColors.${camel(ref[1])}` : swiftColorLiteral(t.value);
+    const note = t.note ? `  // ${t.note}` : '';
+    inkBody.push(`    static let ${camel(t.name)} = ${rhs}${note}`);
+  }
+  out.push(...swiftEnum('CalmidoFontInk', inkBody));
+
+  const spaceBody = tokens.spacing
+    .filter((t) => t.name !== undefined)
+    .map((t) => `    static let s${t.name}: CGFloat = ${parseInt(t.value, 10)}`);
+  out.push(...swiftEnum('CalmidoSpacing', spaceBody));
+
+  const radiusBody = tokens.radius
+    .filter((t) => t.name !== undefined)
+    .map((t) => `    static let ${camel(t.name)}: CGFloat = ${parseInt(t.value, 10)}`);
+  out.push(...swiftEnum('CalmidoRadius', radiusBody));
+
+  return out.join('\n');
+}
+
+if (existsSync(IOS_REPO)) {
+  mkdirSync(dirname(SWIFT_OUT), { recursive: true });
+  writeFileSync(SWIFT_OUT, emitSwift());
+  console.log(`Wrote ${SWIFT_OUT}`);
+} else {
+  console.log('iOS checkout not found alongside design-system; skipped CalmidoTokens.swift');
 }
