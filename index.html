@@ -1434,6 +1434,12 @@
             <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">“Mark Helmsworth” → “Mark Helmsworth”. blank → “Reported Caller”.</td>
           </tr>
           <tr>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Dangerous</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Dangerous Caller</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">displayName wins · label is fallback</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">threat band <strong>High</strong> → red <code>alert</code> card + skull. blank → “Dangerous Caller”.</td>
+          </tr>
+          <tr>
             <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Locked</td>
             <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Locked Member</td>
             <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">displayName wins · label is fallback</td>
@@ -1680,6 +1686,7 @@
     <div class="panel">
       <h3>Warning · shielded · locked</h3>
       <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Fixed-avatar variants — middle-row glyph is a CSS mask, not an image. <code>reported</code> swaps to an orange→red gradient; <code>alert</code> is the shared red→deep-red template for <em>locked / spoofing / scam / …</em> — defaults render a locked member; override <code>--cc-glyph</code> (and <code>--cc-glyph-size</code>) to swap the glyph and drop in a <code>caller-card__warning</code> label next to the avatar to name the threat. The name slot then falls back to <em>Anonymous</em>/<em>Unknown</em> when no identity is set, like <code>shielded</code> and <code>neutral</code>. <code>shielded</code> uses near-black with bright-green ink; <code>neutral</code> uses grey.</p>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);"><strong>Threat-band selection (web directory).</strong> On the number pages the flagged variant is chosen by the backend <strong>threat band</strong> — see <code>domain-service/docs/rank-algorithm.md</code> (a bounded 0–1 risk interval with a traffic-light band). <strong>Elevated</strong> (warning) → <code>reported</code> (orange, attention icon); <strong>High</strong> (dangerous) → the red <code>alert</code> template with the <strong>skull</strong> glyph, shipped on the web as <code>caller-card--dangerous</code>. <strong>Low / Unknown</strong> → not flagged. The band is decided from the interval's confidence bounds, so a lone unconfirmed complaint self-suppresses (stays Low) until corroborated.</p>
       <div class="cc-grid">
 
         <figure class="cc-cell">
@@ -1757,6 +1764,20 @@
             </div>
             <div class="caller-card__row caller-card__row--bottom">
               <h4 class="caller-card__name">Anna Smith</h4>
+              <p class="caller-card__meta">+31 6 12345678<span class="caller-card__meta-sep"> · </span>The Netherlands</p>
+            </div>
+          </article>
+        </figure>
+
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">dangerous (threat: High)</figcaption>
+          <article class="caller-card calmido_dotted_card caller-card--alert" style="--cc-glyph: url('icons/skull.svg'); --cc-glyph-size: 34px;">
+            <div class="caller-card__row caller-card__row--top"></div>
+            <div class="caller-card__row caller-card__row--middle">
+              <div class="caller-card__icon"><span class="caller-card__icon-mask" aria-hidden="true"></span></div>
+            </div>
+            <div class="caller-card__row caller-card__row--bottom">
+              <h4 class="caller-card__name">Dangerous Caller</h4>
               <p class="caller-card__meta">+31 6 12345678<span class="caller-card__meta-sep"> · </span>The Netherlands</p>
             </div>
           </article>
