@@ -2234,10 +2234,23 @@
     </div>
   </section>
 
-  <footer style="margin-top: 120px; padding-top: 32px; border-top: 1px solid var(--c-light-grey); font-family: var(--font-mono); font-size: 11px; color: var(--c-dark-grey);">
-    Calmido design system · extracted 23 Apr 2026 · tokens traceable to Page-1 CSS&nbsp;styles frame (node 1:2369).
-    Next: componentise into React &amp; mount onto actual pages (Homepage April 2026, Trust, Works, Landingspagina).
+  <footer style="margin-top: 120px; padding-top: 32px; border-top: 1px solid var(--c-light-grey); font-family: var(--font-mono); font-size: 11px; color: var(--c-dark-grey); text-align: center;">
+    <b style="color: var(--c-dark-blue);">Calmido design system</b> · updated <span id="ds-updated">—</span>
   </footer>
+
+  <script>
+    // Stamp the footer with the page's own last-modified date — the file
+    // mtime over file://, the Last-Modified header when served (GitHub Pages
+    // sets it to the deploy time), so it tracks the last change automatically.
+    (function () {
+      var el = document.getElementById('ds-updated');
+      var d = new Date(document.lastModified);
+      el.textContent =
+        isNaN(d) || d.getFullYear() < 2000
+          ? 'unknown'
+          : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    })();
+  </script>
 
 </div>
 </body>
