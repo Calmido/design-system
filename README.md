@@ -145,7 +145,17 @@ Styles reference (all pill 100px radius, 40px tall):
 - **Text** — `#10C186` ink, no bg · hover adds soft green tint
 - **Disabled** — `opacity 0.6`, `cursor: not-allowed`
 
-See `index.html` for live specimens including forms, switches, avatars, badges, the full Material-style icon set, the three Who-is-calling card variants, and the generic **Section card** primitive (light + inverse, linked + static).
+See `index.html` for live specimens including forms, switches, avatars, badges, the full Material-style icon set, the three Who-is-calling card variants, the cross-platform **Threat meter**, and the generic **Section card** primitive (light + inverse, linked + static).
+
+### Threat meter
+
+Horizontal community-threat gauge (`threat-bar`) shared by web, iOS, and Android. Safe on the left (green), dangerous on the right (red), so the raw values map to a left-origin percentage. Fed entirely by the backend threat interval on `community.threat` (see `domain-service/docs/rank-algorithm.md`) — no client-side heuristics, so every channel shows the same verdict.
+
+- **Input:** `community.threat = { mean, lower, upper, band }`. `mean/lower/upper ∈ [0, 1]` on a danger axis (0 = safe, 1 = dangerous); `band` is the ordinal `0 Unknown · 1 Low · 2 Elevated · 3 High`. Absent object → render nothing (never infer "safe" from missing data).
+- **Marks:** gradient track (danger axis) · confidence band spanning `[lower, upper]`, tinted by level · downward arrow at `mean` (clamped to `[2%, 98%]`).
+- **Track gradient:** `--c-dark-green` 0% → `#9ACD32` 30% → `#F5A623` 58% → `--c-stop-red` 100%.
+- **Level colour** (band + arrow): Low `--c-dark-green` · Elevated `#F5A623` · High `--c-stop-red` · Unknown `--c-mid-grey`.
+- **Band fallback** (if server `band` absent): derive from the *lower* bound — `≥ 0.72 → High`, `≥ 0.45 → Elevated`, else Low; null interval → Unknown. Gating on the lower bound means a lone unconfirmed complaint self-suppresses until corroborated.
 
 ### Section card
 

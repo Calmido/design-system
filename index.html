@@ -444,6 +444,55 @@
   .caller-card--shielded .caller-card__name,
   .caller-card--shielded .caller-card__meta { color: var(--c-bright-green); }
 
+  /* ── Threat meter ──────────────────────────────────────────────
+     Cross-platform community-threat bar. Driven by the backend
+     threat interval (domain-service docs/rank-algorithm.md): a 0–1
+     danger axis (0 = safe … 1 = dangerous) with `mean`, `lower`/`upper`
+     confidence bounds, and a discrete `band` (0 Unknown · 1 Low ·
+     2 Elevated · 3 High). Safe is LEFT (green), dangerous RIGHT (red),
+     so every value maps to a left-origin percentage. iOS/Android
+     reimplement the same geometry natively from the same DTO. The
+     amber mid-stop (#F5A623) has no token yet — kept as a literal. */
+  .threat-bar { --tb-amber: #F5A623; max-width: 320px; }
+  .threat-bar__title { color: var(--c-font-muted); margin: 0 0 var(--sp-2); }
+  .threat-bar__meter {
+    position: relative; height: 10px; border-radius: 999px; margin-top: 18px;
+    /* stops line up with the verdict thresholds (amber from mean ~0.40,
+       red as the lower bound clears ~0.72). */
+    background: linear-gradient(90deg,
+      var(--c-dark-green) 0%, #9ACD32 30%, var(--tb-amber) 58%, var(--c-stop-red) 100%);
+  }
+  /* Confidence band [lower, upper], tinted by the traffic-light level. */
+  .threat-bar__band {
+    position: absolute; top: -3px; bottom: -3px; min-width: 2px; border-radius: 6px;
+    box-shadow: inset 0 0 0 1px rgba(23, 23, 23, 0.25);
+  }
+  .threat-bar--low      .threat-bar__band { background: color-mix(in srgb, var(--c-dark-green) 38%, transparent); }
+  .threat-bar--elevated .threat-bar__band { background: color-mix(in srgb, var(--tb-amber) 45%, transparent); }
+  .threat-bar--high     .threat-bar__band { background: color-mix(in srgb, var(--c-stop-red) 38%, transparent); }
+  .threat-bar--unknown  .threat-bar__band { background: color-mix(in srgb, var(--c-mid-grey) 40%, transparent); }
+  /* Downward arrow marking the mean; coloured by the level. */
+  .threat-bar__pointer {
+    position: absolute; top: -11px; transform: translateX(-50%);
+    width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent;
+    border-top: 9px solid var(--c-font-title);
+  }
+  .threat-bar--low      .threat-bar__pointer { border-top-color: var(--c-dark-green); }
+  .threat-bar--elevated .threat-bar__pointer { border-top-color: var(--tb-amber); }
+  .threat-bar--high     .threat-bar__pointer { border-top-color: var(--c-stop-red); }
+  .threat-bar--unknown  .threat-bar__pointer { border-top-color: var(--c-mid-grey); }
+  .threat-bar__scale { display: flex; justify-content: space-between; margin-top: 8px; color: var(--c-font-muted); }
+  /* Doc-only: the numeric interval each specimen is drawn from. */
+  .threat-bar__data { font-family: var(--font-mono); font-size: 12px; color: var(--c-dark-grey); margin: 10px 0 0; }
+  /* Doc-only: cutoff-gate diagram — vertical ticks on the band lower-bound axis. */
+  .threat-gate { position: absolute; top: -7px; bottom: -7px; width: 2px; background: var(--c-font-title); opacity: 0.55; }
+  .threat-gate__label { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-family: var(--font-mono); font-size: 11px; color: var(--c-font-title); white-space: nowrap; }
+  .threat-zones { display: flex; margin-top: 8px; font-family: var(--font-mono); font-size: 11px; }
+  .threat-zones span { text-align: center; color: var(--c-dark-grey); border-top: 2px solid currentColor; padding-top: 4px; }
+  .threat-zones .z-low      { color: var(--c-dark-green); }
+  .threat-zones .z-elevated { color: #F5A623; }
+  .threat-zones .z-high     { color: var(--c-stop-red); }
+
   /* ── Icon grid ─────────────────────────────────────────────── */
   /* All listed icons share one color. Change --ico-fill below to recolor
      the entire showcase grid. */
@@ -646,6 +695,7 @@
     <a href="#icons">Icons</a>
     <a href="#images">Images</a>
     <a href="#widgets">Caller card</a>
+    <a href="#threat-bar">Threat meter</a>
     <a href="#section-card">Section card</a>
   </nav>
 
@@ -1784,6 +1834,100 @@
         </figure>
 
       </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────── THREAT METER ─────────────────────────────── -->
+  <section id="threat-bar" class="block">
+    <h2 class="sec">Threat meter</h2>
+    <p class="sec-sub">community-threat bar (threat-bar) — one horizontal gauge shared by web, iOS &amp; Android</p>
+
+    <div class="panel">
+      <h3>Anatomy</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">A single left-origin gauge for the caller's community-threat level. <strong>Safe is on the left (green), dangerous on the right (red)</strong>, so the raw 0–1 values map straight to a percentage. It is fed entirely by the backend threat interval on <code>community.threat</code> — see <code>domain-service/docs/rank-algorithm.md</code> — and carries no client-side heuristics, so every channel renders the same verdict. Three marks sit on the track: the <strong>gradient</strong> (the danger axis), the <strong>confidence band</strong> spanning <code>[lower, upper]</code> (tinted by the level), and a <strong>downward arrow</strong> at the <code>mean</code>.</p>
+
+      <div class="cc-grid">
+
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">Low · Veilig</figcaption>
+          <div class="threat-bar threat-bar--low">
+            <p class="threat-bar__title t-label-s">Community threat</p>
+            <div class="threat-bar__meter" role="img" aria-label="Risk level: Safe">
+              <span class="threat-bar__band" style="left:12%;width:32%;" aria-hidden="true"></span>
+              <span class="threat-bar__pointer" style="left:28%;" aria-hidden="true"></span>
+            </div>
+            <div class="threat-bar__scale t-body-s"><span>Safe</span><span>Dangerous</span></div>
+          </div>
+          <p class="threat-bar__data">mean 0.28 · [0.12, 0.44] · lower &lt; 0.45</p>
+        </figure>
+
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">Elevated · Verdacht</figcaption>
+          <div class="threat-bar threat-bar--elevated">
+            <p class="threat-bar__title t-label-s">Community threat</p>
+            <div class="threat-bar__meter" role="img" aria-label="Risk level: Suspicious">
+              <span class="threat-bar__band" style="left:55.6%;width:38.7%;" aria-hidden="true"></span>
+              <span class="threat-bar__pointer" style="left:75%;" aria-hidden="true"></span>
+            </div>
+            <div class="threat-bar__scale t-body-s"><span>Safe</span><span>Dangerous</span></div>
+          </div>
+          <p class="threat-bar__data">mean 0.75 · [0.56, 0.94] · lower ≥ 0.45 <em style="font-style:normal;color:var(--c-dark-green);">· live prod nr.</em></p>
+        </figure>
+
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">High · Gevaarlijk</figcaption>
+          <div class="threat-bar threat-bar--high">
+            <p class="threat-bar__title t-label-s">Community threat</p>
+            <div class="threat-bar__meter" role="img" aria-label="Risk level: Dangerous">
+              <span class="threat-bar__band" style="left:73%;width:25%;" aria-hidden="true"></span>
+              <span class="threat-bar__pointer" style="left:86%;" aria-hidden="true"></span>
+            </div>
+            <div class="threat-bar__scale t-body-s"><span>Safe</span><span>Dangerous</span></div>
+          </div>
+          <p class="threat-bar__data">mean 0.86 · [0.73, 0.98] · lower ≥ 0.72</p>
+        </figure>
+
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">Unknown · Onbekend</figcaption>
+          <div class="threat-bar threat-bar--unknown">
+            <p class="threat-bar__title t-label-s">Community threat</p>
+            <div class="threat-bar__meter" role="img" aria-label="Risk level: Unrated">
+              <span class="threat-bar__band" style="left:20%;width:60%;" aria-hidden="true"></span>
+              <span class="threat-bar__pointer" style="left:50%;" aria-hidden="true"></span>
+            </div>
+            <div class="threat-bar__scale t-body-s"><span>Safe</span><span>Dangerous</span></div>
+          </div>
+          <p class="threat-bar__data">no confidence — evidence too thin to rate</p>
+        </figure>
+
+      </div>
+
+      <h3 style="margin-top:28px;">Cutoffs</h3>
+      <p class="t-body-m" style="margin: 0 0 20px; color: var(--c-dark-grey);">The band is gated on the <strong>lower</strong> bound of the interval (not the mean), so a wide, unconfirmed interval self-suppresses until the evidence tightens. Two thresholds — recalibrated on production data (<code>domain-service/docs/rank-algorithm.md</code>) — split the 0–1 axis into the three verdict zones. The arrow (mean) only positions the marker; it never decides the band.</p>
+      <div class="threat-bar" style="max-width:520px;">
+        <div class="threat-bar__meter" style="margin-top:30px;">
+          <span class="threat-gate" style="left:45%;" aria-hidden="true"><span class="threat-gate__label">0.45</span></span>
+          <span class="threat-gate" style="left:72%;" aria-hidden="true"><span class="threat-gate__label">0.72</span></span>
+        </div>
+        <div class="threat-zones">
+          <span class="z-low" style="flex:0 0 45%;">Low</span>
+          <span class="z-elevated" style="flex:0 0 27%;">Elevated</span>
+          <span class="z-high" style="flex:0 0 28%;">High</span>
+        </div>
+      </div>
+      <p class="t-body-s" style="margin: 12px 0 0; color: var(--c-dark-grey);"><code>lower ≥ 0.72 → High</code> · <code>lower ≥ 0.45 → Elevated</code> · <code>else Low</code> · <code>no interval → Unknown</code>. Card mapping: Elevated → orange <code>reported</code>, High → red <code>dangerous</code>.</p>
+
+      <h3 style="margin-top:28px;">Implementation spec</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Everything a native (iOS/Android) client needs to draw the same gauge from the DTO. All positions are a fraction of the track width; the axis origin is the left edge.</p>
+
+      <ul class="t-body-m" style="margin: 0 0 16px 18px; color: var(--c-dark-grey); line-height: 1.7;">
+        <li><strong>Input</strong> — <code>community.threat = { mean, lower, upper, band }</code>. <code>mean/lower/upper ∈ [0, 1]</code> on a danger axis (0 = safe, 1 = dangerous). <code>band</code> is the ordinal <code>0 Unknown · 1 Low · 2 Elevated · 3 High</code>. When the whole object is absent, render <em>nothing</em> — never infer "safe" from missing data.</li>
+        <li><strong>Geometry</strong> — arrow x = <code>mean</code> (clamp to <code>[2%, 98%]</code> so it stays on the track); band = <code>left: lower</code>, <code>width: upper − lower</code> (min width ~2px). All as a percentage of the track.</li>
+        <li><strong>Track gradient</strong> (left→right) — <code>--c-dark-green</code> 0% → <code>#9ACD32</code> 30% → <code>#F5A623</code> 58% → <code>--c-stop-red</code> 100%.</li>
+        <li><strong>Level colour</strong> (band tint + arrow) — Low <code>--c-dark-green</code>, Elevated <code>#F5A623</code>, High <code>--c-stop-red</code>, Unknown <code>--c-mid-grey</code>. Band is the level colour at ~38–45% opacity; arrow is the solid level colour.</li>
+        <li><strong>Band fallback</strong> — prefer the server <code>band</code>. If it is absent, derive from the <em>lower</em> bound: <code>lower ≥ 0.72 → High</code>; <code>lower ≥ 0.45 → Elevated</code>; else <code>Low</code>; a null interval → <code>Unknown</code>. Gating on the lower bound means a lone unconfirmed complaint self-suppresses (stays Low) until corroborated.</li>
+        <li><strong>Accessibility</strong> — expose the verdict as a label on the meter (e.g. <code>"Risk level: Suspicious"</code>); the band and arrow are decorative.</li>
+      </ul>
     </div>
   </section>
 
