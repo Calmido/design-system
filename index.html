@@ -1844,14 +1844,14 @@
 
     <div class="panel">
       <h3>Anatomy</h3>
-      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">A single left-origin gauge for the caller's community-threat level. <strong>Safe is on the left (green), dangerous on the right (red)</strong>, so the raw 0–1 values map straight to a percentage. It is fed entirely by the backend threat interval on <code>community.threat</code> — see <code>domain-service/docs/rank-algorithm.md</code> — and carries no client-side heuristics, so every channel renders the same verdict. Three marks sit on the track: the <strong>gradient</strong> (the danger axis), the <strong>confidence band</strong> spanning <code>[lower, upper]</code> (tinted by the level), and a <strong>downward arrow</strong> at the <code>mean</code>.</p>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">A single left-origin gauge for the caller's community-threat level. <strong>Safe is on the left (green), dangerous on the right (red)</strong>, so the raw 0–1 values map straight to a percentage. It is fed entirely by the backend threat interval on <code>community.threat</code> — see <code>domain-service/docs/rank-algorithm.md</code> — and carries no client-side heuristics, so every channel renders the same verdict. Three marks sit on the track: the <strong>gradient</strong> (the danger axis), the <strong>confidence band</strong> spanning <code>[lower, upper]</code> (tinted by the level), and a <strong>downward arrow</strong> at the <code>mean</code>. The title and axis labels are localised strings from content — EN <em>“Risk level”</em>, NL <em>“Risiconiveau”</em> — not part of the component.</p>
 
       <div class="cc-grid">
 
         <figure class="cc-cell">
           <figcaption class="cc-caption">Low · Veilig</figcaption>
           <div class="threat-bar threat-bar--low">
-            <p class="threat-bar__title t-label-s">Community threat</p>
+            <p class="threat-bar__title t-label-s">Risk level</p>
             <div class="threat-bar__meter" role="img" aria-label="Risk level: Safe">
               <span class="threat-bar__band" style="left:12%;width:32%;" aria-hidden="true"></span>
               <span class="threat-bar__pointer" style="left:28%;" aria-hidden="true"></span>
@@ -1864,7 +1864,7 @@
         <figure class="cc-cell">
           <figcaption class="cc-caption">Elevated · Verdacht</figcaption>
           <div class="threat-bar threat-bar--elevated">
-            <p class="threat-bar__title t-label-s">Community threat</p>
+            <p class="threat-bar__title t-label-s">Risk level</p>
             <div class="threat-bar__meter" role="img" aria-label="Risk level: Suspicious">
               <span class="threat-bar__band" style="left:55.6%;width:38.7%;" aria-hidden="true"></span>
               <span class="threat-bar__pointer" style="left:75%;" aria-hidden="true"></span>
@@ -1877,7 +1877,7 @@
         <figure class="cc-cell">
           <figcaption class="cc-caption">High · Gevaarlijk</figcaption>
           <div class="threat-bar threat-bar--high">
-            <p class="threat-bar__title t-label-s">Community threat</p>
+            <p class="threat-bar__title t-label-s">Risk level</p>
             <div class="threat-bar__meter" role="img" aria-label="Risk level: Dangerous">
               <span class="threat-bar__band" style="left:73%;width:25%;" aria-hidden="true"></span>
               <span class="threat-bar__pointer" style="left:86%;" aria-hidden="true"></span>
@@ -1890,7 +1890,7 @@
         <figure class="cc-cell">
           <figcaption class="cc-caption">Unknown · Onbekend</figcaption>
           <div class="threat-bar threat-bar--unknown">
-            <p class="threat-bar__title t-label-s">Community threat</p>
+            <p class="threat-bar__title t-label-s">Risk level</p>
             <div class="threat-bar__meter" role="img" aria-label="Risk level: Unrated">
               <span class="threat-bar__band" style="left:20%;width:60%;" aria-hidden="true"></span>
               <span class="threat-bar__pointer" style="left:50%;" aria-hidden="true"></span>
