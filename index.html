@@ -504,7 +504,7 @@
      overlay keyed to the band, not a new avatar. */
   .threat-arc {
     --ta-size: 104px;
-    --ta-ring: 11px;                /* ring thickness */
+    --ta-ring: 8px;                 /* ring thickness ≈ 7.7% (shared with the aura ring) */
     --ta-gap: 3px;                  /* gap between ring and avatar */
     --ta-sweep: 0%;                 /* % of 360°, = mean */
     --ta-color: var(--c-mid-grey);  /* level colour */
@@ -537,6 +537,45 @@
   .threat-arc--high     { --ta-color: var(--c-stop-red); }
   /* Unknown → no arc: drop the ring and let the avatar fill the circle. */
   .threat-arc--none .threat-arc__avatar { inset: 0; }
+
+  /* ── Avatar aura ring ──────────────────────────────────────────
+     A member's chosen aura wrapped around their avatar as a rounded
+     "C" (chip at 3 o'clock, for Calmido). Same stroke weight as the
+     threat gauge, plus a thin WHITE gap between the photo and the
+     ring so it floats a hair off the image. Drawn identically in the
+     in-app Compose avatars and the caller-ID bitmap. No aura → no
+     ring (the photo fills the circle). Native clients use round caps;
+     a conic-gradient can't, so this reference has butt caps. */
+  .aura-ring {
+    --ar-size: 104px;
+    --ar-ring: 8px;                 /* coloured ring ≈ 7.7% */
+    --ar-gap: 2px;                  /* white inner gap ≈ 2% */
+    --ar-margin: 10px;              /* photo inset ≈ 9.7% = ring + gap */
+    --ar-color: #7048E8;            /* the member's aura */
+    --ar-fill: var(--c-light-grey); /* photo */
+    position: relative;
+    width: var(--ar-size); height: var(--ar-size);
+  }
+  /* The chip is a 52° transparent wedge centred at 3 o'clock (90° in conic terms). */
+  .aura-ring__ring, .aura-ring__gap {
+    content: ""; position: absolute; inset: 0; border-radius: 50%;
+  }
+  .aura-ring__ring {
+    background: conic-gradient(from 0deg, var(--ar-color) 0 64deg, transparent 64deg 116deg, var(--ar-color) 116deg 360deg);
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - var(--ar-ring)), #000 calc(100% - var(--ar-ring)));
+            mask: radial-gradient(farthest-side, transparent calc(100% - var(--ar-ring)), #000 calc(100% - var(--ar-ring)));
+  }
+  /* White gap: same chip, masked to a thin band just inside the coloured ring. */
+  .aura-ring__gap {
+    background: conic-gradient(from 0deg, #fff 0 64deg, transparent 64deg 116deg, #fff 116deg 360deg);
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - var(--ar-ring) - var(--ar-gap)), #000 calc(100% - var(--ar-ring) - var(--ar-gap)), #000 calc(100% - var(--ar-ring)), transparent calc(100% - var(--ar-ring)));
+            mask: radial-gradient(farthest-side, transparent calc(100% - var(--ar-ring) - var(--ar-gap)), #000 calc(100% - var(--ar-ring) - var(--ar-gap)), #000 calc(100% - var(--ar-ring)), transparent calc(100% - var(--ar-ring)));
+  }
+  .aura-ring__avatar {
+    position: absolute; inset: var(--ar-margin);
+    border-radius: 50%; overflow: hidden;
+    background: var(--ar-fill); background-size: cover; background-position: center;
+  }
 
   /* ── Icon grid ─────────────────────────────────────────────── */
   /* All listed icons share one color. Change --ico-fill below to recolor
@@ -2026,11 +2065,61 @@
 
       <ul class="t-body-m" style="margin: 0 0 16px 18px; color: var(--c-dark-grey); line-height: 1.7;">
         <li><strong>Input</strong> — the same <code>community.threat = { mean, band }</code> as the meter. <code>band</code> is <code>0 Unknown · 1 Low · 2 Elevated · 3 High</code>. <code>band = Unknown</code> or a missing interval → <strong>draw no arc</strong> (leave the avatar bare); never infer "safe".</li>
-        <li><strong>Geometry</strong> — ring thickness ≈ <code>11%</code> of the diameter, with a ≈ <code>3%</code> gap between ring and avatar (scale the avatar to fit inside). A faint neutral full-circle track sits under the sweep (~13% of the title colour).</li>
+        <li><strong>Geometry</strong> — ring thickness ≈ <code>7.7%</code> of the diameter (the shared arc stroke — same as the aura ring), with a ≈ <code>3%</code> gap between ring and avatar (scale the avatar to fit inside). A faint neutral full-circle track sits under the sweep (~13% of the title colour).</li>
         <li><strong>Sweep</strong> — starts at 12 o'clock and goes clockwise; angle = <code>mean × 360°</code>, clamped to a <code>5%</code> minimum so a Low caller still shows a nub. Solid level colour, <strong>round cap</strong>.</li>
         <li><strong>Level colour</strong> — Low <code>--c-dark-green</code>, Elevated <code>#F5A623</code>, High <code>--c-stop-red</code> (identical to the meter). Unknown has no arc.</li>
         <li><strong>Sweep fallback</strong> — when the interval carries no <code>mean</code> (e.g. a personal report with no community data), fall back to a per-band constant: High <code>0.9</code> · Elevated <code>0.62</code> · Low <code>0.2</code>.</li>
         <li><strong>Centre avatar</strong> — not defined here: use the caller avatar the channel already renders (identity photo, or the locked / flagged glyph). The arc only adds the ring.</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h3>Avatar aura ring</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">A member's chosen <strong>aura</strong> wrapped around their avatar as a rounded <strong>"C"</strong> — a full ring minus a chip at 3 o'clock (for Calmido). It shares the rounded-arc primitive (and the exact stroke weight) with the threat gauge, and adds a thin <strong>white gap</strong> between the photo and the ring so the ring floats a hair off the image. Drawn identically by the in-app Compose avatars and the caller-ID bitmap served to OEM dialers. <strong>No aura → no ring</strong> (the photo fills the circle).</p>
+
+      <div class="cc-grid">
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">Aura · purple</figcaption>
+          <div class="aura-ring" style="--ar-color:#7048E8; --ar-fill:linear-gradient(135deg,#8FD3C7,#3B7C74); margin:8px auto;">
+            <span class="aura-ring__gap" aria-hidden="true"></span>
+            <span class="aura-ring__ring" aria-hidden="true"></span>
+            <span class="aura-ring__avatar" role="img" aria-label="Member avatar"></span>
+          </div>
+        </figure>
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">Aura · green</figcaption>
+          <div class="aura-ring" style="--ar-color:#10C186; --ar-fill:linear-gradient(135deg,#8FD3C7,#3B7C74); margin:8px auto;">
+            <span class="aura-ring__gap" aria-hidden="true"></span>
+            <span class="aura-ring__ring" aria-hidden="true"></span>
+            <span class="aura-ring__avatar" role="img" aria-label="Member avatar"></span>
+          </div>
+        </figure>
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">Aura · amber</figcaption>
+          <div class="aura-ring" style="--ar-color:#F5A623; --ar-fill:linear-gradient(135deg,#8FD3C7,#3B7C74); margin:8px auto;">
+            <span class="aura-ring__gap" aria-hidden="true"></span>
+            <span class="aura-ring__ring" aria-hidden="true"></span>
+            <span class="aura-ring__avatar" role="img" aria-label="Member avatar"></span>
+          </div>
+        </figure>
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">No aura</figcaption>
+          <div class="aura-ring" style="--ar-fill:linear-gradient(135deg,#8FD3C7,#3B7C74); margin:8px auto;">
+            <span class="aura-ring__avatar" role="img" aria-label="Member avatar" style="inset:0;"></span>
+          </div>
+        </figure>
+      </div>
+
+      <h3 style="margin-top:28px;">Implementation spec</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">All sizes are fractions of the avatar diameter, so the ring scales with the avatar. Angles are 0° = 3 o'clock, clockwise.</p>
+
+      <ul class="t-body-m" style="margin: 0 0 16px 18px; color: var(--c-dark-grey); line-height: 1.7;">
+        <li><strong>Input</strong> — the member's <code>aura</code> colour (an ARGB int). No aura → <strong>draw no ring</strong>; the photo fills the circle.</li>
+        <li><strong>Stroke</strong> — the coloured ring is ≈ <code>7.7%</code> of the diameter — the <em>same</em> stroke as the threat gauge (one shared constant).</li>
+        <li><strong>White gap</strong> — a white ring ≈ <code>2%</code> thick sits just inside the coloured ring, sharing the chip. It is drawn <strong>white</strong> (not transparent) so it separates on any background.</li>
+        <li><strong>Photo inset</strong> — the photo is inset ≈ <code>9.7%</code> (stroke + gap) so its edge meets the white gap.</li>
+        <li><strong>Chip</strong> — a <code>52°</code> opening centred at 3 o'clock makes the "C". The arc runs from <code>26°</code> and sweeps <code>308°</code> clockwise; the white gap shares the same chip.</li>
+        <li><strong>Caps</strong> — <strong>round</strong>. Colour is the raw aura; no state or theming is applied.</li>
       </ul>
     </div>
   </section>
