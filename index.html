@@ -493,6 +493,51 @@
   .threat-zones .z-elevated { color: #F5A623; }
   .threat-zones .z-high     { color: var(--c-stop-red); }
 
+  /* ── Avatar threat arc ─────────────────────────────────────────
+     A ring gauge wrapped around the caller avatar, for compact
+     surfaces with no room for the full threat meter — e.g. the OEM
+     incoming-call screen in Android Screener mode, where the client
+     only controls the caller-ID photo. Same level colours as the
+     threat bar; the sweep is the `mean`; Unknown renders no arc. The
+     centre avatar is whatever the channel already shows (identity
+     photo, or the flagged-caller glyph) — the arc is an independent
+     overlay keyed to the band, not a new avatar. */
+  .threat-arc {
+    --ta-size: 104px;
+    --ta-ring: 11px;                /* ring thickness */
+    --ta-gap: 3px;                  /* gap between ring and avatar */
+    --ta-sweep: 0%;                 /* % of 360°, = mean */
+    --ta-color: var(--c-mid-grey);  /* level colour */
+    --ta-fill: var(--c-light-grey); /* avatar background */
+    position: relative;
+    width: var(--ta-size); height: var(--ta-size);
+  }
+  .threat-arc__track, .threat-arc__sweep {
+    content: ""; position: absolute; inset: 0; border-radius: 50%;
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - var(--ta-ring)), #000 calc(100% - var(--ta-ring)));
+            mask: radial-gradient(farthest-side, transparent calc(100% - var(--ta-ring)), #000 calc(100% - var(--ta-ring)));
+  }
+  .threat-arc__track { background: color-mix(in srgb, var(--c-font-title) 13%, transparent); }
+  /* Sweep from 12 o'clock, clockwise. Native clients use a round cap; a
+     conic-gradient can't, so this reference uses a butt cap. */
+  .threat-arc__sweep { background: conic-gradient(var(--ta-color) var(--ta-sweep), transparent 0); }
+  .threat-arc__avatar {
+    position: absolute; inset: calc(var(--ta-ring) + var(--ta-gap));
+    border-radius: 50%; overflow: hidden;
+    background: var(--ta-fill); background-size: cover; background-position: center;
+    display: grid; place-items: center;
+  }
+  .threat-arc__glyph {
+    display: block; width: 46%; height: 46%; background-color: #fff;
+    -webkit-mask: var(--ta-glyph) center / contain no-repeat;
+            mask: var(--ta-glyph) center / contain no-repeat;
+  }
+  .threat-arc--low      { --ta-color: var(--c-dark-green); }
+  .threat-arc--elevated { --ta-color: #F5A623; }
+  .threat-arc--high     { --ta-color: var(--c-stop-red); }
+  /* Unknown → no arc: drop the ring and let the avatar fill the circle. */
+  .threat-arc--none .threat-arc__avatar { inset: 0; }
+
   /* ── Icon grid ─────────────────────────────────────────────── */
   /* All listed icons share one color. Change --ico-fill below to recolor
      the entire showcase grid. */
@@ -1927,6 +1972,65 @@
         <li><strong>Level colour</strong> (band tint + arrow) — Low <code>--c-dark-green</code>, Elevated <code>#F5A623</code>, High <code>--c-stop-red</code>, Unknown <code>--c-mid-grey</code>. Band is the level colour at ~38–45% opacity; arrow is the solid level colour.</li>
         <li><strong>Band fallback</strong> — prefer the server <code>band</code>. If it is absent, derive from the <em>lower</em> bound: <code>lower ≥ 0.72 → High</code>; <code>lower ≥ 0.45 → Elevated</code>; else <code>Low</code>; a null interval → <code>Unknown</code>. Gating on the lower bound means a lone unconfirmed complaint self-suppresses (stays Low) until corroborated.</li>
         <li><strong>Accessibility</strong> — expose the verdict as a label on the meter (e.g. <code>"Risk level: Suspicious"</code>); the band and arrow are decorative.</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h3>Avatar threat arc</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">A ring gauge wrapped around the caller avatar, for compact surfaces that have no room for the full meter — most notably the <strong>OEM incoming-call screen in Android Screener mode</strong>, where the client only controls the caller-ID photo and label. It reuses the meter's level colours and is fed by the same <code>community.threat</code>: the sweep is the <code>mean</code>, the colour is the <code>band</code>. <strong>Unknown / no interval → no arc.</strong> The centre avatar is whatever the channel already renders (identity photo, or the flagged-caller glyph) — the arc is an independent overlay keyed to the band, never a replacement avatar.</p>
+
+      <div class="cc-grid">
+
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">Low · Veilig</figcaption>
+          <div class="threat-arc threat-arc--low" style="--ta-sweep:28%; --ta-fill:linear-gradient(135deg,#8FD3C7,#3B7C74); margin:8px auto;">
+            <span class="threat-arc__track" aria-hidden="true"></span>
+            <span class="threat-arc__sweep" aria-hidden="true"></span>
+            <span class="threat-arc__avatar" role="img" aria-label="Risk level: Safe"></span>
+          </div>
+          <p class="threat-bar__data">mean 0.28 → sweep 28% · around identity photo</p>
+        </figure>
+
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">Elevated · Verdacht</figcaption>
+          <div class="threat-arc threat-arc--elevated" style="--ta-sweep:75%; --ta-fill:#FD5240; --ta-glyph:url('icons/attention.svg'); margin:8px auto;">
+            <span class="threat-arc__track" aria-hidden="true"></span>
+            <span class="threat-arc__sweep" aria-hidden="true"></span>
+            <span class="threat-arc__avatar" role="img" aria-label="Risk level: Suspicious"><span class="threat-arc__glyph"></span></span>
+          </div>
+          <p class="threat-bar__data">mean 0.75 → sweep 75% · around flag glyph</p>
+        </figure>
+
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">High · Gevaarlijk</figcaption>
+          <div class="threat-arc threat-arc--high" style="--ta-sweep:86%; --ta-fill:#FD5240; --ta-glyph:url('icons/attention.svg'); margin:8px auto;">
+            <span class="threat-arc__track" aria-hidden="true"></span>
+            <span class="threat-arc__sweep" aria-hidden="true"></span>
+            <span class="threat-arc__avatar" role="img" aria-label="Risk level: Dangerous"><span class="threat-arc__glyph"></span></span>
+          </div>
+          <p class="threat-bar__data">mean 0.86 → sweep 86% · around flag glyph</p>
+        </figure>
+
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">Unknown · Onbekend</figcaption>
+          <div class="threat-arc threat-arc--none" style="--ta-fill:var(--c-mid-grey); --ta-glyph:url('icons/avatar.svg'); margin:8px auto;">
+            <span class="threat-arc__avatar" role="img" aria-label="Unrated"><span class="threat-arc__glyph"></span></span>
+          </div>
+          <p class="threat-bar__data">no interval → no arc</p>
+        </figure>
+
+      </div>
+
+      <h3 style="margin-top:28px;">Implementation spec</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Everything a native client needs to overlay the arc on the avatar it already draws. Sizes are fractions of the avatar diameter, so the arc scales with the caller-ID bitmap.</p>
+
+      <ul class="t-body-m" style="margin: 0 0 16px 18px; color: var(--c-dark-grey); line-height: 1.7;">
+        <li><strong>Input</strong> — the same <code>community.threat = { mean, band }</code> as the meter. <code>band</code> is <code>0 Unknown · 1 Low · 2 Elevated · 3 High</code>. <code>band = Unknown</code> or a missing interval → <strong>draw no arc</strong> (leave the avatar bare); never infer "safe".</li>
+        <li><strong>Geometry</strong> — ring thickness ≈ <code>11%</code> of the diameter, with a ≈ <code>3%</code> gap between ring and avatar (scale the avatar to fit inside). A faint neutral full-circle track sits under the sweep (~13% of the title colour).</li>
+        <li><strong>Sweep</strong> — starts at 12 o'clock and goes clockwise; angle = <code>mean × 360°</code>, clamped to a <code>5%</code> minimum so a Low caller still shows a nub. Solid level colour, <strong>round cap</strong>.</li>
+        <li><strong>Level colour</strong> — Low <code>--c-dark-green</code>, Elevated <code>#F5A623</code>, High <code>--c-stop-red</code> (identical to the meter). Unknown has no arc.</li>
+        <li><strong>Sweep fallback</strong> — when the interval carries no <code>mean</code> (e.g. a personal report with no community data), fall back to a per-band constant: High <code>0.9</code> · Elevated <code>0.62</code> · Low <code>0.2</code>.</li>
+        <li><strong>Centre avatar</strong> — not defined here: use the caller avatar the channel already renders (identity photo, or the locked / flagged glyph). The arc only adds the ring.</li>
       </ul>
     </div>
   </section>
