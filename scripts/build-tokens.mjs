@@ -76,6 +76,9 @@ const KT_OUT = resolve(
 
 const camel = (name) => name.replace(/-([a-z0-9])/g, (_, c) => c.toUpperCase());
 
+// '{color.dark-green}' -> 'dark-green', anything else -> null.
+const colorRef = (value) => /^\{color\.([^}]+)\}$/.exec(value)?.[1] ?? null;
+
 // #RRGGBB → 0xFFRRGGBB ; #RRGGBBAA → 0xAARRGGBB (Compose wants ARGB).
 function composeHex(hex) {
   const h = hex.replace('#', '').toUpperCase();
@@ -105,16 +108,23 @@ function emitKotlin() {
   const colorBody = [];
   for (const t of tokens.color) {
     if (t.comment !== undefined) { colorBody.push(`    // ${t.comment}`); continue; }
+    // A {color.x} ref inside the colour group is an alias — a semantic name
+    // for a palette entry. Emit it as the sibling val rather than re-inlining
+    // the hex, so the alias can never drift from what it aliases. Bare name,
+    // not CalmidoColors.x: Kotlin initialises object properties in order, and
+    // an alias always follows its target.
+    const ref = colorRef(t.value);
+    const rhs = ref ? camel(ref) : `Color(${composeHex(t.value)})`;
     const note = t.note ? `  // ${t.note}` : '';
-    colorBody.push(`    val ${camel(t.name)} = Color(${composeHex(t.value)})${note}`);
+    colorBody.push(`    val ${camel(t.name)} = ${rhs}${note}`);
   }
   out.push(...ktObject('CalmidoColors', colorBody));
 
   const inkBody = [];
   for (const t of tokens['font-ink']) {
     if (t.comment !== undefined) { inkBody.push(`    // ${t.comment}`); continue; }
-    const ref = /^\{color\.([^}]+)\}$/.exec(t.value);
-    const rhs = ref ? `CalmidoColors.${camel(ref[1])}` : `Color(${composeHex(t.value)})`;
+    const ref = colorRef(t.value);
+    const rhs = ref ? `CalmidoColors.${camel(ref)}` : `Color(${composeHex(t.value)})`;
     const note = t.note ? `  // ${t.note}` : '';
     inkBody.push(`    val ${camel(t.name)} = ${rhs}${note}`);
   }
@@ -181,16 +191,22 @@ function emitSwift() {
   const colorBody = [];
   for (const t of tokens.color) {
     if (t.comment !== undefined) { colorBody.push(`    // ${t.comment}`); continue; }
+    // Same as the Kotlin emitter: an intra-group ref is an alias, so point at
+    // the sibling rather than re-inlining the hex. Qualified with Self. — a
+    // bare name would lean on scope resolution inside the enum body, and
+    // there is no Swift toolchain here to prove that reading.
+    const ref = colorRef(t.value);
+    const rhs = ref ? `Self.${camel(ref)}` : swiftColorLiteral(t.value);
     const note = t.note ? `  // ${t.note}` : '';
-    colorBody.push(`    static let ${camel(t.name)} = ${swiftColorLiteral(t.value)}${note}`);
+    colorBody.push(`    static let ${camel(t.name)} = ${rhs}${note}`);
   }
   out.push(...swiftEnum('CalmidoColors', colorBody));
 
   const inkBody = [];
   for (const t of tokens['font-ink']) {
     if (t.comment !== undefined) { inkBody.push(`    // ${t.comment}`); continue; }
-    const ref = /^\{color\.([^}]+)\}$/.exec(t.value);
-    const rhs = ref ? `CalmidoColors.${camel(ref[1])}` : swiftColorLiteral(t.value);
+    const ref = colorRef(t.value);
+    const rhs = ref ? `CalmidoColors.${camel(ref)}` : swiftColorLiteral(t.value);
     const note = t.note ? `  // ${t.note}` : '';
     inkBody.push(`    static let ${camel(t.name)} = ${rhs}${note}`);
   }
