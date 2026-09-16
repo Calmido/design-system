@@ -1,0 +1,111 @@
+{
+  "$schema": "Calmido store listing copy — source of truth for the App Store and Google Play listings, across every language. App strings are NOT here: they live in each app's own catalogue (calmido-phone-ios Localizable.xcstrings, calmido-phone-android strings.xml). See $scope below.",
+  "$scope": {
+    "included": "Everything a store console asks you to type: names, subtitles, descriptions, keywords, release notes, and the URLs the listing points at.",
+    "excluded": "In-app strings. Of 267 iOS strings, 163 are byte-identical to an Android one — but 105 of those are under 20 characters ('Cancel', 'Next', 'Skip') and only 3 are prose. Unifying them would cost key remapping, format-specifier differences (%@ vs %1$s) and plural handling, to avoid translating 'Annuleren' twice. Not worth it.",
+    "alsoExcluded": "Screenshots, feature graphics and icons. Different problem — tracked separately."
+  },
+  "$status": "SEEDED, NOT COMPLETE. null means 'not written yet'. The Play values must be exported from the Play Console first — Android is live at 3.1.1, so its listing already exists there and is the better starting point than a blank page. Run scripts/check-store-listing.mjs to see what is still missing or over limit.",
+  "$notEnforced": "There is deliberately no CI check yet. This file is a central place to keep the copy, not a build input. Wiring it into the app repos, and failing builds on drift, is a later decision.",
+  "$limits": {
+    "comment": "Character limits per store. Verify against the live consoles before a submission — Apple and Google both move these.",
+    "appStore": {
+      "name": 30,
+      "subtitle": 30,
+      "promotionalText": 170,
+      "description": 4000,
+      "keywords": 100,
+      "releaseNotes": 4000
+    },
+    "play": {
+      "name": 30,
+      "shortDescription": 80,
+      "fullDescription": 4000,
+      "releaseNotes": 500
+    }
+  },
+  "$locales": {
+    "comment": "Benelux test launch: Netherlands, Belgium, Luxembourg. Belgium is ~40% French-speaking and French is Luxembourg's administrative language, so fr is not optional. German is deliberately out, matching calmido-website's VALID_LOCALES — revisit if Luxembourg demands it. English is en-GB: the Play console currently holds an en-US listing instead, which is to be replaced by en-GB and retired (decided 2026-09-16) — the market is European and the copy is written in British spelling.",
+    "keys": [
+      "en",
+      "nl",
+      "fr"
+    ],
+    "appStore": {
+      "en": "en-GB",
+      "nl": "nl-NL",
+      "fr": "fr-FR"
+    },
+    "play": {
+      "en": "en-GB",
+      "nl": "nl-NL",
+      "fr": "fr-FR"
+    }
+  },
+  "$urls": {
+    "comment": "Locale-prefixed website routes. The fr listing points at be-fr rather than lu-fr because Belgium is the larger French-speaking market of the two — confirm that is the intent.",
+    "en": {
+      "support": "https://www.calmido.com/nl-en/faq",
+      "privacy": "https://www.calmido.com/nl-en/privacy",
+      "marketing": "https://www.calmido.com/nl-en/product"
+    },
+    "nl": {
+      "support": "https://www.calmido.com/nl-nl/faq",
+      "privacy": "https://www.calmido.com/nl-nl/privacy",
+      "marketing": "https://www.calmido.com/nl-nl/product"
+    },
+    "fr": {
+      "support": "https://www.calmido.com/be-fr/faq",
+      "privacy": "https://www.calmido.com/be-fr/privacy",
+      "marketing": "https://www.calmido.com/be-fr/product"
+    }
+  },
+  "appStore": {
+    "$comment": "iOS — App Store Connect. Apple ID 6759002138, bundle com.calmido.phone. Keywords are an Apple-only field and are NOT translations: what a Dutch or French user types to find a call blocker is not the English terms rendered into their language.",
+    "en": {
+      "name": "Calmido Phone",
+      "subtitle": "Know who's calling. Stop scams",
+      "promotionalText": null,
+      "description": null,
+      "keywords": null,
+      "releaseNotes": null
+    },
+    "nl": {
+      "name": "Calmido Phone",
+      "subtitle": null,
+      "promotionalText": null,
+      "description": null,
+      "keywords": null,
+      "releaseNotes": null
+    },
+    "fr": {
+      "name": "Calmido Phone",
+      "subtitle": null,
+      "promotionalText": null,
+      "description": null,
+      "keywords": null,
+      "releaseNotes": null
+    }
+  },
+  "play": {
+    "$comment": "Android — Google Play. The live listing was exported 2026-09-16 and deliberately NOT reused: it described the 3.x dialer (voice commands, contact organisation) and promised call context we do not ship. The console holds en-US only — no nl, no fr — so Dutch and French are new listings, not translations of something live. en-US is being retired in favour of en-GB, so the English copy below goes into a new en-GB listing rather than over the existing one. Play has no keywords field: the full description carries discovery weight instead.",
+    "en": {
+      "name": "Calmido Phone",
+      "shortDescription": "See who is really calling. Caller ID and call screening, built by the community",
+      "fullDescription": "Calmido tells you who is really calling, before you pick up.\n\nEvery day brings calls from numbers you do not recognise. Some are your pharmacy or a delivery driver. Some are a scam. Calmido looks up the number as it rings and shows you what the community already knows about it, so you can decide in a second instead of guessing.\n\n<b>What you get</b>\n\n<b>Caller ID that works on your own phone app</b>\nCalmido does not replace your phone app and does not take over your calls. It runs alongside whatever you already use, adding a name and a risk level to the incoming call screen.\n\n<b>A risk level from real reports</b>\nNumbers are rated from what people actually experienced: phishing, robocalls, callback fraud, telemarketing, silent calls, harassment. Dangerous and suspicious numbers are marked before you answer.\n\n<b>Report a number in seconds</b>\nPick what the call was, and the next person to be called by that number is warned. That is where the ratings come from.\n\n<b>Block what you do not want</b>\nBlock anonymous callers, unknown numbers, foreign countries, or one specific nuisance number.\n\n<b>Verified members</b>\nCalls between Calmido members are cryptographically verified, so you can see the caller is genuinely who the screen says.\n\n<b>Built to know as little as possible</b>\nCalmido does not upload your address book. Adding, inviting or blocking a contact tells our servers nothing. Numbers are looked up only when there is a reason to: a call arriving, or a search you started.\n\n<b>Free, and free to try</b>\nUse Calmido without an account. Becoming a member takes an email address and a phone number, and unlocks verified calls.\n\nCurrently available in the Netherlands, Belgium and Luxembourg.",
+      "releaseNotes": "First Benelux release. Calmido is now a caller ID and call screening app: it runs alongside your own phone app instead of replacing it. Numbers are rated from real reports, so you see a risk level before you answer. Now in English, Dutch and French."
+    },
+    "nl": {
+      "name": "Calmido Phone",
+      "shortDescription": "Zie wie er echt belt. Nummerherkenning en gespreksfiltering door de community",
+      "fullDescription": "Calmido laat zien wie er écht belt, voordat je opneemt.\n\nElke dag bellen er nummers die je niet kent. Soms is het de apotheek of een bezorger. Soms is het oplichting. Calmido zoekt het nummer op terwijl de telefoon gaat en toont wat de community er al over weet, zodat je in één seconde kunt beslissen in plaats van te gokken.\n\n<b>Wat je krijgt</b>\n\n<b>Nummerherkenning bij je eigen belapp</b>\nCalmido vervangt je telefoon-app niet en neemt je gesprekken niet over. Het werkt ernaast en zet een naam en een risiconiveau op het scherm van het inkomende gesprek.\n\n<b>Een risiconiveau uit echte meldingen</b>\nNummers krijgen een beoordeling op basis van wat mensen echt meemaakten: phishing, robocalls, terugbelfraude, telemarketing, stille gesprekken, intimidatie. Gevaarlijke en verdachte nummers zie je vóór je opneemt.\n\n<b>Een nummer melden kost seconden</b>\nKies wat voor gesprek het was en de volgende die door dat nummer gebeld wordt, is gewaarschuwd. Daar komen de beoordelingen vandaan.\n\n<b>Blokkeer wat je niet wilt</b>\nBlokkeer anonieme bellers, onbekende nummers, buitenlandse landen of dat ene vervelende nummer.\n\n<b>Geverifieerde leden</b>\nGesprekken tussen Calmido-leden worden cryptografisch geverifieerd, zodat je zeker weet dat de beller is wie het scherm zegt.\n\n<b>Gebouwd om zo min mogelijk te weten</b>\nCalmido uploadt je adresboek niet. Een contact toevoegen, uitnodigen of blokkeren vertelt onze servers niets. Nummers worden alleen opgezocht als daar een reden voor is: een binnenkomend gesprek, of een zoekopdracht die jij start.\n\n<b>Gratis, en vrijblijvend te proberen</b>\nGebruik Calmido zonder account. Lid worden kost een e-mailadres en een telefoonnummer, en geeft je geverifieerde gesprekken.\n\nOp dit moment beschikbaar in Nederland, België en Luxemburg.",
+      "releaseNotes": "Eerste Benelux-release. Calmido is nu een app voor nummerherkenning en gespreksfiltering: hij werkt naast je eigen telefoon-app in plaats van die te vervangen. Nummers krijgen een beoordeling uit echte meldingen, dus je ziet het risico voordat je opneemt. Nu in het Nederlands, Engels en Frans."
+    },
+    "fr": {
+      "name": "Calmido Phone",
+      "shortDescription": "Voyez qui appelle vraiment. Identification et filtrage par la communauté",
+      "fullDescription": "Calmido vous montre qui appelle vraiment, avant que vous décrochiez.\n\nChaque jour, des numéros inconnus vous appellent. Parfois c'est votre pharmacie ou un livreur. Parfois c'est une arnaque. Calmido consulte le numéro pendant que le téléphone sonne et affiche ce que la communauté en sait déjà : vous décidez en une seconde au lieu de deviner.\n\n<b>Ce que vous obtenez</b>\n\n<b>L'identification d'appel sur votre propre application</b>\nCalmido ne remplace pas votre application de téléphone et ne prend pas vos appels en charge. Il fonctionne à côté d'elle et ajoute un nom et un niveau de risque à l'écran d'appel entrant.\n\n<b>Un niveau de risque issu de vrais signalements</b>\nLes numéros sont évalués à partir de ce que les gens ont réellement vécu : hameçonnage, appels automatisés, fraude au rappel, démarchage, appels silencieux, harcèlement. Les numéros dangereux et suspects sont signalés avant que vous répondiez.\n\n<b>Signaler un numéro prend quelques secondes</b>\nIndiquez de quel type d'appel il s'agissait et la prochaine personne appelée par ce numéro sera avertie. C'est de là que viennent les évaluations.\n\n<b>Bloquez ce que vous ne voulez pas</b>\nBloquez les appels anonymes, les numéros inconnus, les pays étrangers ou ce numéro précis qui insiste.\n\n<b>Des membres vérifiés</b>\nLes appels entre membres Calmido sont vérifiés cryptographiquement : vous savez que l'appelant est bien celui que l'écran annonce.\n\n<b>Conçu pour en savoir le moins possible</b>\nCalmido n'envoie pas votre carnet d'adresses. Ajouter, inviter ou bloquer un contact n'apprend rien à nos serveurs. Un numéro n'est consulté que lorsqu'il y a une raison : un appel qui arrive, ou une recherche que vous lancez.\n\n<b>Gratuit, et sans engagement</b>\nUtilisez Calmido sans compte. Devenir membre demande une adresse e-mail et un numéro de téléphone, et donne accès aux appels vérifiés.\n\nActuellement disponible aux Pays-Bas, en Belgique et au Luxembourg.",
+      "releaseNotes": "Première version Benelux. Calmido est désormais une application d'identification et de filtrage des appels : elle fonctionne à côté de votre application de téléphone au lieu de la remplacer. Les numéros sont évalués à partir de vrais signalements, vous voyez donc le risque avant de répondre. Disponible en français, néerlandais et anglais."
+    }
+  }
+}
