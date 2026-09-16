@@ -1,0 +1,111 @@
+{
+  "$schema": "Calmido store listing copy — source of truth for the App Store and Google Play listings, across every language. App strings are NOT here: they live in each app's own catalogue (calmido-phone-ios Localizable.xcstrings, calmido-phone-android strings.xml). See $scope below.",
+  "$scope": {
+    "included": "Everything a store console asks you to type: names, subtitles, descriptions, keywords, release notes, and the URLs the listing points at.",
+    "excluded": "In-app strings. Of 267 iOS strings, 163 are byte-identical to an Android one — but 105 of those are under 20 characters ('Cancel', 'Next', 'Skip') and only 3 are prose. Unifying them would cost key remapping, format-specifier differences (%@ vs %1$s) and plural handling, to avoid translating 'Annuleren' twice. Not worth it.",
+    "alsoExcluded": "Screenshots, feature graphics and icons. Different problem — tracked separately."
+  },
+  "$status": "SEEDED, NOT COMPLETE. null means 'not written yet'. The Play values must be exported from the Play Console first — Android is live at 3.1.1, so its listing already exists there and is the better starting point than a blank page. Run scripts/check-store-listing.mjs to see what is still missing or over limit.",
+  "$notEnforced": "There is deliberately no CI check yet. This file is a central place to keep the copy, not a build input. Wiring it into the app repos, and failing builds on drift, is a later decision.",
+  "$limits": {
+    "comment": "Character limits per store. Verify against the live consoles before a submission — Apple and Google both move these.",
+    "appStore": {
+      "name": 30,
+      "subtitle": 30,
+      "promotionalText": 170,
+      "description": 4000,
+      "keywords": 100,
+      "releaseNotes": 4000
+    },
+    "play": {
+      "name": 30,
+      "shortDescription": 80,
+      "fullDescription": 4000,
+      "releaseNotes": 500
+    }
+  },
+  "$locales": {
+    "comment": "Benelux test launch: Netherlands, Belgium, Luxembourg. Belgium is ~40% French-speaking and French is Luxembourg's administrative language, so fr is not optional. German is deliberately out, matching calmido-website's VALID_LOCALES — revisit if Luxembourg demands it.",
+    "keys": [
+      "en",
+      "nl",
+      "fr"
+    ],
+    "appStore": {
+      "en": "en-GB",
+      "nl": "nl-NL",
+      "fr": "fr-FR"
+    },
+    "play": {
+      "en": "en-GB",
+      "nl": "nl-NL",
+      "fr": "fr-FR"
+    }
+  },
+  "$urls": {
+    "comment": "Locale-prefixed website routes. The fr listing points at be-fr rather than lu-fr because Belgium is the larger French-speaking market of the two — confirm that is the intent.",
+    "en": {
+      "support": "https://www.calmido.com/nl-en/faq",
+      "privacy": "https://www.calmido.com/nl-en/privacy",
+      "marketing": "https://www.calmido.com/nl-en/product"
+    },
+    "nl": {
+      "support": "https://www.calmido.com/nl-nl/faq",
+      "privacy": "https://www.calmido.com/nl-nl/privacy",
+      "marketing": "https://www.calmido.com/nl-nl/product"
+    },
+    "fr": {
+      "support": "https://www.calmido.com/be-fr/faq",
+      "privacy": "https://www.calmido.com/be-fr/privacy",
+      "marketing": "https://www.calmido.com/be-fr/product"
+    }
+  },
+  "appStore": {
+    "$comment": "iOS — App Store Connect. Apple ID 6759002138, bundle com.calmido.phone. Keywords are an Apple-only field and are NOT translations: what a Dutch or French user types to find a call blocker is not the English terms rendered into their language.",
+    "en": {
+      "name": "Calmido Phone",
+      "subtitle": "Know who's calling. Stop scams",
+      "promotionalText": null,
+      "description": null,
+      "keywords": null,
+      "releaseNotes": null
+    },
+    "nl": {
+      "name": "Calmido Phone",
+      "subtitle": null,
+      "promotionalText": null,
+      "description": null,
+      "keywords": null,
+      "releaseNotes": null
+    },
+    "fr": {
+      "name": "Calmido Phone",
+      "subtitle": null,
+      "promotionalText": null,
+      "description": null,
+      "keywords": null,
+      "releaseNotes": null
+    }
+  },
+  "play": {
+    "$comment": "Android — Google Play. Live at versionName 3.1.1, so these values exist in the Play Console today and should be exported rather than rewritten. Play has no keywords field: the full description carries discovery weight instead, which is why the two stores cannot share one body of text verbatim.",
+    "en": {
+      "name": null,
+      "shortDescription": null,
+      "fullDescription": null,
+      "releaseNotes": null
+    },
+    "nl": {
+      "name": null,
+      "shortDescription": null,
+      "fullDescription": null,
+      "releaseNotes": null
+    },
+    "fr": {
+      "name": null,
+      "shortDescription": null,
+      "fullDescription": null,
+      "releaseNotes": null
+    }
+  }
+}

@@ -12,14 +12,50 @@ The source of truth for Calmido and wiebeltme.nl — colors, typography, compone
 |---|---|
 | [`index.html`](./index.html) | The full browsable design system (open in any browser) |
 | [`tokens.json`](./tokens.json) | **Source of truth** for every design token (colors, type, spacing, radii) |
+| [`store-listing.json`](./store-listing.json) | **Source of truth** for App Store and Google Play listing copy, in every language |
 | [`tokens.css`](./tokens.css) | Generated CSS custom properties — consumed by `index.html` and downstream surfaces |
 | `scripts/build-tokens.mjs` | Generator: reads `tokens.json` → writes `tokens.css` |
+| `scripts/check-store-listing.mjs` | Reports which listing fields are still unwritten or over a store's limit |
+| `scripts/store-listing-csv.mjs` | Round-trips the listing copy through a CSV, for writing and translation |
 | `Calmido-DesignSystem.html` | Redirect stub for the legacy deep-link URL |
 | `assets/` | SVG assets referenced by the system |
 | `icons/` | Icon set — 24×24 SVGs with `currentColor` fill, grouped into subfolders by domain (see [Icons](#icons)) |
 
 Open `index.html` locally or visit the Pages URL above. GitHub Pages is
 configured (legacy mode, `main` / root) to auto-deploy on every push.
+
+## Store listing copy
+
+`store-listing.json` holds what the App Store and Play consoles ask you to type — names,
+subtitles, descriptions, keywords, release notes, and the URLs the listing points at — for
+every language we ship in.
+
+**App strings are not here.** They live in each app's own catalogue
+(`Localizable.xcstrings` on iOS, `strings.xml` on Android). Of 267 iOS strings, 163 are
+byte-identical to an Android one, but 105 of those are under 20 characters — "Cancel",
+"Next", "Skip" — and only 3 are prose. Unifying them would cost key remapping, format
+specifier differences (`%@` vs `%1$s`) and plural handling, in order to avoid translating
+"Annuleren" twice. The store listings are the opposite trade: a few dozen pieces of prose,
+expensive to translate, easy to let drift apart, and read by nobody who can see both
+consoles at once.
+
+**Nothing consumes this file yet.** It is a central place to keep the copy, not a build
+input, and no CI check enforces it. Wiring it into the app repos is a later decision.
+
+```bash
+node scripts/check-store-listing.mjs        # what is still missing, what is over limit
+node scripts/store-listing-csv.mjs export > store-listing.csv
+node scripts/store-listing-csv.mjs import < store-listing.csv
+```
+
+JSON is the stored form because it carries the character limits and the two stores'
+differing field sets — Play has no keywords field, Apple has no short description — which a
+flat table flattens badly. The CSV is the working surface: one row per field, one column per
+language, which is what a spreadsheet and a translator both want. The round trip is
+lossless.
+
+Note the Play values already exist in the Play Console, since Android is live — export them
+rather than writing from a blank page.
 
 ### Token pipeline
 
