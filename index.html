@@ -283,6 +283,31 @@
   .avatar--initials  { background: var(--c-dark-blue); }
   .avatar svg { width: 24px; height: 24px; color: var(--c-white); }
 
+  /* Avatar matrix — one face + one status per caller, drawn per surface.
+     Mirrors calmido-phone-android docs/avatars.md (#400). */
+  .avatar--face     { background: var(--c-bright-blue); }
+  .av { position: relative; display: inline-flex; }
+  .av-badge { position: absolute; right: -5px; bottom: -5px; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--c-white); display: inline-flex; align-items: center; justify-content: center; color: var(--c-white); }
+  .av-badge .ico-mask { width: 14px; height: 14px; }
+  .av-badge--red   { background: var(--c-threat-dangerous); }
+  .av-badge--amber { background: var(--c-threat-elevated); }
+  .av-badge--seal  { background: var(--c-bright-green); }
+  .av-ring { position: relative; width: 64px; height: 64px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: var(--ring); }
+  .av-ring::before { content: ""; position: absolute; inset: 5px; border-radius: 50%; background: var(--c-white); }
+  .av-ring > .avatar { position: relative; width: 50px; height: 50px; }
+  .av-ring--track   { --ring: rgba(0,0,0,0.13); }
+  .av-ring--safe    { --ring: conic-gradient(var(--c-threat-safe) 0 20%, rgba(0,0,0,0.13) 0); }
+  .av-ring--warning { --ring: conic-gradient(var(--c-threat-elevated) 0 62%, rgba(0,0,0,0.13) 0); }
+  .av-ring--danger  { --ring: conic-gradient(var(--c-threat-dangerous) 0 90%, rgba(0,0,0,0.13) 0); }
+  .av-ring--invalid { --ring: repeating-conic-gradient(var(--c-threat-dangerous) 0 5.625deg, var(--c-white) 0 11.25deg); }
+  .av-disc--red { background: var(--c-threat-dangerous); }
+  .av-disc--red .ico-mask, .av-disc--red svg { color: var(--c-white); }
+  .av-cap { font-family: var(--font-mono); font-size: 11px; color: var(--c-dark-grey); letter-spacing: 0.04em; text-transform: uppercase; }
+  .av-row { display: flex; gap: 22px; align-items: flex-start; flex-wrap: wrap; }
+  .av-cell { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 78px; text-align: center; }
+  .av-table { width: 100%; border-collapse: collapse; margin: 8px 0 0; }
+  .av-table th, .av-table td { padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey); text-align: left; vertical-align: top; }
+
   .badge { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 100px; font-family: "Open Sans"; font-weight: 600; font-size: 12px; letter-spacing: 0.02em; }
   .badge--verified { background: rgba(16,193,134,0.14); color: #0A7A55; }
   .badge--business { background: rgba(7,54,158,0.10); color: var(--c-blue); }
@@ -400,11 +425,12 @@
   .caller-card--neutral .caller-card__icon { background-color: var(--c-dark-grey); }
 
   .caller-card--reported { --dotted-card-bg: linear-gradient(135deg, #FCB569 0%, #DF1803 90%); }
-  .caller-card--reported .caller-card__icon { background-color: var(--c-alert-red); }
+  /* A warning card keeps the face (#400); without a photo, this placeholder. */
+  .caller-card--reported .caller-card__icon { background-color: var(--c-white); }
   .caller-card--reported .caller-card__icon-mask {
-    width: 28px; height: 28px; background-color: var(--c-white);
-    -webkit-mask: url('icons/attention.svg') center / contain no-repeat;
-            mask: url('icons/attention.svg') center / contain no-repeat;
+    width: 28px; height: 28px; background-color: var(--c-threat-elevated);
+    -webkit-mask: url('icons/avatar.svg') center / contain no-repeat;
+            mask: url('icons/avatar.svg') center / contain no-repeat;
   }
   .caller-card--reported,
   .caller-card--reported .caller-card__name,
@@ -1281,22 +1307,56 @@
     <p class="sec-sub">46&nbsp;px default · 26&nbsp;px badge pill</p>
 
     <div class="panel">
-      <h3>Caller avatars</h3>
-      <div style="display:flex; gap:18px; align-items:center; flex-wrap:wrap;">
-        <span class="avatar avatar--unknown" title="Unknown caller">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-        </span>
-        <span class="avatar avatar--business" title="Unknown business">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 3v2H5v14h4v-4h2v4h8V9h-6V3h-.5zM7 7h2v2H7V7zm0 4h2v2H7v-2zm0 4h2v2H7v-2zm6-4h2v2h-2v-2zm0 4h2v2h-2v-2z"/></svg>
-        </span>
-        <span class="avatar avatar--initials">RV</span>
-        <span class="avatar avatar--member">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-        </span>
-        <span class="avatar avatar--initials" style="background: var(--c-blue);">SD</span>
-        <span class="avatar avatar--initials" style="background: var(--c-stop-red);">!</span>
+      <h3>Faces</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Every caller has one <strong>face</strong> and one <strong>status</strong>, decided once and drawn per surface. The face is the first that applies: saved contact → member → business → unknown. A photo (device photo, Calmido avatar, business logo) wins; without one, initials on bright blue, else the silhouette — or the building for a business.</p>
+      <div class="av-row">
+        <div class="av-cell"><span class="avatar avatar--face">MV</span><span class="av-cap">initials</span></div>
+        <div class="av-cell"><span class="avatar avatar--unknown"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span><span class="av-cap">no name</span></div>
+        <div class="av-cell"><span class="avatar avatar--business"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 3v2H5v14h4v-4h2v4h8V9h-6V3h-.5zM7 7h2v2H7V7zm0 4h2v2H7v-2zm0 4h2v2H7v-2zm6-4h2v2h-2v-2zm0 4h2v2h-2v-2z"/></svg></span><span class="av-cap">business, no logo</span></div>
       </div>
-      <small class="tok">Background #B4CBCD for Unknown (geometry from external/UnknownCaller and BusinessUnknown).</small>
+      <small class="tok">Initials: white on --c-bright-blue. Placeholder: white on #B4CBCD.</small>
+    </div>
+
+    <div class="panel">
+      <h3>Lists — face + one badge</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Recents, Contacts and the dialpad result always show the face, with at most one badge — the most urgent. The seal only when there is nothing to warn about. No arcs anywhere in the app.</p>
+      <div class="av-row">
+        <div class="av-cell"><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--red"><span class="ico-mask" style="--ico:url('icons/block.svg')"></span></span></span><span class="av-cap">blocked</span></div>
+        <div class="av-cell"><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--red"><span class="ico-mask" style="--ico:url('icons/lock.svg')"></span></span></span><span class="av-cap">locked</span></div>
+        <div class="av-cell"><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--red"><span class="ico-mask" style="--ico:url('icons/danger.svg')"></span></span></span><span class="av-cap">dangerous</span></div>
+        <div class="av-cell"><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--amber"><span class="ico-mask" style="--ico:url('icons/danger.svg')"></span></span></span><span class="av-cap">warning</span></div>
+        <div class="av-cell"><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--seal"><span class="ico-mask" style="--ico:url('icons/verified.svg')"></span></span></span><span class="av-cap">member</span></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>System caller ID — rings</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">The phone's own call screen and the notification. No badges; the ring carries it. <strong>A ring means Calmido knows the caller</strong> — a member or business always has one. <strong>A solid arc is a community score</strong>, sweeping from 12 o'clock. <strong>A striped ring is Calmido's flag, not a score</strong>: a locked account and an invalid number. A saved contact keeps its bare face; blocked is the member's own decision and gets no ring.</p>
+      <div class="av-row">
+        <div class="av-cell"><span class="avatar avatar--face">MV</span><span class="av-cap">saved contact</span></div>
+        <div class="av-cell"><span class="av-ring av-ring--track"><span class="avatar avatar--face">MV</span></span><span class="av-cap">known, no band</span></div>
+        <div class="av-cell"><span class="av-ring av-ring--safe"><span class="avatar avatar--face">MV</span></span><span class="av-cap">safe</span></div>
+        <div class="av-cell"><span class="av-ring av-ring--warning"><span class="avatar avatar--face">MV</span></span><span class="av-cap">warning</span></div>
+        <div class="av-cell"><span class="av-ring av-ring--danger"><span class="avatar av-disc--red"><span class="ico-mask" style="--ico:url('icons/danger.svg'); width:26px; height:26px"></span></span></span><span class="av-cap">dangerous</span></div>
+        <div class="av-cell"><span class="av-ring av-ring--invalid"><span class="avatar av-disc--red"><span class="ico-mask" style="--ico:url('icons/danger.svg'); width:26px; height:26px"></span></span></span><span class="av-cap">invalid number</span></div>
+        <div class="av-cell"><span class="av-ring av-ring--invalid"><span class="avatar av-disc--red"><span class="ico-mask" style="--ico:url('icons/lock.svg'); width:24px; height:24px"></span></span></span><span class="av-cap">locked</span></div>
+        <div class="av-cell"><span class="avatar av-disc--red" style="width:64px;height:64px;"><span class="ico-mask" style="--ico:url('icons/block.svg'); width:30px; height:30px"></span></span><span class="av-cap">blocked</span></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>The matrix</h3>
+      <table class="t-body-m av-table">
+        <thead><tr><th>Surface</th><th>Blocked</th><th>Locked</th><th>Dangerous</th><th>Warning</th><th>None</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Lists</strong></td><td>face + red block badge</td><td>face + red lock badge</td><td>face + red danger badge</td><td>face + amber danger badge</td><td>face; member + green seal</td></tr>
+          <tr><td><strong>Caller card</strong></td><td>block on a white disc</td><td>lock on a white disc</td><td>danger on a white disc</td><td>face</td><td>face</td></tr>
+          <tr><td><strong>System caller ID</strong>, saved contact</td><td>red block disc</td><td>red lock disc + striped ring</td><td>face</td><td>face</td><td>face</td></tr>
+          <tr><td><strong>System caller ID</strong>, member / business</td><td>red block disc</td><td>red lock disc + striped ring</td><td>red danger disc + red arc</td><td>face + amber arc</td><td>face + green arc (Low), grey ring (no band)</td></tr>
+          <tr><td><strong>System caller ID</strong>, unknown number</td><td>red block disc</td><td>—</td><td>red danger disc + red arc</td><td>face + amber arc</td><td>face + green arc (Low), nothing (no band)</td></tr>
+        </tbody>
+      </table>
+      <small class="tok">Dangerous = threat band High, or an invalid number (which gets the striped ring). Warning = band Elevated. Red --c-threat-dangerous · amber --c-threat-elevated · green --c-threat-safe. One danger icon means “dangerous” everywhere — no skull. Source: calmido-phone-android <code>docs/avatars.md</code>.</small>
     </div>
 
     <div class="panel">
@@ -1365,6 +1425,7 @@
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/shield_lock.svg')"></span></div><div class="icon-caption">shield_lock</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/shield_star.svg')"></span></div><div class="icon-caption">shield_star</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/signature.svg')"></span></div><div class="icon-caption">signature</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/danger.svg')"></span></div><div class="icon-caption">danger</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/skull.svg')"></span></div><div class="icon-caption">skull</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/thumb_down.svg')"></span></div><div class="icon-caption">thumb_down</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/thumb_up.svg')"></span></div><div class="icon-caption">thumb_up</div></div>
@@ -1571,7 +1632,7 @@
             <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Dangerous</td>
             <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Dangerous Caller</td>
             <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">displayName wins · label is fallback</td>
-            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">threat band <strong>High</strong> → red <code>alert</code> card + skull. blank → “Dangerous Caller”.</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">threat band <strong>High</strong>, or an invalid number → red <code>alert</code> card + danger icon. blank → “Dangerous Caller”.</td>
           </tr>
           <tr>
             <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Locked</td>
@@ -1820,7 +1881,7 @@
     <div class="panel">
       <h3>Warning · shielded · locked</h3>
       <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Fixed-avatar variants — middle-row glyph is a CSS mask, not an image. <code>reported</code> swaps to an orange→red gradient; <code>alert</code> is the shared red→deep-red template for <em>locked / spoofing / scam / …</em> — defaults render a locked member; override <code>--cc-glyph</code> (and <code>--cc-glyph-size</code>) to swap the glyph and drop in a <code>caller-card__warning</code> label next to the avatar to name the threat. The name slot then falls back to <em>Anonymous</em>/<em>Unknown</em> when no identity is set, like <code>shielded</code> and <code>neutral</code>. <code>shielded</code> uses near-black with bright-green ink; <code>neutral</code> uses grey.</p>
-      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);"><strong>Threat-band selection (web directory).</strong> On the number pages the flagged variant is chosen by the backend <strong>threat band</strong> — see <code>domain-service/docs/rank-algorithm.md</code> (a bounded 0–1 risk interval with a traffic-light band). <strong>Elevated</strong> (warning) → <code>reported</code> (orange, attention icon); <strong>High</strong> (dangerous) → the red <code>alert</code> template with the <strong>skull</strong> glyph, shipped on the web as <code>caller-card--dangerous</code>. <strong>Low / Unknown</strong> → not flagged. The band is decided from the interval's confidence bounds, so a lone unconfirmed complaint self-suppresses (stays Low) until corroborated.</p>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);"><strong>Threat-band selection (web directory).</strong> On the number pages the flagged variant is chosen by the backend <strong>threat band</strong> — see <code>domain-service/docs/rank-algorithm.md</code> (a bounded 0–1 risk interval with a traffic-light band). <strong>Elevated</strong> (warning) → <code>reported</code> (orange; keeps the caller's face — photo, else a white disc with an amber silhouette); <strong>High</strong> (dangerous) → the red <code>alert</code> template with the <strong>danger</strong> glyph (no skull — one danger icon on every surface, see Avatars), shipped on the web as <code>caller-card--dangerous</code>. <strong>Low / Unknown</strong> → not flagged. The band is decided from the interval's confidence bounds, so a lone unconfirmed complaint self-suppresses (stays Low) until corroborated.</p>
       <div class="cc-grid">
 
         <figure class="cc-cell">
@@ -1889,8 +1950,8 @@
         </figure>
 
         <figure class="cc-cell">
-          <figcaption class="cc-caption">spoofing (alert + skull)</figcaption>
-          <article class="caller-card calmido_dotted_card caller-card--alert" style="--cc-glyph: url('icons/skull.svg'); --cc-glyph-size: 34px;">
+          <figcaption class="cc-caption">spoofing (alert + danger)</figcaption>
+          <article class="caller-card calmido_dotted_card caller-card--alert" style="--cc-glyph: url('icons/danger.svg'); --cc-glyph-size: 34px;">
             <div class="caller-card__row caller-card__row--top"></div>
             <div class="caller-card__row caller-card__row--middle">
               <div class="caller-card__icon"><span class="caller-card__icon-mask" aria-hidden="true"></span></div>
@@ -1905,7 +1966,7 @@
 
         <figure class="cc-cell">
           <figcaption class="cc-caption">dangerous (threat: High)</figcaption>
-          <article class="caller-card calmido_dotted_card caller-card--alert" style="--cc-glyph: url('icons/skull.svg'); --cc-glyph-size: 34px;">
+          <article class="caller-card calmido_dotted_card caller-card--alert" style="--cc-glyph: url('icons/danger.svg'); --cc-glyph-size: 34px;">
             <div class="caller-card__row caller-card__row--top"></div>
             <div class="caller-card__row caller-card__row--middle">
               <div class="caller-card__icon"><span class="caller-card__icon-mask" aria-hidden="true"></span></div>
