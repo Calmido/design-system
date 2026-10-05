@@ -292,6 +292,7 @@
   .av-badge--red   { background: var(--c-threat-dangerous); }
   .av-badge--amber { background: var(--c-threat-elevated); }
   .av-badge--seal  { background: var(--c-bright-green); }
+  .av-badge--dark  { background: var(--c-bg-dark); }
   .av-ring { position: relative; width: 64px; height: 64px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: var(--ring); }
   .av-ring::before { content: ""; position: absolute; inset: 5px; border-radius: 50%; background: var(--c-white); }
   .av-ring > .avatar { position: relative; width: 50px; height: 50px; }
@@ -1320,19 +1321,21 @@
 
     <div class="panel">
       <h3>Lists — face + one badge</h3>
-      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Recents, Contacts and the dialpad result always show the face, with at most one badge — the most urgent. The seal only when there is nothing to warn about. No arcs anywhere in the app.</p>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Recents, Contacts and the dialpad result always show the face, with at most one badge — the most urgent. The green seal vouches for the caller, so only a <strong>verified</strong> member gets it, when there is nothing to warn about. An <strong>unverified</strong> member shows the Calmido C and no badge — never their own photo, initials or name in a list. A <strong>shielded</strong> member shows the C with a dark lock badge: anonymous, not dangerous. No arcs anywhere in the app.</p>
       <div class="av-row">
         <div class="av-cell"><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--red"><span class="ico-mask" style="--ico:url('icons/block.svg')"></span></span></span><span class="av-cap">blocked</span></div>
         <div class="av-cell"><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--red"><span class="ico-mask" style="--ico:url('icons/lock.svg')"></span></span></span><span class="av-cap">locked</span></div>
         <div class="av-cell"><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--red"><span class="ico-mask" style="--ico:url('icons/danger.svg')"></span></span></span><span class="av-cap">dangerous</span></div>
         <div class="av-cell"><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--amber"><span class="ico-mask" style="--ico:url('icons/danger.svg')"></span></span></span><span class="av-cap">warning</span></div>
-        <div class="av-cell"><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--seal"><span class="ico-mask" style="--ico:url('icons/verified.svg')"></span></span></span><span class="av-cap">member</span></div>
+        <div class="av-cell"><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--seal"><span class="ico-mask" style="--ico:url('icons/verified.svg')"></span></span></span><span class="av-cap">verified member</span></div>
+        <div class="av-cell"><span class="av"><span class="avatar avatar--unknown"><span class="ico-mask" style="--ico:url('icons/logo_1.svg'); width:24px; height:24px"></span></span></span><span class="av-cap">unverified member</span></div>
+        <div class="av-cell"><span class="av"><span class="avatar avatar--unknown"><span class="ico-mask" style="--ico:url('icons/logo_1.svg'); width:24px; height:24px"></span></span><span class="av-badge av-badge--dark"><span class="ico-mask" style="--ico:url('icons/lock.svg')"></span></span></span><span class="av-cap">shielded member</span></div>
       </div>
     </div>
 
     <div class="panel">
       <h3>System caller ID — rings</h3>
-      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">The phone's own call screen and the notification. No badges; the ring carries it. <strong>Every caller but a saved contact has a ring</strong> — the grey track alone when Calmido has checked the number but has no score for it yet. <strong>A solid arc is a community score</strong>, sweeping from 12 o'clock. <strong>A striped ring is Calmido's flag, not a score</strong>: a locked account and an invalid number. A saved contact keeps its bare face; blocked is the member's own decision and gets no ring.</p>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">The phone's own call screen and the notification. No badges; the ring carries it. <strong>Every caller but a saved contact has a ring</strong> — the grey track alone when Calmido has checked the number but has no score for it yet. <strong>A solid arc is a community score</strong>, sweeping from 12 o'clock. Only a <strong>verified</strong> member's own photo and name ring; an unverified member rings as the Calmido C and, in the dialer, as <em>Calmido Member</em>. <strong>A striped ring is Calmido's flag, not a score</strong>: a locked account and an invalid number. A saved contact keeps its bare face; blocked is the member's own decision and gets no ring.</p>
       <div class="av-row">
         <div class="av-cell"><span class="avatar avatar--face">MV</span><span class="av-cap">saved contact</span></div>
         <div class="av-cell"><span class="av-ring av-ring--track"><span class="avatar avatar--face">MV</span></span><span class="av-cap">member photo, no band</span></div>
@@ -1352,14 +1355,14 @@
       <table class="t-body-m av-table">
         <thead><tr><th>Surface</th><th>Blocked</th><th>Locked</th><th>Dangerous</th><th>Warning</th><th>None</th></tr></thead>
         <tbody>
-          <tr><td><strong>Lists</strong></td><td>face + red block badge</td><td>face + red lock badge</td><td>face + red danger badge</td><td>face + amber danger badge</td><td>face; member + green seal</td></tr>
+          <tr><td><strong>Lists</strong></td><td>face + red block badge</td><td>face + red lock badge</td><td>face + red danger badge</td><td>face + amber danger badge</td><td>face; <strong>verified</strong> member + green seal; unverified member: C, no badge; shielded: C + dark lock badge</td></tr>
           <tr><td><strong>Caller card</strong></td><td>block on a white disc</td><td>lock on a white disc</td><td>danger on a white disc</td><td>face</td><td>face</td></tr>
           <tr><td><strong>System caller ID</strong>, saved contact</td><td>red block disc</td><td>red lock disc + striped ring</td><td>face</td><td>face</td><td>face</td></tr>
           <tr><td><strong>System caller ID</strong>, member / business</td><td>red block disc</td><td>red lock disc + striped ring</td><td>red danger disc + red arc</td><td>face + amber arc</td><td>face + green arc (Low), grey ring (no band)</td></tr>
           <tr><td><strong>System caller ID</strong>, unknown number</td><td>red block disc</td><td>—</td><td>red danger disc + red arc</td><td>face + amber arc</td><td>face + green arc (Low), grey ring (no band)</td></tr>
         </tbody>
       </table>
-      <small class="tok">Dangerous = threat band High, or an invalid number (which gets the striped ring). Warning = band Elevated. Red --c-threat-dangerous · amber --c-threat-elevated · green --c-threat-safe. One danger icon means “dangerous” everywhere — no skull. Source: calmido-phone-android <code>docs/avatars.md</code>.</small>
+      <small class="tok">Dangerous = threat band High, or an invalid number (which gets the striped ring). Warning = band Elevated. Red --c-threat-dangerous · amber --c-threat-elevated · green --c-threat-safe. One danger icon means “dangerous” everywhere — no skull. An unverified member's self-chosen name and photo show only in the contact detail (an app setting, on by default), and the caller card then reads <strong>NOT VERIFIED</strong> where the logo sits; lists, ring time and the handshake never show them. Source: calmido-phone-android <code>docs/avatars.md</code>.</small>
     </div>
 
     <div class="panel">
