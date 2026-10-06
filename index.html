@@ -348,11 +348,11 @@
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
     border-radius: var(--r-lg);
-    color: var(--c-dark-blue);
+    color: var(--c-white);
     overflow: hidden;
     width: 320px;
     height: 200px;
-    --dotted-card-bg: linear-gradient(135deg, var(--c-bright-green) 0%, var(--c-dark-green) 100%);
+    --dotted-card-bg: linear-gradient(135deg, var(--c-bright-blue) 0%, var(--c-blue) 100%);
     --dotted-card-width: 320px;
     --dotted-card-cols: 8;
     --dotted-card-dot-gap: 0%;
@@ -401,7 +401,7 @@
   .caller-card__icon {
     display: inline-flex; align-items: center; justify-content: center;
     width: 50px; height: 50px; border-radius: 50%;
-    background-color: var(--c-dark-green);
+    background-color: #B4CBCD; /* the placeholder disc: a card never shows initials */
     overflow: hidden; flex-shrink: 0;
   }
   .caller-card__icon img { filter: brightness(0) invert(1); width: 28px; height: 28px; display: block; }
@@ -409,20 +409,23 @@
 
   .caller-card__name {
     margin: 0; font-family: var(--font-body); font-weight: 700;
-    font-size: 22px; line-height: 1.15; color: var(--c-dark-blue);
+    font-size: 22px; line-height: 1.15; color: currentColor;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   .caller-card__name--small { font-size: 18px; }
   .caller-card__meta {
     margin: 0; font-family: var(--font-body); font-weight: 400;
-    font-size: 12px; line-height: 1.4; color: var(--c-dark-blue);
+    font-size: 12px; line-height: 1.4; color: currentColor;
     text-transform: uppercase; opacity: 0.85;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   .caller-card__meta-sep { margin: 0 0.25em; opacity: 0.7; }
 
   /* Variants */
-  .caller-card--neutral  { --dotted-card-bg: linear-gradient(135deg, #B8BAC2 0%, var(--c-light-grey) 90%); }
+  .caller-card--business { --dotted-card-bg: linear-gradient(135deg, var(--c-blue) 0%, var(--c-dark-blue) 100%); }
+  /* Backup: in reserve for a future card kind, unused today. */
+  .caller-card--backup   { --dotted-card-bg: linear-gradient(135deg, #2EC4C9 0%, #15727A 100%); }
+  .caller-card--neutral  { --dotted-card-bg: linear-gradient(135deg, #B8BAC2 0%, var(--c-light-grey) 90%); color: var(--c-dark-blue); }
   .caller-card--neutral .caller-card__icon { background-color: var(--c-dark-grey); }
 
   .caller-card--warning { --dotted-card-bg: linear-gradient(135deg, #FCB569 0%, #DF1803 90%); }
@@ -1309,7 +1312,7 @@
 
     <div class="panel">
       <h3>Faces</h3>
-      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Every caller has one <strong>face</strong> and one <strong>status</strong>, decided once and drawn per surface. The face is the first that applies: saved contact → member → business → unknown. A photo (device photo, Calmido avatar, business logo) wins; without one, initials on bright blue, else the silhouette — or the building for a business. In the system caller ID only a verified member shows their photo, else their initials; any other member gets the Calmido C, as a business gets the building.</p>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Every caller has one <strong>face</strong> and one <strong>status</strong>, decided once and drawn per surface. The face is the first that applies: saved contact → member → business → unknown. A photo (device photo, Calmido avatar, business logo) wins; without one, initials on bright blue in lists, else the silhouette — or the building for a business. The caller card never shows initials: no photo, the silhouette. In the system caller ID only a verified member shows their photo, else their initials; any other member gets the Calmido C, as a business gets the building.</p>
       <div class="av-row">
         <div class="av-cell"><span class="avatar avatar--face">MV</span><span class="av-cap">initials</span></div>
         <div class="av-cell"><span class="avatar avatar--unknown"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span><span class="av-cap">no name</span></div>
@@ -1593,8 +1596,8 @@
       <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">
         The name slot in the bottom row is always populated. Each variant ships a default English
         label (and localised counterparts) that is rendered as the fallback when no per-instance
-        <code>displayName</code> is supplied. Only <strong>Shielded</strong> goes a step further:
-        its label always wins, even when a <code>displayName</code> is set, so a leaked name from
+        <code>displayName</code> is supplied. Only <strong>Shielded</strong> and <strong>Invalid</strong> go a step further:
+        their label always wins, even when a <code>displayName</code> is set, so a leaked name from
         an upstream adapter can never surface on the card. The remaining variants — Member,
         Business, Neutral, Warning, Locked — show <code>displayName</code> when present and fall
         back to the label only when it is blank, so a caller can still see who the locked or
@@ -1620,7 +1623,7 @@
             <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Business</td>
             <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Unknown Caller</td>
             <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">displayName wins · label is fallback</td>
-            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">“John Galinsky” + topLabel “Bravotop Sales” → name shows “John Galinsky”. blank → “Unknown Caller”.</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">topLabel “HEMA” + “Support Afdeling” → HEMA on top, “Support Afdeling” as the name. blank → “Unknown Caller”.</td>
           </tr>
           <tr>
             <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Neutral</td>
@@ -1638,7 +1641,13 @@
             <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Dangerous</td>
             <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Dangerous Caller</td>
             <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">displayName wins · label is fallback</td>
-            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">threat band <strong>High</strong>, or an invalid number → red <code>alert</code> card + danger icon. blank → “Dangerous Caller”.</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">threat band <strong>High</strong> → red <code>alert</code> card + danger icon. blank → “Dangerous Caller”.</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Invalid</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Invalid number</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">label always wins · displayName ignored</td>
+            <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">an invalid number → the red <code>alert</code> card + danger icon, “Invalid number” / “Ongeldig nummer”, the number shown as dialled (061234567).</td>
           </tr>
           <tr>
             <td style="padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey);">Locked</td>
@@ -1659,7 +1668,7 @@
 
     <div class="panel">
       <h3>Member</h3>
-      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Default variant — bright-green → dark-green gradient, Calmido C logo top-left, avatar fallback on dark-green disc.</p>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Default variant — bright-blue → blue gradient (<code>--c-bright-blue</code> → <code>--c-blue</code>), white ink, Calmido C logo top-left. Without a photo the card shows the silhouette on the placeholder disc — <strong>never initials</strong>, for contacts and members alike.</p>
       <div class="cc-grid">
 
         <figure class="cc-cell">
@@ -1791,20 +1800,20 @@
 
     <div class="panel">
       <h3>Business</h3>
-      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">topLabel replaces the logo and ellipsis-truncates next to the flag row; avatar falls back to <code>business_1.svg</code>; name drops to 18px when topLabel is set.</p>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);"><code>caller-card--business</code>: blue → dark-blue (<code>--c-blue</code> → <code>--c-dark-blue</code>), white ink. The business sits on top (<em>HEMA</em>), the name slot carries the department or a person with their title (<em>Support Afdeling</em>). topLabel replaces the logo and ellipsis-truncates next to the flag row; avatar falls back to <code>business_1.svg</code>; name drops to 18px when topLabel is set.</p>
       <div class="cc-grid">
 
         <figure class="cc-cell">
           <figcaption class="cc-caption">with topLabel</figcaption>
-          <article class="caller-card calmido_dotted_card">
+          <article class="caller-card calmido_dotted_card caller-card--business">
             <div class="caller-card__row caller-card__row--top">
-              <span class="caller-card__top-label">Matteo Restaurant Rotterdam</span>
+              <span class="caller-card__top-label">HEMA</span>
             </div>
             <div class="caller-card__row caller-card__row--middle">
               <div class="caller-card__icon"><img src="icons/business_1.svg" alt=""></div>
             </div>
             <div class="caller-card__row caller-card__row--bottom">
-              <h4 class="caller-card__name caller-card__name--small">Mario Andretti</h4>
+              <h4 class="caller-card__name caller-card__name--small">Support Afdeling</h4>
               <p class="caller-card__meta">+31 20 1234567<span class="caller-card__meta-sep"> · </span>The Netherlands</p>
             </div>
           </article>
@@ -1812,7 +1821,7 @@
 
         <figure class="cc-cell">
           <figcaption class="cc-caption">topLabel + 2 flags</figcaption>
-          <article class="caller-card calmido_dotted_card">
+          <article class="caller-card calmido_dotted_card caller-card--business">
             <div class="caller-card__row caller-card__row--top">
               <span class="caller-card__top-label">Bravotop Sales</span>
               <div class="caller-card__flags" aria-hidden="true">
@@ -1832,7 +1841,7 @@
 
         <figure class="cc-cell">
           <figcaption class="cc-caption">long topLabel → ellipsis</figcaption>
-          <article class="caller-card calmido_dotted_card">
+          <article class="caller-card calmido_dotted_card caller-card--business">
             <div class="caller-card__row caller-card__row--top">
               <span class="caller-card__top-label">Some Very Long Restaurant Name In A Very Long City</span>
             </div>
@@ -1848,7 +1857,7 @@
 
         <figure class="cc-cell">
           <figcaption class="cc-caption">long topLabel + 3 flags (flags win)</figcaption>
-          <article class="caller-card calmido_dotted_card">
+          <article class="caller-card calmido_dotted_card caller-card--business">
             <div class="caller-card__row caller-card__row--top">
               <span class="caller-card__top-label">Some Very Long Restaurant Name In A Very Long City</span>
               <div class="caller-card__flags" aria-hidden="true">
@@ -1869,7 +1878,7 @@
 
         <figure class="cc-cell">
           <figcaption class="cc-caption">no topLabel</figcaption>
-          <article class="caller-card calmido_dotted_card">
+          <article class="caller-card calmido_dotted_card caller-card--business">
             <div class="caller-card__row caller-card__row--top"></div>
             <div class="caller-card__row caller-card__row--middle">
               <div class="caller-card__icon"><img src="icons/business_1.svg" alt=""></div>
@@ -1881,6 +1890,28 @@
           </article>
         </figure>
 
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>Backup palette</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);"><code>caller-card--backup</code>: teal #2EC4C9 → #15727A, white ink. Not used by any card today; kept in reserve for a future card kind (Android <code>BackupPalette</code>).</p>
+      <div class="cc-grid">
+        <figure class="cc-cell">
+          <figcaption class="cc-caption">backup</figcaption>
+          <article class="caller-card calmido_dotted_card caller-card--backup">
+            <div class="caller-card__row caller-card__row--top">
+              <span class="caller-card__logo" aria-hidden="true"></span>
+            </div>
+            <div class="caller-card__row caller-card__row--middle">
+              <div class="caller-card__icon"><img src="icons/avatar.svg" alt=""></div>
+            </div>
+            <div class="caller-card__row caller-card__row--bottom">
+              <h4 class="caller-card__name">Sanne Bakker</h4>
+              <p class="caller-card__meta">+31 6 12345678<span class="caller-card__meta-sep"> · </span>Netherlands</p>
+            </div>
+          </article>
+        </figure>
       </div>
     </div>
 
