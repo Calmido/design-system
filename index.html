@@ -283,6 +283,11 @@
   .avatar--initials  { background: var(--c-dark-blue); }
   .avatar svg { width: 24px; height: 24px; color: var(--c-white); }
 
+  /* Avatar matrix renders — Android's AvatarMatrixPreview, one image per group. */
+  .av-renders { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr)); gap: 24px; align-items: start; }
+  .av-renders figure { margin: 0; }
+  .av-renders img { display: block; width: 100%; height: auto; border: 1px solid var(--c-light-grey); border-radius: var(--r-md, 12px); background: #fff; }
+
   /* Avatar matrix — one face + one status per caller, drawn per surface.
      Mirrors calmido-phone-android docs/avatars.md (#400). */
   .avatar--face     { background: var(--c-bright-blue); }
@@ -1366,6 +1371,19 @@
         </tbody>
       </table>
       <small class="tok">Dangerous = threat band High, or an invalid number (which gets the striped ring). Warning = band Elevated. Red --c-threat-dangerous · amber --c-threat-elevated · green --c-threat-safe. One danger icon means “dangerous” everywhere — no skull. An unverified member's self-chosen name and photo show only in the contact detail (an app setting, on by default), and the caller card then reads <strong>NOT VERIFIED</strong> where the logo sits; lists, ring time and the handshake never show them. Source: calmido-phone-android <code>docs/avatars.md</code>.</small>
+    </div>
+
+    <div class="panel">
+      <h3>The matrix, rendered</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">The real components, one row per case and the three surfaces side by side: the <strong>list</strong> row, the <strong>caller card</strong> (at half size) and the <strong>system caller ID</strong> image. Rendered from Android's <code>AvatarMatrixPreview</code> (screenshot tests), so this is what ships, not a mock-up.</p>
+      <div class="av-renders">
+        <figure><figcaption class="cc-caption">contact</figcaption><img src="assets/avatar-matrix/contact.webp" alt="Avatar matrix: saved contacts" loading="lazy"></figure>
+        <figure><figcaption class="cc-caption">member, verified</figcaption><img src="assets/avatar-matrix/member-verified.webp" alt="Avatar matrix: verified members" loading="lazy"></figure>
+        <figure><figcaption class="cc-caption">member, unverified</figcaption><img src="assets/avatar-matrix/member-unverified.webp" alt="Avatar matrix: unverified members" loading="lazy"></figure>
+        <figure><figcaption class="cc-caption">business</figcaption><img src="assets/avatar-matrix/business.webp" alt="Avatar matrix: businesses" loading="lazy"></figure>
+        <figure><figcaption class="cc-caption">unknown number</figcaption><img src="assets/avatar-matrix/unknown.webp" alt="Avatar matrix: unknown numbers" loading="lazy"></figure>
+      </div>
+      <small class="tok">Source: calmido-phone-android <code>app/src/screenshotTest/…/AvatarMatrixPreview.kt</code>; re-render with <code>./gradlew :app:updateDebugScreenshotTest --tests '*AvatarMatrix*'</code> when the rules change. Fixtures: contact Leonard Wolters, member Sanne Bakker, business HEMA / Support Afdeling.</small>
     </div>
 
     <div class="panel">
