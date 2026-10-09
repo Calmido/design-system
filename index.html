@@ -311,8 +311,6 @@
   .av-cap { font-family: var(--font-mono); font-size: 11px; color: var(--c-dark-grey); letter-spacing: 0.04em; text-transform: uppercase; }
   .av-row { display: flex; gap: 22px; align-items: flex-start; flex-wrap: wrap; }
   .av-cell { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 78px; text-align: center; }
-  .av-table { width: 100%; border-collapse: collapse; margin: 8px 0 0; }
-  .av-table th, .av-table td { padding: 10px 12px; border-bottom: 1px solid var(--c-light-grey); text-align: left; vertical-align: top; }
 
   .badge { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 100px; font-family: "Open Sans"; font-weight: 600; font-size: 12px; letter-spacing: 0.02em; }
   .badge--verified { background: rgba(16,193,134,0.14); color: #0A7A55; }
@@ -1360,21 +1358,6 @@
 
     <div class="panel">
       <h3>The matrix</h3>
-      <table class="t-body-m av-table">
-        <thead><tr><th>Surface</th><th>Blocked</th><th>Locked</th><th>Dangerous</th><th>Warning</th><th>None</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Lists</strong></td><td>face + red block badge</td><td>face + red lock badge</td><td>face + red danger badge</td><td>face + amber danger badge</td><td>face; <strong>verified</strong> member + green seal; unverified member: C, no badge; shielded: C + dark lock badge</td></tr>
-          <tr><td><strong>Caller card</strong></td><td>block on a white disc</td><td>lock on a white disc</td><td>danger on a white disc</td><td>face</td><td>face</td></tr>
-          <tr><td><strong>System caller ID</strong>, saved contact</td><td>red block disc</td><td>red lock disc + striped ring</td><td>face</td><td>face</td><td>face</td></tr>
-          <tr><td><strong>System caller ID</strong>, member / business</td><td>red block disc</td><td>red lock disc + striped ring</td><td>red danger disc + red arc</td><td>face + amber arc</td><td>face + green arc (Low), grey ring (no band)</td></tr>
-          <tr><td><strong>System caller ID</strong>, unknown number</td><td>red block disc</td><td>—</td><td>red danger disc + red arc</td><td>face + amber arc</td><td>face + green arc (Low), grey ring (no band)</td></tr>
-        </tbody>
-      </table>
-      <small class="tok">Dangerous = threat band High, or an invalid number (which gets the striped ring). Warning = band Elevated. Red --c-threat-dangerous · amber --c-threat-elevated · green --c-threat-safe. One danger icon means “dangerous” everywhere — no skull. An unverified member's self-chosen name and photo show only in the contact detail (an app setting, on by default), and the caller card then reads <strong>NOT VERIFIED</strong> where the logo sits; lists, ring time and the handshake never show them. Source: calmido-phone-android <code>docs/avatars.md</code>.</small>
-    </div>
-
-    <div class="panel">
-      <h3>The matrix, rendered</h3>
       <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">The real components, one row per case and the three surfaces side by side: the <strong>list</strong> row, the <strong>caller card</strong> (at half size) and the <strong>system caller ID</strong> image. Rendered from Android's <code>AvatarMatrixPreview</code> (screenshot tests), so this is what ships, not a mock-up.</p>
       <div class="av-renders">
         <figure><figcaption class="cc-caption">contact</figcaption><img src="assets/avatar-matrix/contact.webp" alt="Avatar matrix: saved contacts" loading="lazy"></figure>
@@ -1383,6 +1366,7 @@
         <figure><figcaption class="cc-caption">business</figcaption><img src="assets/avatar-matrix/business.webp" alt="Avatar matrix: businesses" loading="lazy"></figure>
         <figure><figcaption class="cc-caption">unknown number</figcaption><img src="assets/avatar-matrix/unknown.webp" alt="Avatar matrix: unknown numbers" loading="lazy"></figure>
       </div>
+      <small class="tok" style="display: block; margin-bottom: 8px;">Dangerous = threat band High, or an invalid number (which gets the striped ring). Warning = band Elevated. Red --c-threat-dangerous · amber --c-threat-elevated · green --c-threat-safe. One danger icon means “dangerous” everywhere — no skull. An unverified member's self-chosen name and photo show only in the contact detail (an app setting, on by default), and the caller card then reads <strong>NOT VERIFIED</strong> where the logo sits; lists, ring time and the handshake never show them.</small>
       <small class="tok">Source: calmido-phone-android <code>app/src/screenshotTest/…/AvatarMatrixPreview.kt</code>; re-render with <code>./gradlew :app:updateDebugScreenshotTest --tests '*AvatarMatrix*'</code> when the rules change. Fixtures: contact Leonard Wolters, member Sanne Bakker, business HEMA / Support Afdeling.</small>
     </div>
 
