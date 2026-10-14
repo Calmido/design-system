@@ -44,13 +44,26 @@
   --c-outlined-label:       #004F54;
   --c-tonal-label:          #324D4D;
 
-  /* ── Re-points to brand colours. Add class="inverse" on a parent to flip all three tokens to their inverse pairs (e.g. on dark surfaces). ── */
+  /* ── Re-points to brand colours. Add class="inverse" on a parent to flip all three tokens to their inverse pairs (e.g. on dark surfaces). The dark theme uses the inverse pairs. ── */
   --c-font-title:         var(--c-blue);
   --c-font-title-inverse: var(--c-white);
   --c-font-body:          var(--c-dark-blue);
   --c-font-body-inverse:  #FFFFFFBF;  /* white @ 75% */
   --c-font-muted:         var(--c-dark-grey);
   --c-font-muted-inverse: #FFFFFF99;  /* white @ 60% */
+
+  /* ── Theme roles: "value" is light, "dark" is dark. Components use these, not palette names, so they follow the theme. ── */
+  --c-surface:        var(--c-light-bg);  /* page background */
+  --c-surface-raised: var(--c-white);  /* cards, panels */
+  --c-surface-muted:  var(--c-light-grey);  /* filled chips, tracks */
+  --c-border:         var(--c-light-grey);  /* dividers, card edges */
+  --c-border-strong:  var(--c-dark-grey);  /* input borders — ≥ 3:1 on the surface */
+  --c-ink-link:       var(--c-blue);  /* 6.5:1 on bg-dark */
+  --c-ink-green:      var(--c-green-ink);  /* green text and icons */
+  --c-ink-danger:     var(--c-threat-dangerous-ink);  /* dangerous verdict, errors — 5.9:1 on bg-dark */
+  --c-ink-warning:    var(--c-threat-elevated-ink);  /* suspicious verdict — 7.9:1 on bg-dark */
+  --c-focus-ring:     var(--c-dark-blue);  /* 2px outline */
+  --c-focus-halo:     var(--c-white);  /* 2px halo inside the ring */
 
   /* ── Font families — three free / Google Fonts ── */
   --font-display: "Geologica", system-ui, -apple-system, Segoe UI, sans-serif;
@@ -76,4 +89,55 @@
   --r-md:   12px;
   --r-lg:   16px;
   --r-pill: 100px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --c-font-title: var(--c-font-title-inverse);
+    --c-font-body: var(--c-font-body-inverse);
+    --c-font-muted: var(--c-font-muted-inverse);
+    --c-surface: var(--c-bg-dark);
+    --c-surface-raised: var(--c-infocard-dark);
+    --c-surface-muted: #2E2F38;
+    --c-border: #3A3B45;
+    --c-border-strong: #80838C;
+    --c-ink-link: #7DA2FF;
+    --c-ink-green: var(--c-bright-green);
+    --c-ink-danger: #FF6B87;
+    --c-ink-warning: var(--c-threat-elevated);
+    --c-focus-ring: var(--c-white);
+    --c-focus-halo: var(--c-dark-blue);
+  }
+}
+[data-theme="dark"] {
+  --c-font-title: var(--c-font-title-inverse);
+  --c-font-body: var(--c-font-body-inverse);
+  --c-font-muted: var(--c-font-muted-inverse);
+  --c-surface: var(--c-bg-dark);
+  --c-surface-raised: var(--c-infocard-dark);
+  --c-surface-muted: #2E2F38;
+  --c-border: #3A3B45;
+  --c-border-strong: #80838C;
+  --c-ink-link: #7DA2FF;
+  --c-ink-green: var(--c-bright-green);
+  --c-ink-danger: #FF6B87;
+  --c-ink-warning: var(--c-threat-elevated);
+  --c-focus-ring: var(--c-white);
+  --c-focus-halo: var(--c-dark-blue);
+}
+[data-theme="light"] {
+  --c-font-title: var(--c-blue);
+  --c-font-body: var(--c-dark-blue);
+  --c-font-muted: var(--c-dark-grey);
+  --c-surface: var(--c-light-bg);
+  --c-surface-raised: var(--c-white);
+  --c-surface-muted: var(--c-light-grey);
+  --c-border: var(--c-light-grey);
+  --c-border-strong: var(--c-dark-grey);
+  --c-ink-link: var(--c-blue);
+  --c-ink-green: var(--c-green-ink);
+  --c-ink-danger: var(--c-threat-dangerous-ink);
+  --c-ink-warning: var(--c-threat-elevated-ink);
+  --c-focus-ring: var(--c-dark-blue);
+  --c-focus-halo: var(--c-white);
 }
