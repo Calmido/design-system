@@ -15,7 +15,7 @@
   body {
     font-family: var(--font-body);
     color: var(--c-blue);
-    background: var(--c-canvas);
+    background: var(--c-surface);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
@@ -272,7 +272,7 @@
     font-family: var(--font-mono); font-size: 16px; color: var(--c-dark-blue); background: transparent;
   }
   .number-check button {
-    border: 0; padding: 0 26px; height: 52px; background: var(--c-bright-green); color: var(--c-filled-label);
+    border: 0; padding: 0 26px; height: 52px; background: var(--c-bright-green); color: var(--c-dark-blue);
     font-family: "Open Sans"; font-weight: 700; font-size: 14px; cursor: pointer; display: inline-flex; align-items:center; gap: 8px;
   }
   .number-check button:hover { filter: brightness(0.96); }
@@ -504,15 +504,15 @@
      2 Elevated · 3 High). Safe is LEFT (green), dangerous RIGHT (red),
      so every value maps to a left-origin percentage. iOS/Android
      reimplement the same geometry natively from the same DTO. The
-     amber mid-stop (#F5A623) has no token yet — kept as a literal. */
-  .threat-bar { --tb-amber: #F5A623; max-width: 320px; }
+     stops are the threat-* scale tokens. */
+  .threat-bar { max-width: 320px; }
   .threat-bar__title { color: var(--c-font-muted); margin: 0 0 var(--sp-2); }
   .threat-bar__meter {
     position: relative; height: 10px; border-radius: 999px; margin-top: 18px;
     /* stops line up with the verdict thresholds (amber from mean ~0.40,
        red as the lower bound clears ~0.72). */
     background: linear-gradient(90deg,
-      var(--c-dark-green) 0%, #9ACD32 30%, var(--tb-amber) 58%, var(--c-stop-red) 100%);
+      var(--c-threat-safe) 0%, var(--c-threat-caution) 30%, var(--c-threat-elevated) 58%, var(--c-threat-dangerous) 100%);
   }
   /* Confidence band [lower, upper], tinted by the traffic-light level. */
   .threat-bar__band {
@@ -520,7 +520,7 @@
     box-shadow: inset 0 0 0 1px rgba(23, 23, 23, 0.25);
   }
   .threat-bar--low      .threat-bar__band { background: color-mix(in srgb, var(--c-dark-green) 38%, transparent); }
-  .threat-bar--elevated .threat-bar__band { background: color-mix(in srgb, var(--tb-amber) 45%, transparent); }
+  .threat-bar--elevated .threat-bar__band { background: color-mix(in srgb, var(--c-threat-elevated) 45%, transparent); }
   .threat-bar--high     .threat-bar__band { background: color-mix(in srgb, var(--c-stop-red) 38%, transparent); }
   .threat-bar--unknown  .threat-bar__band { background: color-mix(in srgb, var(--c-mid-grey) 40%, transparent); }
   /* Downward arrow marking the mean; coloured by the level. */
@@ -530,7 +530,7 @@
     border-top: 9px solid var(--c-font-title);
   }
   .threat-bar--low      .threat-bar__pointer { border-top-color: var(--c-dark-green); }
-  .threat-bar--elevated .threat-bar__pointer { border-top-color: var(--tb-amber); }
+  .threat-bar--elevated .threat-bar__pointer { border-top-color: var(--c-threat-elevated); }
   .threat-bar--high     .threat-bar__pointer { border-top-color: var(--c-stop-red); }
   .threat-bar--unknown  .threat-bar__pointer { border-top-color: var(--c-mid-grey); }
   .threat-bar__scale { display: flex; justify-content: space-between; margin-top: 8px; color: var(--c-font-muted); }
@@ -628,7 +628,7 @@
 
   /* ── Radii / Spacing / Shadow ──────────────────────────────── */
   .radii { display: flex; gap: 18px; align-items: flex-end; }
-  .radii .r { background: var(--c-bright-green); width: 88px; height: 72px; display:flex; align-items:flex-end; justify-content:center; color: var(--c-filled-label); font-family: var(--font-mono); font-size: 11px; padding-bottom: 6px; }
+  .radii .r { background: var(--c-bright-green); width: 88px; height: 72px; display:flex; align-items:flex-end; justify-content:center; color: var(--c-dark-blue); font-family: var(--font-mono); font-size: 11px; padding-bottom: 6px; }
 
   .spacing-row { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
   .sp-cell { display: flex; flex-direction: column; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 11px; color: var(--c-dark-grey); }
@@ -778,7 +778,7 @@
         <!-- Calmido C (from components/CalmidoCIcon) -->
         <svg viewBox="0 0 20 19" fill="currentColor"><path d="M 14.063 10.785 L 20 10.785 C 19.426 15.744 15.469 19 10.077 19 L 10 19 C 4.297 19 0 15.195 0 9.5 C 0 3.805 4.167 0 10 0 L 10.077 0 C 15.469 0 19.426 3.253 20 8.212 L 14.063 8.212 C 13.543 6.61 12.057 5.379 10.08 5.379 L 10.003 5.379 C 7.529 5.379 5.836 7.112 5.836 9.5 C 5.836 11.888 7.529 13.621 10.003 13.621 L 10.08 13.621 C 12.06 13.621 13.543 12.413 14.063 10.788 L 14.063 10.785 Z" fill-rule="nonzero"/></svg>
       </span>
-      <span class="wordmark">Calmido / wiebeltme.nl — Design System</span>
+      <span class="wordmark">Calmido — Design System</span>
     </div>
     <div class="mast-meta">
       <b>extracted from</b> Calmido Website en wiebeltme.nl.fig<br>
@@ -2184,7 +2184,7 @@
       <ul class="t-body-m" style="margin: 0 0 16px 18px; color: var(--c-dark-grey); line-height: 1.7;">
         <li><strong>Input</strong> — <code>community.threat = { mean, lower, upper, band }</code>. <code>mean/lower/upper ∈ [0, 1]</code> on a danger axis (0 = safe, 1 = dangerous). <code>band</code> is the ordinal <code>0 Unknown · 1 Low · 2 Elevated · 3 High</code>. When the whole object is absent, render <em>nothing</em> — never infer "safe" from missing data.</li>
         <li><strong>Geometry</strong> — arrow x = <code>mean</code> (clamp to <code>[2%, 98%]</code> so it stays on the track); band = <code>left: lower</code>, <code>width: upper − lower</code> (min width ~2px). All as a percentage of the track.</li>
-        <li><strong>Track gradient</strong> (left→right) — <code>--c-dark-green</code> 0% → <code>#9ACD32</code> 30% → <code>#F5A623</code> 58% → <code>--c-stop-red</code> 100%.</li>
+        <li><strong>Track gradient</strong> (left→right) — <code>--c-threat-safe</code> 0% → <code>--c-threat-caution</code> 30% → <code>--c-threat-elevated</code> 58% → <code>--c-threat-dangerous</code> 100%.</li>
         <li><strong>Level colour</strong> (band tint + arrow) — Low <code>--c-dark-green</code>, Elevated <code>#F5A623</code>, High <code>--c-stop-red</code>, Unknown <code>--c-mid-grey</code>. Band is the level colour at ~38–45% opacity; arrow is the solid level colour.</li>
         <li><strong>Band fallback</strong> — prefer the server <code>band</code>. If it is absent, derive from the <em>lower</em> bound: <code>lower ≥ 0.72 → High</code>; <code>lower ≥ 0.45 → Elevated</code>; else <code>Low</code>; a null interval → <code>Unknown</code>. Gating on the lower bound means a lone unconfirmed complaint self-suppresses (stays Low) until corroborated.</li>
         <li><strong>Verdict chip</strong> — every surface that shows the meter shows the verdict as an icon + word chip next to it: Safe (check, <code>--c-green-ink</code>), Suspicious (attention, <code>--c-threat-elevated-ink</code>), Dangerous (danger, <code>--c-threat-dangerous-ink</code>), Unrated (word only — it is no verdict). Colour and position alone never carry the verdict: red and green are hard to tell apart for ~8% of men.</li>

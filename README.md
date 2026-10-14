@@ -1,6 +1,12 @@
 # Calmido Design System
 
-The source of truth for Calmido and wiebeltme.nl — colors, typography, components, and signature widgets.
+The source of truth for Calmido — colors, typography, components, and signature widgets.
+
+**Names.** *Calmido* is the company and the brand. *Calmido Phone* is the app
+(iOS and Android). *wiebeltme.nl* / *wiebelt.me* are campaign domains, not a
+separate brand: the Calmido website serves them with a campaign theme
+(noindex), and their footer reads "een service van Calmido". They use this
+design system because they are the Calmido website.
 
 **Live site:** https://calmido.github.io/design-system/
 
@@ -68,6 +74,8 @@ artifact can't silently drift from `tokens.json`. See
 | Dark Green | `#10C186` | Fills only — primary action, toggle state. Never text (2.33:1) |
 | Green Ink | `#0A7A55` | Green text, icons, links on light (5.35:1) |
 | Bright Green | `#40EDAB` | Filled button, hero highlight |
+| Tonal Green | `#DBF6ED` | Tonal button fill |
+| Body Ink | `#3A4268` | Body prose on light |
 
 > **Logo Blue is the single canonical value for all rendered logo art.**
 > Prior to 2026-06-17 the four logo SVGs disagreed (`#05028E` wordmark,
@@ -87,12 +95,27 @@ artifact can't silently drift from `tokens.json`. See
 | Threat Dangerous Ink | `#D0103A` | "Gevaarlijk" text + icons, error messages (5.5:1) |
 | Threat Elevated Ink | `#8A5300` | "Verdacht" text + icons (6.3:1) |
 
+### Threat scale
+
+Named for the band, not the hue; fills only (meter, badges, arcs).
+
+| Token | Value |
+|---|---|
+| `threat-safe` | Dark Green `#10C186` |
+| `threat-caution` | `#9ACD32` |
+| `threat-elevated` | `#F5A623` |
+| `threat-dangerous` | Stop Red `#FF3260` |
+| `threat-unrated` | Mid Grey `#C1C3EB` |
+
+Caller-card gradients: `caller-warning-start/end` `#B45309` → `#DF1803`, `caller-alert-start/end` `#D0103A` → `#C91300`.
+
 ### Neutrals
 
 | Token | Hex |
 |---|---|
 | White | `#FFFFFF` |
-| Light Theme BG | `#FBFBFB` |
+| Light Theme BG | `#FBFBFB` — page background (`--c-surface` in light) |
+| Canvas | `#F7F7F8` — neutral fill behind placeholders (map facade) |
 | Warm Canvas | `#F2EEED` |
 | Content Light Grey | `#DADBE0` |
 | Content Mid Grey | `#C1C3EB` |
@@ -270,10 +293,10 @@ Implementations:
 
 ## Updating
 
-This system was extracted from `Calmido Website en wiebeltme.nl.fig`, page `CSS styles` (node `1:2369`). When the Figma file changes, update tokens in `index.html` inside the `:root { … }` block — everything cascades from there.
+This system was extracted from `Calmido Website en wiebeltme.nl.fig`, page `CSS styles` (node `1:2369`). When the Figma file changes, update `tokens.json` and run `npm run build:tokens` — everything cascades from there.
 
 ---
 
 ## License
 
-Internal use — Calmido / wiebeltme.nl.
+Internal use — Calmido.

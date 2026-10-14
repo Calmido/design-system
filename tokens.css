@@ -39,10 +39,6 @@
   /* ── neutrals observed in canvas (f7f7f8 base, 242 238 237 warm) ── */
   --c-canvas:               #F7F7F8;
   --c-canvas-warm:          #F2EEED;
-  /* ── ink on buttons (observed in Figma button specs) ── */
-  --c-filled-label:         #030815;
-  --c-outlined-label:       #004F54;
-  --c-tonal-label:          #324D4D;
 
   /* ── Re-points to brand colours. Add class="inverse" on a parent to flip all three tokens to their inverse pairs (e.g. on dark surfaces). The dark theme uses the inverse pairs. ── */
   --c-font-title:         var(--c-blue);
