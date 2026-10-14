@@ -96,6 +96,20 @@ const camel = (name) => name.replace(/-([a-z0-9])/g, (_, c) => c.toUpperCase());
 // '{color.dark-green}' -> 'dark-green', anything else -> null.
 const colorRef = (value) => /^\{color\.([^}]+)\}$/.exec(value)?.[1] ?? null;
 
+// Theme roles for the native emitters: every token with a "dark" value, named
+// fontTitle for font-ink and surface for theme, with the object each ref
+// points into.
+const NATIVE_OBJECT = { color: 'CalmidoColors', 'font-ink': 'CalmidoFontInk' };
+const themed = groupKeys.flatMap((g) => tokens[g]
+  .filter((t) => t.dark !== undefined)
+  .map((t) => ({ ...t, field: camel(g === 'font-ink' ? `font-${t.name}` : t.name) })));
+function nativeColor(value, literal) {
+  const m = /^\{([^.}]+)\.([^}]+)\}$/.exec(value);
+  if (!m) return literal(value);
+  if (!NATIVE_OBJECT[m[1]]) throw new Error(`No native object for ref: ${value}`);
+  return `${NATIVE_OBJECT[m[1]]}.${camel(m[2])}`;
+}
+
 // #RRGGBB → 0xFFRRGGBB ; #RRGGBBAA → 0xAARRGGBB (Compose wants ARGB).
 function composeHex(hex) {
   const h = hex.replace('#', '').toUpperCase();
@@ -156,6 +170,17 @@ function emitKotlin() {
     .filter((t) => t.name !== undefined)
     .map((t) => `    val ${camel(t.name)} = ${parseInt(t.value, 10)}.dp`);
   out.push(...ktObject('CalmidoRadius', radiusBody));
+
+  const ktColor = (v) => nativeColor(v, (hex) => `Color(${composeHex(hex)})`);
+  out.push('// Theme roles: pick CalmidoThemeLight or CalmidoThemeDark from the system setting.');
+  out.push('data class CalmidoThemeColors(');
+  out.push(...themed.map((t) => `    val ${t.field}: Color,`));
+  out.push(')', '');
+  for (const [name, key] of [['CalmidoThemeLight', 'value'], ['CalmidoThemeDark', 'dark']]) {
+    out.push(`val ${name} = CalmidoThemeColors(`);
+    out.push(...themed.map((t) => `    ${t.field} = ${ktColor(t[key])},`));
+    out.push(')', '');
+  }
 
   return out.join('\n');
 }
@@ -238,6 +263,17 @@ function emitSwift() {
     .filter((t) => t.name !== undefined)
     .map((t) => `    static let ${camel(t.name)}: CGFloat = ${parseInt(t.value, 10)}`);
   out.push(...swiftEnum('CalmidoRadius', radiusBody));
+
+  const swColor = (v) => nativeColor(v, swiftColorLiteral);
+  const init = (name, key) => [
+    `    static let ${name} = CalmidoThemeColors(`,
+    ...themed.map((t, i) => `        ${t.field}: ${swColor(t[key])}${i < themed.length - 1 ? ',' : ''}`),
+    '    )',
+  ];
+  out.push('// Theme roles: pick .light or .dark from the system colour scheme.');
+  out.push('struct CalmidoThemeColors {');
+  out.push(...themed.map((t) => `    let ${t.field}: Color`));
+  out.push('', ...init('light', 'value'), ...init('dark', 'dark'), '}', '');
 
   return out.join('\n');
 }
