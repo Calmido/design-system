@@ -50,14 +50,13 @@ committed `tokens.css` doesn't match what the generator produces — so the
 artifact can't silently drift from `tokens.json`. See
 [`.github/workflows/ci.yml`](./.github/workflows/ci.yml).
 
-> **Phase 2 (Android done):** `build-tokens.mjs` also emits Kotlin
-> (`CalmidoColors` / `CalmidoFontInk` / `CalmidoSpacing` / `CalmidoRadius`)
-> straight into the Android tree at
-> `calmido-phone-android/app/src/main/java/com/calmido/app/ui/theme/generated/CalmidoTokens.kt`
-> when that checkout sits alongside this repo (skipped on CI). The Android
-> app consumes these instead of hand-copying — token names match the DS
-> (`brightGreen`, `darkGreen`, `blue`, `brightBlue`, `darkBlue`, `midGrey`…).
-> Swift (`CalmidoColors.swift`) is still pending. See issue #2.
+> **Native:** `build-tokens.mjs` also emits Kotlin and Swift
+> (`CalmidoColors` / `CalmidoFontInk` / `CalmidoSpacing` / `CalmidoRadius`,
+> plus `CalmidoThemeColors` with a light and a dark instance) straight into
+> `calmido-phone-android/.../ui/theme/generated/CalmidoTokens.kt` and
+> `calmido-phone-ios/.../UI/Theme/generated/CalmidoTokens.swift` when those
+> checkouts sit alongside this repo (skipped on CI). Token names match the
+> DS (`brightGreen`, `darkGreen`, `blue`, `midGrey`…).
 
 ---
 
@@ -178,8 +177,10 @@ caller-card gradients. `tokens.css` applies the dark values under
 and `[data-theme="dark"]`; `data-theme="light|dark"` on any element pins
 a theme, so a manual toggle wins either way. A surface that has not moved
 to roles yet pins `data-theme="light"` on `<html>`, because the
-`--c-font-*` inks already flip. Native emitters (Kotlin/Swift) emit light
-values only for now.
+`--c-font-*` inks already flip. Natively the roles are
+`CalmidoThemeColors`: Kotlin `CalmidoThemeLight` / `CalmidoThemeDark`,
+Swift `CalmidoThemeColors.light` / `.dark`; the app picks one from the
+system setting.
 
 ---
 
