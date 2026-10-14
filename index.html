@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=1280" />
@@ -100,12 +100,23 @@
   .number-check:focus-within,
   .number-check--focus,
   .is-focus {
-    outline: 2px solid var(--c-dark-blue); outline-offset: 2px;
-    box-shadow: 0 0 0 2px var(--c-white);
+    outline: 2px solid var(--c-focus-ring); outline-offset: 2px;
+    box-shadow: 0 0 0 2px var(--c-focus-halo);
   }
   .input-pill input:focus-visible,
   .phone-input__number:focus-visible,
   .number-check input:focus-visible { outline: 0; box-shadow: none; }
+
+  /* ── Theme specimen ─────────────────────────────────────────────── */
+  .theme-pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .theme-demo { padding: 20px; border-radius: var(--r-lg); background: var(--c-surface); border: 1px solid var(--c-border); }
+  .theme-demo__card { display: flex; flex-direction: column; gap: 10px; padding: 20px; border-radius: var(--r-lg); background: var(--c-surface-raised); border: 1px solid var(--c-border); }
+  .theme-demo__card p { margin: 0; }
+  .theme-demo__input { height: 44px; padding: 0 16px; border-radius: var(--r-pill); border: 1px solid var(--c-border-strong); background: transparent; color: var(--c-font-body); font: 16px "Open Sans"; }
+  .theme-demo .badge--safe    { background: var(--c-surface-muted); color: var(--c-ink-green); }
+  .theme-demo .badge--warning { background: var(--c-surface-muted); color: var(--c-ink-warning); }
+  .theme-demo .badge--danger  { background: var(--c-surface-muted); color: var(--c-ink-danger); }
+  .theme-demo .badge .ico-mask { width: 14px; height: 14px; }
 
   /* ── Buttons ──────────────────────────────────────────────────── */
   .btn-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
@@ -954,6 +965,42 @@
         <div class="swatch"><div class="chip" style="background:#F2EEED"></div><div class="meta"><div class="name">Warm Canvas</div><div class="hex">#F2EEED</div><div class="use">Homepage hero gradient top.</div></div></div>
       </div>
       <small class="tok">Homepage hero uses linear-gradient(#F2EEED 1%, #FFFFFF 96%).</small>
+    </div>
+
+    <div class="panel">
+      <h3>Theme roles — light &amp; dark</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Every surface supports a light and a dark theme and follows the system setting; <code>data-theme="light|dark"</code> on any element pins it. Components use the role tokens below, not palette names, so they flip with the theme. Fills (bright green, the meter, caller-card gradients) stay the same in both. Until a surface is migrated to roles, pin it with <code>data-theme="light"</code> on <code>&lt;html&gt;</code>: the <code>--c-font-*</code> inks already flip.</p>
+      <div class="theme-pair">
+        <div class="theme-demo" data-theme="light">
+          <div class="theme-demo__card">
+            <p class="t-title-m">Light · surface-raised</p>
+            <p class="t-body-m">Body ink on the card. <span style="color: var(--c-font-muted)">Muted ink.</span></p>
+            <p class="t-body-m"><a href="#colors" style="color: var(--c-ink-link)">Link ink</a> · <span style="color: var(--c-ink-green)">green ink</span></p>
+            <div class="btn-row">
+              <span class="badge badge--safe"><span class="ico-mask" style="--ico:url('icons/check.svg')" aria-hidden="true"></span>Safe</span>
+              <span class="badge badge--warning"><span class="ico-mask" style="--ico:url('icons/attention.svg')" aria-hidden="true"></span>Suspicious</span>
+              <span class="badge badge--danger"><span class="ico-mask" style="--ico:url('icons/danger.svg')" aria-hidden="true"></span>Dangerous</span>
+            </div>
+            <input class="theme-demo__input" value="border-strong" aria-label="Example input" />
+            <div class="btn-row"><button class="btn btn--filled is-focus">Focused</button></div>
+          </div>
+        </div>
+        <div class="theme-demo" data-theme="dark">
+          <div class="theme-demo__card">
+            <p class="t-title-m">Dark · surface-raised</p>
+            <p class="t-body-m">Body ink on the card. <span style="color: var(--c-font-muted)">Muted ink.</span></p>
+            <p class="t-body-m"><a href="#colors" style="color: var(--c-ink-link)">Link ink</a> · <span style="color: var(--c-ink-green)">green ink</span></p>
+            <div class="btn-row">
+              <span class="badge badge--safe"><span class="ico-mask" style="--ico:url('icons/check.svg')" aria-hidden="true"></span>Safe</span>
+              <span class="badge badge--warning"><span class="ico-mask" style="--ico:url('icons/attention.svg')" aria-hidden="true"></span>Suspicious</span>
+              <span class="badge badge--danger"><span class="ico-mask" style="--ico:url('icons/danger.svg')" aria-hidden="true"></span>Dangerous</span>
+            </div>
+            <input class="theme-demo__input" value="border-strong" aria-label="Example input" />
+            <div class="btn-row"><button class="btn btn--filled is-focus">Focused</button></div>
+          </div>
+        </div>
+      </div>
+      <small class="tok">Roles: <code>--c-surface</code> · <code>--c-surface-raised</code> · <code>--c-surface-muted</code> · <code>--c-border</code> · <code>--c-border-strong</code> · <code>--c-font-title/body/muted</code> · <code>--c-ink-link</code> · <code>--c-ink-green</code> · <code>--c-ink-danger</code> · <code>--c-ink-warning</code> · <code>--c-focus-ring</code> · <code>--c-focus-halo</code>. Values in <code>tokens.json</code> (<code>value</code> = light, <code>dark</code> = dark).</small>
     </div>
   </section>
 

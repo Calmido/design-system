@@ -128,6 +128,36 @@ Three families — all free / Google Fonts:
 | Calm_Body_S | Open Sans 400 | 12 / 16 |
 | Calm_Label_S | Open Sans 400 | 12 / 16 · 0.08em tracked |
 
+### Themes: light & dark
+
+Every surface supports both themes and follows the system setting. Theme
+**role** tokens carry a light `value` and a `dark` value in `tokens.json`;
+palette tokens never change with the theme. Components use roles, not
+palette names:
+
+| Role | Light | Dark |
+|---|---|---|
+| `--c-surface` | Light BG `#FBFBFB` | BG Dark `#202128` |
+| `--c-surface-raised` | White | Infocard Dark `#16171C` |
+| `--c-surface-muted` | Light Grey `#DADBE0` | `#2E2F38` |
+| `--c-border` | Light Grey | `#3A3B45` |
+| `--c-border-strong` | Dark Grey `#6F797A` | `#80838C` |
+| `--c-font-title` / `-body` / `-muted` | Blue / Dark Blue / Dark Grey | their `-inverse` pairs (white, 75%, 60%) |
+| `--c-ink-link` | Blue `#07369E` | `#7DA2FF` |
+| `--c-ink-green` | Green Ink `#0A7A55` | Bright Green `#40EDAB` |
+| `--c-ink-danger` | `#D0103A` | `#FF6B87` |
+| `--c-ink-warning` | `#8A5300` | `#F5A623` |
+| `--c-focus-ring` / `--c-focus-halo` | Dark Blue / White | White / Dark Blue |
+
+Fills stay the same in both themes: bright-green button, threat gradient,
+caller-card gradients. `tokens.css` applies the dark values under
+`@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) }`
+and `[data-theme="dark"]`; `data-theme="light|dark"` on any element pins
+a theme, so a manual toggle wins either way. A surface that has not moved
+to roles yet pins `data-theme="light"` on `<html>`, because the
+`--c-font-*` inks already flip. Native emitters (Kotlin/Swift) emit light
+values only for now.
+
 ---
 
 ## Accessibility

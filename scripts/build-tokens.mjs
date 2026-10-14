@@ -59,6 +59,23 @@ for (const group of groupKeys) {
 }
 
 lines.push('}');
+
+// Dark theme: tokens with a "dark" value. Follows the system setting unless
+// data-theme pins one; data-theme also scopes a theme to any element.
+const dark = groupKeys.flatMap(g => tokens[g]
+  .filter(t => t.dark !== undefined)
+  .map(t => [cssVar(g, t.name), resolveValue(t.dark), resolveValue(t.value)]));
+const block = (selector, indent, pick) => [
+  `${indent}${selector} {`,
+  ...dark.map(d => `${indent}  ${d[0]}: ${d[pick]};`),
+  `${indent}}`,
+];
+lines.push('');
+lines.push('@media (prefers-color-scheme: dark) {');
+lines.push(...block(':root:not([data-theme="light"])', '  ', 1));
+lines.push('}');
+lines.push(...block('[data-theme="dark"]', '', 1));
+lines.push(...block('[data-theme="light"]', '', 2));
 lines.push('');
 
 writeFileSync(OUT, lines.join('\n'));
