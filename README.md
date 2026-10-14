@@ -65,7 +65,8 @@ artifact can't silently drift from `tokens.json`. See
 | Calmido Blue | `#07369E` | Headlines, primary ink on light |
 | Bright Blue | `#2050FF` | Action accent, links |
 | Dark Blue | `#081748` | Dark surfaces, deep ink |
-| Dark Green | `#10C186` | Primary action, toggle state |
+| Dark Green | `#10C186` | Fills only — primary action, toggle state. Never text (2.33:1) |
+| Green Ink | `#0A7A55` | Green text, icons, links on light (5.35:1) |
 | Bright Green | `#40EDAB` | Filled button, hero highlight |
 
 > **Logo Blue is the single canonical value for all rendered logo art.**
@@ -83,6 +84,8 @@ artifact can't silently drift from `tokens.json`. See
 | Stop Red | `#FF3260` | Scam / block |
 | Alert Red | `#FD5240` | Warning chips |
 | Dark Red | `#690005` | Error text |
+| Threat Dangerous Ink | `#D0103A` | "Gevaarlijk" text + icons, error messages (5.5:1) |
+| Threat Elevated Ink | `#8A5300` | "Verdacht" text + icons (6.3:1) |
 
 ### Neutrals
 
@@ -123,7 +126,21 @@ Three families — all free / Google Fonts:
 | Calm_Body_L | Open Sans 400 | 16 / 24 |
 | Calm_Body_M | Open Sans 400 | 14 / 20 |
 | Calm_Body_S | Open Sans 400 | 12 / 16 |
-| Calm_Label_S | Open Sans 400 | 9 / 12 · 0.08em tracked |
+| Calm_Label_S | Open Sans 400 | 12 / 16 · 0.08em tracked |
+
+---
+
+## Accessibility
+
+Rules every surface follows. Calmido's audience includes older people,
+low vision, colour blindness, ADHD, anxiety and motor impairments.
+
+- **Fill vs ink.** Bright hues (`dark-green`, `threat-elevated`, `threat-dangerous`) are fills only. Text and icons on light use the ink: `green-ink`, `threat-elevated-ink`, `threat-dangerous-ink`, all ≥ 4.5:1 on white.
+- **Caller-card gradients** carry white ink at ≥ 4.5:1 along the whole gradient: `caller-warning-start/end`, `caller-alert-start/end`.
+- **Verdict = icon + word.** A threat verdict is never only a colour or a position; show the verdict chip, visibly, not only to screen readers.
+- **Focus ring.** Two-tone on `:focus-visible`: 2px `dark-blue` outline, offset 2px, over a 2px white halo. A border colour is not a focus indicator; never `outline: none` on an input (put the ring on the pill shell instead).
+- **Type floor.** 12px minimum; 14px for meaningful text (verdicts, warnings, instructions); 16px in inputs.
+- **Touch targets.** 44px on the web, 44pt on iOS, 48dp on Android.
 
 ---
 
@@ -140,12 +157,12 @@ Three families — all free / Google Fonts:
 
 ## Components
 
-Styles reference (all pill 100px radius, 40px tall):
+Styles reference (all pill 100px radius, 44px tall):
 
 - **Filled** — `#40EDAB` bg, `#081748` ink · hover flips to `#07369E` bg + white ink
 - **Outlined** — `#07369E` border + ink · hover flips to `#07369E` bg + white ink
 - **Tonal** — `#DBF6ED` bg, `#081748` ink · hover flips to `#10C186` bg + white ink
-- **Text** — `#10C186` ink, no bg · hover adds soft green tint
+- **Text** — Green Ink `#0A7A55`, no bg · hover adds soft green tint
 - **Disabled** — `opacity 0.6`, `cursor: not-allowed`
 
 See `index.html` for live specimens including forms, switches, avatars, badges, the full Material-style icon set, the three Who-is-calling card variants, the cross-platform **Threat meter**, and the generic **Section card** primitive (light + inverse, linked + static).
@@ -158,6 +175,7 @@ Horizontal community-threat gauge (`threat-bar`) shared by web, iOS, and Android
 - **Marks:** gradient track (danger axis) · confidence band spanning `[lower, upper]`, tinted by level · downward arrow at `mean` (clamped to `[2%, 98%]`).
 - **Track gradient:** `--c-dark-green` 0% → `#9ACD32` 30% → `#F5A623` 58% → `--c-stop-red` 100%.
 - **Level colour** (band + arrow): Low `--c-dark-green` · Elevated `#F5A623` · High `--c-stop-red` · Unknown `--c-mid-grey`.
+- **Verdict chip:** every surface shows the verdict as icon + word next to the meter — Safe (check, green ink) · Suspicious (attention, elevated ink) · Dangerous (danger, dangerous ink) · Unrated (word only). Never colour or position alone.
 - **Band fallback** (if server `band` absent): derive from the *lower* bound — `≥ 0.72 → High`, `≥ 0.45 → Elevated`, else Low; null interval → Unknown. Gating on the lower bound means a lone unconfirmed complaint self-suppresses until corroborated.
 
 ### Section card

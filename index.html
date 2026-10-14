@@ -71,7 +71,7 @@
   .t-body-l     { font-family: "Open Sans"; font-weight: 400; font-size: 16px; line-height: 24px; color: var(--c-font-body); }
   .t-body-m     { font-family: "Open Sans"; font-weight: 400; font-size: 14px; line-height: 20px; letter-spacing: 0.01em; color: var(--c-font-body); }
   .t-body-s     { font-family: "Open Sans"; font-weight: 400; font-size: 12px; line-height: 16px; letter-spacing: 0.02em; color: var(--c-font-body); }
-  .t-label-s    { font-family: "Open Sans"; font-weight: 400; font-size: 9px; line-height: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-font-body); }
+  .t-label-s    { font-family: "Open Sans"; font-weight: 400; font-size: 12px; line-height: 16px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-font-body); }
 
   /* Inverse ink — re-binds the three semantic font tokens within scope.
      Drop class="inverse" onto any container (typically a dark surface)
@@ -91,11 +91,27 @@
   .fam-card .name { margin-top: 20px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-dark-grey); }
   .fam-card .role { margin-top: 4px; font-family: var(--font-display); font-weight: 600; font-size: 16px; color: var(--c-dark-blue); }
 
+  /* ── Focus ring ──────────────────────────────────────────────────
+     Two-tone so it shows on light and dark: a dark-blue outline over a
+     white halo. Inputs inside a pill shell put the ring on the shell. */
+  :focus-visible,
+  .input-pill:focus-within,
+  .phone-input:focus-within,
+  .number-check:focus-within,
+  .number-check--focus,
+  .is-focus {
+    outline: 2px solid var(--c-dark-blue); outline-offset: 2px;
+    box-shadow: 0 0 0 2px var(--c-white);
+  }
+  .input-pill input:focus-visible,
+  .phone-input__number:focus-visible,
+  .number-check input:focus-visible { outline: 0; box-shadow: none; }
+
   /* ── Buttons ──────────────────────────────────────────────────── */
   .btn-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
   .btn {
     position: relative; display: inline-flex; align-items: center; justify-content: center;
-    gap: 8px; height: 40px; padding: 0 24px;
+    gap: 8px; height: 44px; padding: 0 24px;
     border-radius: var(--r-pill); border: 0; cursor: pointer;
     font-family: "Open Sans"; font-weight: 600; font-size: 14px; line-height: 20px; letter-spacing: 0.02em;
     transition: filter .15s ease, background .15s ease, transform .05s ease;
@@ -107,9 +123,9 @@
   .btn--outlined:hover { background: var(--c-blue); color: var(--c-white); }
   .btn--tonal    { background: var(--c-tonal-green); color: var(--c-dark-blue); }
   .btn--tonal:hover { background: var(--c-dark-green); color: var(--c-white); }
-  .btn--text     { background: transparent; color: var(--c-dark-green); padding: 0 12px; }
+  .btn--text     { background: transparent; color: var(--c-green-ink); padding: 0 12px; }
   .btn--text:hover { background: rgba(16,193,134,0.08); }
-  .btn--icon-only { width: 40px; padding: 0; }
+  .btn--icon-only { width: 44px; padding: 0; }
   .btn:disabled { opacity: 0.6; cursor: not-allowed; }
   .btn .ico { width: 18px; height: 18px; }
 
@@ -174,10 +190,10 @@
     height: 44px; padding: 0 18px 0 14px;
     border: 1px solid var(--c-dark-grey); border-radius: var(--r-pill);
     background: var(--c-white); color: var(--c-dark-grey);
-    font-family: "Open Sans"; font-size: 14px;
+    font-family: "Open Sans"; font-size: 16px;
     min-width: 340px;
   }
-  .input-pill input { border: 0; outline: 0; width: 100%; font: inherit; color: var(--c-dark-blue); background: transparent; }
+  .input-pill input { border: 0; width: 100%; font: inherit; color: var(--c-dark-blue); background: transparent; }
   .input-pill .ico { width: 20px; height: 20px; flex: 0 0 auto; color: var(--c-dark-grey); }
 
   .input-std {
@@ -185,32 +201,28 @@
   }
   .input-std label { font-family: "Open Sans"; font-weight: 600; font-size: 12px; letter-spacing: 0.04em; color: var(--c-dark-grey); text-transform: uppercase; }
   .input-std input {
-    width: 100%; height: 40px; padding: 0 16px; border-radius: var(--r-pill);
+    width: 100%; height: 44px; padding: 0 16px; border-radius: var(--r-pill);
     border: 1px solid var(--c-dark-grey); background: var(--c-white);
-    font-family: "Open Sans"; font-size: 14px; color: var(--c-dark-blue);
+    font-family: "Open Sans"; font-size: 16px; color: var(--c-dark-blue);
     box-sizing: border-box;
   }
-  .input-std input:focus { outline: none; border-color: var(--c-dark-green); }
-  .input-std input.is-error,
-  .input-std input.is-error:focus { border-color: var(--c-alert-red); }
+  .input-std input.is-error { border-color: var(--c-alert-red); }
   .input-std .help { font-family: "Open Sans"; font-size: 12px; color: var(--c-dark-grey); }
   /* Unscoped so it also works under the phone-input panel. Specificity
      bumped to a chained selector to beat the panel's dark-blue body colour. */
   .help--error,
-  .help.help--error { color: var(--c-alert-red); }
+  .help.help--error { color: var(--c-threat-dangerous-ink); }
 
   /* Phone input — flag + dial + chevron on the left, national number on the right.
      Single pill, focus ring on the whole shell. */
   .phone-input {
     display: inline-flex; align-items: stretch;
-    width: 320px; height: 40px;
+    width: 320px; height: 44px;
     border: 1px solid var(--c-dark-grey); border-radius: var(--r-pill);
     background: var(--c-white); box-sizing: border-box; overflow: hidden;
-    font-family: "Open Sans"; font-size: 14px;
+    font-family: "Open Sans"; font-size: 16px;
   }
-  .phone-input:focus-within { border-color: var(--c-dark-green); }
-  .phone-input--error,
-  .phone-input--error:focus-within { border-color: var(--c-alert-red); }
+  .phone-input--error { border-color: var(--c-alert-red); }
   .phone-input__country {
     display: inline-flex; align-items: center; gap: 8px;
     padding: 0 12px 0 16px;
@@ -230,7 +242,7 @@
     border-left: 4px solid transparent; border-right: 4px solid transparent;
     border-top: 5px solid var(--c-dark-grey);
   }
-  .phone-input__number { flex: 1; border: 0; outline: 0; padding: 0 16px; background: transparent; color: var(--c-dark-blue); font: inherit; }
+  .phone-input__number { flex: 1; border: 0; padding: 0 16px; background: transparent; color: var(--c-dark-blue); font: inherit; }
   .phone-input__number::placeholder { color: var(--c-dark-grey); }
 
   /* number-check input (seen on Wie belt me pages) */
@@ -240,16 +252,12 @@
     box-shadow: 0 1px 0 rgba(8,23,72,0.04);
     transition: border-color .15s ease;
   }
-  /* Focus: green border, matching the standard inputs. The border sits on the
-     wrapper and the input has outline:0, so :focus-within is the hook;
-     .number-check--focus shows the same state statically in this reference. */
-  .number-check:focus-within,
-  .number-check--focus { border-color: var(--c-dark-green); }
-  /* Error: red border, overrides focus (matches .input-std / .phone-input). */
-  .number-check--error,
-  .number-check--error:focus-within { border-color: var(--c-alert-red); }
+  /* Focus: the shared focus ring (see Accessibility); .number-check--focus
+     shows it statically in this reference. */
+  /* Error: red border (matches .input-std / .phone-input); the ring stays. */
+  .number-check--error { border-color: var(--c-alert-red); }
   .number-check input {
-    border: 0; outline: 0; padding: 0 22px; height: 52px; width: 280px;
+    border: 0; padding: 0 22px; height: 52px; width: 280px;
     font-family: var(--font-mono); font-size: 16px; color: var(--c-dark-blue); background: transparent;
   }
   .number-check button {
@@ -313,11 +321,11 @@
   .av-cell { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 78px; text-align: center; }
 
   .badge { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 100px; font-family: "Open Sans"; font-weight: 600; font-size: 12px; letter-spacing: 0.02em; }
-  .badge--verified { background: rgba(16,193,134,0.14); color: #0A7A55; }
+  .badge--verified { background: rgba(16,193,134,0.14); color: var(--c-green-ink); }
   .badge--business { background: rgba(7,54,158,0.10); color: var(--c-blue); }
-  .badge--alert    { background: rgba(253,82,64,0.14); color: var(--c-alert-red); }
-  .badge--stop     { background: rgba(255,50,96,0.12); color: var(--c-stop-red); }
-  .badge--unknown  { background: var(--c-light-grey); color: var(--c-dark-grey); }
+  .badge--alert    { background: rgba(245,166,35,0.16); color: var(--c-threat-elevated-ink); }
+  .badge--stop     { background: rgba(255,50,96,0.12); color: var(--c-threat-dangerous-ink); }
+  .badge--unknown  { background: var(--c-light-grey); color: var(--c-body-ink); }
   .badge svg { width: 14px; height: 14px; }
 
   /* ── Calmido Caller Card ───────────────────────────────────────
@@ -431,11 +439,11 @@
   .caller-card--neutral  { --dotted-card-bg: linear-gradient(135deg, #B8BAC2 0%, var(--c-light-grey) 90%); color: var(--c-dark-blue); }
   .caller-card--neutral .caller-card__icon { background-color: var(--c-dark-grey); }
 
-  .caller-card--warning { --dotted-card-bg: linear-gradient(135deg, #FCB569 0%, #DF1803 90%); }
+  .caller-card--warning { --dotted-card-bg: linear-gradient(135deg, var(--c-caller-warning-start) 0%, var(--c-caller-warning-end) 90%); }
   /* A warning card keeps the face (#400); without a photo, this placeholder. */
   .caller-card--warning .caller-card__icon { background-color: var(--c-white); }
   .caller-card--warning .caller-card__icon-mask {
-    width: 28px; height: 28px; background-color: var(--c-threat-elevated);
+    width: 28px; height: 28px; background-color: var(--c-threat-elevated-ink);
     -webkit-mask: url('icons/avatar.svg') center / contain no-repeat;
             mask: url('icons/avatar.svg') center / contain no-repeat;
   }
@@ -449,7 +457,7 @@
      `.caller-card__warning` label next to the avatar to name the threat.
      Defaults below render a locked member. */
   .caller-card--alert {
-    --dotted-card-bg: linear-gradient(135deg, var(--c-alert-red) 0%, #C91300 90%);
+    --dotted-card-bg: linear-gradient(135deg, var(--c-caller-alert-start) 0%, var(--c-caller-alert-end) 90%);
     --cc-glyph: url('icons/lock.svg');
     --cc-glyph-size: 28px;
   }
@@ -515,6 +523,13 @@
   .threat-bar--high     .threat-bar__pointer { border-top-color: var(--c-stop-red); }
   .threat-bar--unknown  .threat-bar__pointer { border-top-color: var(--c-mid-grey); }
   .threat-bar__scale { display: flex; justify-content: space-between; margin-top: 8px; color: var(--c-font-muted); }
+  /* Verdict chip: icon + word, so the verdict never rests on hue or position. */
+  .threat-bar__verdict { margin-top: 12px; font-size: 14px; }
+  .threat-bar__verdict .ico-mask { width: 14px; height: 14px; }
+  .threat-bar--low      .threat-bar__verdict { background: rgba(16,193,134,0.14); color: var(--c-green-ink); }
+  .threat-bar--elevated .threat-bar__verdict { background: rgba(245,166,35,0.16); color: var(--c-threat-elevated-ink); }
+  .threat-bar--high     .threat-bar__verdict { background: rgba(255,50,96,0.12); color: var(--c-threat-dangerous-ink); }
+  .threat-bar--unknown  .threat-bar__verdict { background: var(--c-light-grey); color: var(--c-body-ink); }
   /* Doc-only: the numeric interval each specimen is drawn from. */
   .threat-bar__data { font-family: var(--font-mono); font-size: 12px; color: var(--c-dark-grey); margin: 10px 0 0; }
   /* Doc-only: cutoff-gate diagram — vertical ticks on the band lower-bound axis. */
@@ -628,8 +643,8 @@
   a.scard:hover { border-color: var(--c-bright-green); }
 
   .scard__label {
-    margin: 0; color: var(--c-dark-green);
-    font-family: "Open Sans"; font-weight: 400; font-size: 9px; line-height: 12px;
+    margin: 0; color: var(--c-green-ink);
+    font-family: "Open Sans"; font-weight: 400; font-size: 12px; line-height: 16px;
     letter-spacing: 0.08em; text-transform: uppercase;
   }
   .scard__head { display: flex; align-items: center; gap: 12px; }
@@ -764,6 +779,7 @@
     <a href="#brand">Brand</a>
     <a href="#logos">Logos</a>
     <a href="#colors">Colors</a>
+    <a href="#a11y">Accessibility</a>
     <a href="#type">Typography</a>
     <a href="#spacing">Radii &amp; spacing</a>
     <a href="#buttons">Buttons</a>
@@ -898,7 +914,7 @@
   <!-- ─────────────────────────────── COLORS ─────────────────────────────── -->
   <section id="colors" class="block">
     <h2 class="sec">Colors</h2>
-    <p class="sec-sub">15 named tokens · from Page-1/CSS&nbsp;styles</p>
+    <p class="sec-sub">18 named tokens · from Page-1/CSS&nbsp;styles</p>
 
     <div class="panel">
       <h3>Brand</h3>
@@ -908,7 +924,8 @@
         <div class="swatch"><div class="chip" style="background:#2050FF"></div><div class="meta"><div class="name">Bright Blue</div><div class="hex">#2050FF</div><div class="use">Action accent, links on marketing pages.</div></div></div>
         <div class="swatch"><div class="chip" style="background:#081748"></div><div class="meta"><div class="name">Dark Blue</div><div class="hex">#081748</div><div class="use">Dark surfaces, deep ink.</div></div></div>
         <div class="swatch"><div class="chip" style="background:#3A4268"></div><div class="meta"><div class="name">Body Ink</div><div class="hex">#3A4268</div><div class="use">Body prose on light. Sits between Dark Blue ink and Dark Grey.</div></div></div>
-        <div class="swatch"><div class="chip" style="background:#10C186"></div><div class="meta"><div class="name">Dark Green</div><div class="hex">#10C186</div><div class="use">Primary action, switch + toggle state.</div></div></div>
+        <div class="swatch"><div class="chip" style="background:#10C186"></div><div class="meta"><div class="name">Dark Green</div><div class="hex">#10C186</div><div class="use">Fills only — primary action, switch + toggle state. Never text: 2.33:1 on white.</div></div></div>
+        <div class="swatch"><div class="chip" style="background:#0A7A55"></div><div class="meta"><div class="name">Green Ink</div><div class="hex">#0A7A55</div><div class="use">Green text, icons and links on light. 5.35:1 on white.</div></div></div>
         <div class="swatch"><div class="chip" style="background:#40EDAB"></div><div class="meta"><div class="name">Bright Green</div><div class="hex">#40EDAB</div><div class="use">Brand C-mark disc, filled-button fill, hero highlight.</div></div></div>
       </div>
     </div>
@@ -919,6 +936,8 @@
         <div class="swatch"><div class="chip" style="background:#FF3260"></div><div class="meta"><div class="name">Stop Red</div><div class="hex">#FF3260</div><div class="use">Scam / block. Used on Who-is-calling red variant.</div></div></div>
         <div class="swatch"><div class="chip" style="background:#FD5240"></div><div class="meta"><div class="name">Alert Red</div><div class="hex">#FD5240</div><div class="use">Warning chips, non-critical alerts.</div></div></div>
         <div class="swatch"><div class="chip" style="background:#690005"></div><div class="meta"><div class="name">Dark Red</div><div class="hex">#690005</div><div class="use">Error text on light backgrounds.</div></div></div>
+        <div class="swatch"><div class="chip" style="background:#D0103A"></div><div class="meta"><div class="name">Threat Dangerous Ink</div><div class="hex">#D0103A</div><div class="use">"Gevaarlijk" text and icons, error messages. 5.5:1 on white.</div></div></div>
+        <div class="swatch"><div class="chip" style="background:#8A5300"></div><div class="meta"><div class="name">Threat Elevated Ink</div><div class="hex">#8A5300</div><div class="use">"Verdacht" text and icons. 6.3:1 on white.</div></div></div>
       </div>
     </div>
 
@@ -935,6 +954,53 @@
         <div class="swatch"><div class="chip" style="background:#F2EEED"></div><div class="meta"><div class="name">Warm Canvas</div><div class="hex">#F2EEED</div><div class="use">Homepage hero gradient top.</div></div></div>
       </div>
       <small class="tok">Homepage hero uses linear-gradient(#F2EEED 1%, #FFFFFF 96%).</small>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────── ACCESSIBILITY ─────────────────────────────── -->
+  <section id="a11y" class="block">
+    <h2 class="sec">Accessibility</h2>
+    <p class="sec-sub">rules every surface follows · web, iOS &amp; Android</p>
+
+    <div class="panel">
+      <h3>Fill vs ink</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">A bright hue is a <strong>fill</strong>: backgrounds, the meter, badges, arcs. Text and icons on light use its <strong>ink</strong>, which passes 4.5:1 on white. Never put a fill colour on text.</p>
+      <table class="t-body-m" style="border-collapse: collapse; color: var(--c-dark-blue);">
+        <tr><th style="text-align:left; padding: 4px 16px 4px 0;">Fill</th><th style="text-align:left; padding: 4px 16px 4px 0;">Ink</th><th style="text-align:left; padding: 4px 0;">Ink on white</th></tr>
+        <tr><td style="padding: 4px 16px 4px 0;"><code>--c-dark-green</code> (2.33:1)</td><td style="padding: 4px 16px 4px 0; color: var(--c-green-ink);"><code style="color:inherit">--c-green-ink</code></td><td>5.35:1</td></tr>
+        <tr><td style="padding: 4px 16px 4px 0;"><code>--c-threat-elevated</code> (2.03:1)</td><td style="padding: 4px 16px 4px 0; color: var(--c-threat-elevated-ink);"><code style="color:inherit">--c-threat-elevated-ink</code></td><td>6.3:1</td></tr>
+        <tr><td style="padding: 4px 16px 4px 0;"><code>--c-threat-dangerous</code> (3.57:1)</td><td style="padding: 4px 16px 4px 0; color: var(--c-threat-dangerous-ink);"><code style="color:inherit">--c-threat-dangerous-ink</code></td><td>5.5:1</td></tr>
+      </table>
+      <small class="tok">Caller-card gradients carry white ink, so every stop is ≥ 4.5:1 with white: <code>--c-caller-warning-start/end</code>, <code>--c-caller-alert-start/end</code>.</small>
+    </div>
+
+    <div class="panel">
+      <h3>Focus ring</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-dark-grey);">Two-tone on <code>:focus-visible</code>: a 2px <code>--c-dark-blue</code> outline, offset 2px, over a 2px white halo, so it shows on light and dark surfaces alike. A border colour change is not a focus indicator. Never <code>outline: none</code> on an input; an input inside a pill shell puts the ring on the shell (<code>:focus-within</code>).</p>
+      <div class="btn-row">
+        <button class="btn btn--filled is-focus">Focused</button>
+        <span style="display:inline-flex; padding: 16px; border-radius: var(--r-lg); background: var(--c-bg-dark);"><button class="btn btn--outlined is-focus" style="color: var(--c-white); border-color: var(--c-white);">On dark</button></span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>Type floor</h3>
+      <ul class="t-body-m" style="margin: 0 0 0 18px; color: var(--c-dark-grey); line-height: 1.7;">
+        <li><strong>12px</strong> minimum for any text (<code>Calm_Label_S</code> is 12/16).</li>
+        <li><strong>14px</strong> minimum for text that carries meaning: verdicts, warnings, instructions.</li>
+        <li><strong>16px</strong> for text in inputs, so iOS Safari doesn't zoom on focus.</li>
+        <li>Native: the same values in sp / pt, and text scales with the system font size.</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h3>Touch targets</h3>
+      <p class="t-body-m" style="margin: 0; color: var(--c-dark-grey);">Every tappable control is at least <strong>44px</strong> on the web, <strong>44pt</strong> on iOS and <strong>48dp</strong> on Android. Buttons and inputs here are 44px tall. A smaller visual extends its hit area to the minimum.</p>
+    </div>
+
+    <div class="panel">
+      <h3>Verdict = icon + word</h3>
+      <p class="t-body-m" style="margin: 0; color: var(--c-dark-grey);">A threat verdict is never only a colour or a position. Every surface that shows the <a href="#threat-bar" style="color: var(--c-blue);">threat meter</a> or a threat colour also shows the verdict chip, visible to everyone and not only to screen readers.</p>
     </div>
   </section>
 
@@ -1037,7 +1103,7 @@
       <div class="type-row">
         <span class="tag">Calm_label s</span>
         <span class="sample t-label-s">TARIDE · attestation · verified</span>
-        <span class="spec">Open Sans 400 · 9 / 12 · 0.08em</span>
+        <span class="spec">Open Sans 400 · 12 / 16 · 0.08em</span>
       </div>
     </div>
   </section>
@@ -1090,7 +1156,7 @@
   <!-- ─────────────────────────────── BUTTONS ─────────────────────────────── -->
   <section id="buttons" class="block">
     <h2 class="sec">Buttons</h2>
-    <p class="sec-sub">4 styles · pill 100 · height 40</p>
+    <p class="sec-sub">4 styles · pill 100 · height 44</p>
 
     <div class="panel">
       <h3>Styles — at rest</h3>
@@ -1100,7 +1166,7 @@
         <button class="btn btn--tonal">Later</button>
         <button class="btn btn--text">Skip this</button>
       </div>
-      <small class="tok">Filled = #40EDAB on Dark Blue · Outlined = Calmido Blue border + ink · Tonal = #DBF6ED on Dark Blue · Text uses Dark Green. Hover on filled/outlined/tonal flips to a solid surface with white ink.</small>
+      <small class="tok">Filled = #40EDAB on Dark Blue · Outlined = Calmido Blue border + ink · Tonal = #DBF6ED on Dark Blue · Text uses Green Ink. Hover on filled/outlined/tonal flips to a solid surface with white ink.</small>
     </div>
 
     <div class="panel">
@@ -1108,7 +1174,6 @@
       <div class="btn-row">
         <button class="btn btn--filled" style="height:52px; padding:0 28px; font-size:15px;">Large filled</button>
         <button class="btn btn--filled">Default</button>
-        <button class="btn btn--filled" style="height:32px; padding:0 16px; font-size:12px;">Small</button>
         <button class="btn btn--filled btn--icon-only" aria-label="add"><svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></button>
         <button class="btn btn--outlined btn--icon-only" aria-label="back"><svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20z"/></svg></button>
       </div>
@@ -1177,7 +1242,7 @@
           Who?
         </button>
       </div>
-      <small class="tok">Focus state: green (Dark Green) border, matching the standard inputs. Applied via <code>:focus-within</code>.</small>
+      <small class="tok">Focus state: the shared focus ring on the whole pill, applied via <code>:focus-within</code>. See <a href="#a11y" style="color: var(--c-blue);">Accessibility</a>.</small>
 
       <h3 style="margin-top:28px">Number-check · error</h3>
       <div style="display:flex; flex-direction:column; gap:6px; align-items:flex-start;">
@@ -1189,7 +1254,7 @@
         </div>
         <span class="help help--error" style="font-family:'Open Sans'; font-size:12px;">This doesn't look like a valid number, please try again.</span>
       </div>
-      <small class="tok" style="margin-top:2px;">Error — wrapper gets <code>.number-check--error</code> (border <code>--c-alert-red</code>, overrides focus). Message renders directly under the field in the same red.</small>
+      <small class="tok" style="margin-top:2px;">Error — wrapper gets <code>.number-check--error</code> (border <code>--c-alert-red</code>; the focus ring stays). Message renders directly under the field in <code>--c-threat-dangerous-ink</code>: the border red is 3.25:1, too light for text.</small>
     </div>
 
     <div class="panel">
@@ -1208,7 +1273,7 @@
         <label class="input-std"><span>E-mail</span><input type="email" placeholder="sarah@example.nl" value="sarah@wiebeltme.nl" /><span class="help">We sturen een bevestiging.</span></label>
         <label class="input-std"><span>E-mail</span><input class="is-error" type="email" value="sarah@wie" /><span class="help help--error">Dit lijkt geen geldig e-mailadres.</span></label>
       </div>
-      <small class="tok">Error — input gets <code>.is-error</code> (border <code>--c-alert-red</code>, beats focus) and the <code>.help</code> line swaps to <code>.help--error</code> in the same red. Message renders directly below the field.</small>
+      <small class="tok">Error — input gets <code>.is-error</code> (border <code>--c-alert-red</code>) and the <code>.help</code> line swaps to <code>.help--error</code> in <code>--c-threat-dangerous-ink</code>. Message renders directly below the field.</small>
     </div>
 
     <div class="panel">
@@ -1235,7 +1300,7 @@
             <input class="phone-input__number" type="tel" value="020 12345" />
           </span>
           <span class="help help--error" style="font-family:'Open Sans'; font-size:12px;">This doesn't look like a valid number, please try again.</span>
-          <small class="tok" style="margin-top:2px;">Error — border <code>--c-alert-red</code> (#FD5240), overrides focus. Message renders directly under the pill in the same red.</small>
+          <small class="tok" style="margin-top:2px;">Error — border <code>--c-alert-red</code> (#FD5240). Message renders directly under the pill in <code>--c-threat-dangerous-ink</code>.</small>
         </div>
       </div>
       <small class="tok" style="display:block; margin-top:14px;">
@@ -1243,7 +1308,7 @@
         <strong>Left zone:</strong> 20×14&nbsp;px PNG flag (<code>/images/flags/&lt;iso&gt;.png</code>) + <code>+&lt;dial&gt;</code> + chevron, wrapping a native <code>&lt;select&gt;</code> so the dropdown is OS-styled.
         <strong>Right zone:</strong> <code>&lt;input type="tel"&gt;</code> for the national number (server resolves country + national → canonical E.164 — no client-side parse).
         Country list comes from <code>/api/server/countries</code>; fallback is the bundled ISO list when the endpoint is unreachable, so any country can still be picked.
-        Focus ring on the whole shell (<code>--c-dark-green</code>); <code>--error</code> swaps to <code>--c-alert-red</code> and beats the focus colour so the red persists while typing.
+        The shared focus ring sits on the whole shell; <code>--error</code> swaps the border to <code>--c-alert-red</code>, and the ring stays around it while typing.
         Hide the chevron + lock the select when used <em>read-only</em> (e.g. directory reclaim — the number is fixed).
       </small>
     </div>
@@ -2002,6 +2067,7 @@
               <span class="threat-bar__pointer" style="left:28%;" aria-hidden="true"></span>
             </div>
             <div class="threat-bar__scale t-body-s"><span>Safe</span><span>Dangerous</span></div>
+            <span class="badge threat-bar__verdict"><span class="ico-mask" style="--ico:url('icons/check.svg')" aria-hidden="true"></span>Safe</span>
           </div>
           <p class="threat-bar__data">mean 0.28 · [0.12, 0.44] · lower &lt; 0.45</p>
         </figure>
@@ -2015,6 +2081,7 @@
               <span class="threat-bar__pointer" style="left:75%;" aria-hidden="true"></span>
             </div>
             <div class="threat-bar__scale t-body-s"><span>Safe</span><span>Dangerous</span></div>
+            <span class="badge threat-bar__verdict"><span class="ico-mask" style="--ico:url('icons/attention.svg')" aria-hidden="true"></span>Suspicious</span>
           </div>
           <p class="threat-bar__data">mean 0.75 · [0.56, 0.94] · lower ≥ 0.45</p>
         </figure>
@@ -2028,6 +2095,7 @@
               <span class="threat-bar__pointer" style="left:86%;" aria-hidden="true"></span>
             </div>
             <div class="threat-bar__scale t-body-s"><span>Safe</span><span>Dangerous</span></div>
+            <span class="badge threat-bar__verdict"><span class="ico-mask" style="--ico:url('icons/danger.svg')" aria-hidden="true"></span>Dangerous</span>
           </div>
           <p class="threat-bar__data">mean 0.86 · [0.73, 0.98] · lower ≥ 0.72</p>
         </figure>
@@ -2041,6 +2109,7 @@
               <span class="threat-bar__pointer" style="left:50%;" aria-hidden="true"></span>
             </div>
             <div class="threat-bar__scale t-body-s"><span>Safe</span><span>Dangerous</span></div>
+            <span class="badge threat-bar__verdict">Unrated</span>
           </div>
           <p class="threat-bar__data">no confidence — evidence too thin to rate</p>
         </figure>
@@ -2071,7 +2140,8 @@
         <li><strong>Track gradient</strong> (left→right) — <code>--c-dark-green</code> 0% → <code>#9ACD32</code> 30% → <code>#F5A623</code> 58% → <code>--c-stop-red</code> 100%.</li>
         <li><strong>Level colour</strong> (band tint + arrow) — Low <code>--c-dark-green</code>, Elevated <code>#F5A623</code>, High <code>--c-stop-red</code>, Unknown <code>--c-mid-grey</code>. Band is the level colour at ~38–45% opacity; arrow is the solid level colour.</li>
         <li><strong>Band fallback</strong> — prefer the server <code>band</code>. If it is absent, derive from the <em>lower</em> bound: <code>lower ≥ 0.72 → High</code>; <code>lower ≥ 0.45 → Elevated</code>; else <code>Low</code>; a null interval → <code>Unknown</code>. Gating on the lower bound means a lone unconfirmed complaint self-suppresses (stays Low) until corroborated.</li>
-        <li><strong>Accessibility</strong> — expose the verdict as a label on the meter (e.g. <code>"Risk level: Suspicious"</code>); the band and arrow are decorative.</li>
+        <li><strong>Verdict chip</strong> — every surface that shows the meter shows the verdict as an icon + word chip next to it: Safe (check, <code>--c-green-ink</code>), Suspicious (attention, <code>--c-threat-elevated-ink</code>), Dangerous (danger, <code>--c-threat-dangerous-ink</code>), Unrated (word only — it is no verdict). Colour and position alone never carry the verdict: red and green are hard to tell apart for ~8% of men.</li>
+        <li><strong>Accessibility</strong> — the visible chip is the verdict; also expose it as a label on the meter (e.g. <code>"Risk level: Suspicious"</code>); the band and arrow are decorative.</li>
       </ul>
     </div>
 
