@@ -766,6 +766,15 @@
     background: var(--c-dark-blue); display: inline-flex; align-items: center; justify-content: center;
   }
   .logo-C svg { width: 22px; height: 22px; color: var(--c-bright-green); }
+
+  /* ── Bottom bar (app tabs) ─────────────────────────────────── */
+  .tabbar { display: flex; padding: 10px 16px 5px; background: var(--c-surface); border-radius: 12px; max-width: 420px; }
+  .tabbar__item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+  .tabbar__circle { width: 50px; height: 50px; border-radius: 50%; border: 1px solid var(--c-font-body); color: var(--c-font-body); display: grid; place-items: center; box-sizing: border-box; }
+  .tabbar__item--on .tabbar__circle { background: var(--c-bright-green); border-color: var(--c-bright-green); color: var(--c-dark-blue); }
+  .tabbar__circle .ico-mask { width: 24px; height: 24px; }
+  .tabbar__circle .ico-mask--brand { width: 30px; height: 30px; }
+  .tabbar__label { font-family: var(--font-body, 'Open Sans', sans-serif); font-size: 12px; line-height: 16px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-font-body); white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -802,6 +811,7 @@
     <a href="#widgets">Caller card</a>
     <a href="#threat-bar">Threat meter</a>
     <a href="#section-card">Section card</a>
+    <a href="#bottom-bar">Bottom bar</a>
   </nav>
 
   <!-- ─────────────────────────────── BRAND ─────────────────────────────── -->
@@ -1484,12 +1494,14 @@
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/business_1.svg')"></span></div><div class="icon-caption">business_1</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/business_2.svg')"></span></div><div class="icon-caption">business_2</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/business_foundation.svg')"></span></div><div class="icon-caption">business_foundation</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/calmido_c.svg')"></span></div><div class="icon-caption">calmido_c</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/camera.svg')"></span></div><div class="icon-caption">camera</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/check.svg')"></span></div><div class="icon-caption">check</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/contacts.svg')"></span></div><div class="icon-caption">contacts</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/download.svg')"></span></div><div class="icon-caption">download</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/edit.svg')"></span></div><div class="icon-caption">edit</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/email.svg')"></span></div><div class="icon-caption">email</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/front_hand.svg')"></span></div><div class="icon-caption">front_hand</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/handshake.svg')"></span></div><div class="icon-caption">handshake</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/ios.svg')"></span></div><div class="icon-caption">ios</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/key.svg')"></span></div><div class="icon-caption">key</div></div>
@@ -1502,6 +1514,7 @@
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/logoff.svg')"></span></div><div class="icon-caption">logoff</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/person_add.svg')"></span></div><div class="icon-caption">person_add</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/person_group.svg')"></span></div><div class="icon-caption">person_group</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/recents.svg')"></span></div><div class="icon-caption">recents</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/report.svg')"></span></div><div class="icon-caption">report</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/search.svg')"></span></div><div class="icon-caption">search</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/settings.svg')"></span></div><div class="icon-caption">settings</div></div>
@@ -2552,6 +2565,36 @@
         <li><b>body</b> — Calm_Body_L, supports HTML</li>
       </ol>
       <small class="tok">When a card has a cta and href, render <code>.scard</code> as <code>&lt;a&gt;</code> (linked, hover state). Otherwise <code>&lt;div&gt;</code> (static). Use <code>.icard</code> inside a multi-column grid (e.g. <code>content_section_grid</code> + <code>grid_column_4</code>) when no chrome (background, border, padding) is needed.</small>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────── BOTTOM BAR ─────────────────────────────── -->
+  <section id="bottom-bar" class="block">
+    <h2 class="sec">Bottom bar</h2>
+    <p class="sec-sub">the app's tab bar · same on iOS and Android</p>
+
+    <div class="panel">
+      <h3>At rest — first tab selected</h3>
+      <div class="tabbar">
+        <div class="tabbar__item tabbar__item--on"><div class="tabbar__circle"><span class="ico-mask" style="--ico:url('icons/front_hand.svg')"></span></div><span class="tabbar__label">Reports</span></div>
+        <div class="tabbar__item"><div class="tabbar__circle"><span class="ico-mask" style="--ico:url('icons/recents.svg')"></span></div><span class="tabbar__label">Recent</span></div>
+        <div class="tabbar__item"><div class="tabbar__circle"><span class="ico-mask" style="--ico:url('icons/contacts.svg')"></span></div><span class="tabbar__label">Contacts</span></div>
+        <div class="tabbar__item"><div class="tabbar__circle"><span class="ico-mask ico-mask--brand" style="--ico:url('icons/calmido_c.svg')"></span></div><span class="tabbar__label">Calmido</span></div>
+      </div>
+      <small class="tok">Recent is Android only: iOS cannot read the call log, so it opens on Reports.</small>
+    </div>
+
+    <div class="panel">
+      <h3>Spec</h3>
+      <ul class="t-body-m" style="margin:0; padding-left:18px; line-height:1.7;">
+        <li><b>Button</b> — 50 circle (pt / dp); 48 is the touch-target floor.</li>
+        <li><b>Icon</b> — 24 inside the 50; the Calmido “C” 30, so it weighs the same as the outlines.</li>
+        <li><b>Selected</b> — Bright Green fill (#40EDAB) with a Dark Blue icon (#081748), in light and dark.</li>
+        <li><b>Not selected</b> — 1 px outline and icon in <code>font-body</code> (Dark Blue on light, white on dark).</li>
+        <li><b>Label</b> — Open Sans 12 / 16, uppercase, 0.08em tracking, <code>font-body</code>, one line, 5 under the circle. 12 is the type floor.</li>
+        <li><b>Layout</b> — equal slots, each as wide as the widest item; padding 10 top · 5 bottom · 16 sides. When the slots don't fit (the developer-only Debug tab), the bar scrolls sideways.</li>
+        <li><b>Icons</b> — <code>front_hand</code> (Reports), <code>recents</code>, <code>contacts</code>, <code>calmido_c</code> (Calmido), <code>ladybug</code> (Debug). All from <code>icons/</code> (Material Symbols), never a platform's own symbol set such as SF Symbols.</li>
+      </ul>
     </div>
   </section>
 
