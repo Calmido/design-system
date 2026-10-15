@@ -43,22 +43,22 @@
   /* ── Re-points to brand colours. Add class="inverse" on a parent to flip all three tokens to their inverse pairs (e.g. on dark surfaces). The dark theme uses the inverse pairs. ── */
   --c-font-title:         var(--c-blue);
   --c-font-title-inverse: var(--c-white);
-  --c-font-body:          var(--c-dark-blue);
+  --c-font-body:          var(--c-dark-blue);  /* dark: solid white, as iOS */
   --c-font-body-inverse:  #FFFFFFBF;  /* white @ 75% */
-  --c-font-muted:         var(--c-dark-grey);
+  --c-font-muted:         var(--c-dark-grey);  /* dark: iOS textSecondaryDark */
   --c-font-muted-inverse: #FFFFFF99;  /* white @ 60% */
 
   /* ── Theme roles: "value" is light, "dark" is dark. Components use these, not palette names, so they follow the theme. ── */
   --c-surface:        var(--c-light-bg);  /* page background */
-  --c-surface-raised: var(--c-white);  /* cards, panels */
+  --c-surface-raised: var(--c-white);  /* cards, panels; dark = iOS cardBackgroundDark */
   --c-surface-muted:  var(--c-light-grey);  /* filled chips, tracks */
-  --c-border:         var(--c-light-grey);  /* dividers, card edges */
-  --c-border-strong:  var(--c-dark-grey);  /* input borders — ≥ 3:1 on the surface */
-  --c-ink-link:       var(--c-blue);  /* 6.5:1 on bg-dark */
+  --c-border:         var(--c-light-grey);  /* dividers, card edges; dark = iOS divider (#B8B8BA @ 35%) */
+  --c-border-strong:  var(--c-dark-grey);  /* input borders — ≥ 3:1 on the surface (dark: 3.6:1, as iOS) */
+  --c-ink-link:       var(--c-blue);  /* always underlined; dark = white, as iOS */
   --c-ink-green:      var(--c-green-ink);  /* green text and icons */
   --c-ink-danger:     var(--c-threat-dangerous-ink);  /* dangerous verdict, errors — 5.9:1 on bg-dark */
   --c-ink-warning:    var(--c-threat-elevated-ink);  /* suspicious verdict — 7.9:1 on bg-dark */
-  --c-focus-ring:     var(--c-dark-blue);  /* 2px outline */
+  --c-focus-ring:     var(--c-dark-blue);  /* 2px outline; dark = iOS focused-field green */
   --c-focus-halo:     var(--c-white);  /* 2px halo inside the ring */
 
   /* ── Font families — three free / Google Fonts ── */
@@ -90,35 +90,35 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --c-font-title: var(--c-font-title-inverse);
-    --c-font-body: var(--c-font-body-inverse);
-    --c-font-muted: var(--c-font-muted-inverse);
+    --c-font-body: var(--c-white);
+    --c-font-muted: #B8B8BA;
     --c-surface: var(--c-bg-dark);
-    --c-surface-raised: var(--c-infocard-dark);
+    --c-surface-raised: #040B20;
     --c-surface-muted: #2E2F38;
-    --c-border: #3A3B45;
-    --c-border-strong: #80838C;
-    --c-ink-link: #7DA2FF;
+    --c-border: #55565B;
+    --c-border-strong: var(--c-dark-grey);
+    --c-ink-link: var(--c-white);
     --c-ink-green: var(--c-bright-green);
     --c-ink-danger: #FF6B87;
     --c-ink-warning: var(--c-threat-elevated);
-    --c-focus-ring: var(--c-white);
+    --c-focus-ring: var(--c-bright-green);
     --c-focus-halo: var(--c-dark-blue);
   }
 }
 [data-theme="dark"] {
   --c-font-title: var(--c-font-title-inverse);
-  --c-font-body: var(--c-font-body-inverse);
-  --c-font-muted: var(--c-font-muted-inverse);
+  --c-font-body: var(--c-white);
+  --c-font-muted: #B8B8BA;
   --c-surface: var(--c-bg-dark);
-  --c-surface-raised: var(--c-infocard-dark);
+  --c-surface-raised: #040B20;
   --c-surface-muted: #2E2F38;
-  --c-border: #3A3B45;
-  --c-border-strong: #80838C;
-  --c-ink-link: #7DA2FF;
+  --c-border: #55565B;
+  --c-border-strong: var(--c-dark-grey);
+  --c-ink-link: var(--c-white);
   --c-ink-green: var(--c-bright-green);
   --c-ink-danger: #FF6B87;
   --c-ink-warning: var(--c-threat-elevated);
-  --c-focus-ring: var(--c-white);
+  --c-focus-ring: var(--c-bright-green);
   --c-focus-halo: var(--c-dark-blue);
 }
 [data-theme="light"] {
