@@ -51,12 +51,12 @@
   /* ── Theme roles: "value" is light, "dark" is dark. Components use these, not palette names, so they follow the theme. ── */
   --c-surface:        var(--c-light-bg);  /* page background */
   --c-surface-raised: var(--c-white);  /* cards, panels; dark = iOS cardBackgroundDark */
-  --c-surface-muted:  var(--c-light-grey);  /* filled chips, tracks */
+  --c-surface-muted:  var(--c-light-grey);  /* filled chips, tracks; dark keeps ink-danger ≥ 4.5:1 */
   --c-border:         var(--c-light-grey);  /* dividers, card edges; dark = iOS divider (#B8B8BA @ 35%) */
   --c-border-strong:  var(--c-dark-grey);  /* input borders — ≥ 3:1 on the surface (dark: 3.6:1, as iOS) */
   --c-ink-link:       var(--c-blue);  /* always underlined; dark = white, as iOS */
   --c-ink-green:      var(--c-green-ink);  /* green text and icons */
-  --c-ink-danger:     var(--c-threat-dangerous-ink);  /* dangerous verdict, errors — 5.9:1 on bg-dark */
+  --c-ink-danger:     var(--c-threat-dangerous-ink);  /* dangerous verdict, errors; dark = iOS alertRed, 4.9:1 on bg-dark */
   --c-ink-warning:    var(--c-threat-elevated-ink);  /* suspicious verdict — 7.9:1 on bg-dark */
   --c-focus-ring:     var(--c-dark-blue);  /* 2px outline; dark = iOS focused-field green */
   --c-focus-halo:     var(--c-white);  /* 2px halo inside the ring */
@@ -94,12 +94,12 @@
     --c-font-muted: #B8B8BA;
     --c-surface: var(--c-bg-dark);
     --c-surface-raised: #040B20;
-    --c-surface-muted: #2E2F38;
+    --c-surface-muted: #1A2340;
     --c-border: #55565B;
     --c-border-strong: var(--c-dark-grey);
     --c-ink-link: var(--c-white);
     --c-ink-green: var(--c-bright-green);
-    --c-ink-danger: #FF6B87;
+    --c-ink-danger: var(--c-alert-red);
     --c-ink-warning: var(--c-threat-elevated);
     --c-focus-ring: var(--c-bright-green);
     --c-focus-halo: var(--c-dark-blue);
@@ -111,12 +111,12 @@
   --c-font-muted: #B8B8BA;
   --c-surface: var(--c-bg-dark);
   --c-surface-raised: #040B20;
-  --c-surface-muted: #2E2F38;
+  --c-surface-muted: #1A2340;
   --c-border: #55565B;
   --c-border-strong: var(--c-dark-grey);
   --c-ink-link: var(--c-white);
   --c-ink-green: var(--c-bright-green);
-  --c-ink-danger: #FF6B87;
+  --c-ink-danger: var(--c-alert-red);
   --c-ink-warning: var(--c-threat-elevated);
   --c-focus-ring: var(--c-bright-green);
   --c-focus-halo: var(--c-dark-blue);

@@ -161,13 +161,13 @@ palette names:
 |---|---|---|
 | `--c-surface` | Light BG `#FBFBFB` | BG Dark `#202128` |
 | `--c-surface-raised` | White | `#040B20` (iOS card navy) |
-| `--c-surface-muted` | Light Grey `#DADBE0` | `#2E2F38` |
+| `--c-surface-muted` | Light Grey `#DADBE0` | `#1A2340` |
 | `--c-border` | Light Grey | `#55565B` |
 | `--c-border-strong` | Dark Grey `#6F797A` | Dark Grey |
 | `--c-font-title` / `-body` / `-muted` | Blue / Dark Blue / Dark Grey | White / White / `#B8B8BA` (as iOS) |
 | `--c-ink-link` | Blue `#07369E` | White (underlined) |
 | `--c-ink-green` | Green Ink `#0A7A55` | Bright Green `#40EDAB` |
-| `--c-ink-danger` | `#D0103A` | `#FF6B87` |
+| `--c-ink-danger` | `#D0103A` | Alert Red `#FD5240` (as iOS) |
 | `--c-ink-warning` | `#8A5300` | `#F5A623` |
 | `--c-focus-ring` / `--c-focus-halo` | Dark Blue / White | Bright Green / Dark Blue |
 
