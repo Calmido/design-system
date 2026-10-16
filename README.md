@@ -164,6 +164,7 @@ palette names:
 | `--c-surface-muted` | Light Grey `#DADBE0` | `#1A2340` |
 | `--c-border` | Light Grey | `#55565B` |
 | `--c-border-strong` | Dark Grey `#6F797A` | Dark Grey |
+| `--c-outline` | Calmido Blue | `#BEC8C9` (iOS outlined button) |
 | `--c-font-title` / `-body` / `-muted` | Blue / Dark Blue / Dark Grey | White / White / `#B8B8BA` (as iOS) |
 | `--c-ink-link` | Blue `#07369E` | White (underlined) |
 | `--c-ink-green` | Green Ink `#0A7A55` | Bright Green `#40EDAB` |
@@ -214,9 +215,10 @@ low vision, colour blindness, ADHD, anxiety and motor impairments.
 Styles reference (all pill 100px radius, 44px tall):
 
 - **Filled** — `#40EDAB` bg, `#081748` ink · hover flips to `#07369E` bg + white ink
-- **Outlined** — `#07369E` border + ink · hover flips to `#07369E` bg + white ink
-- **Tonal** — `#DBF6ED` bg, `#081748` ink · hover flips to `#10C186` bg + white ink
-- **Text** — Green Ink `#0A7A55`, no bg · hover adds soft green tint
+- **Outlined** — border `--c-outline` (Calmido Blue · dark `#BEC8C9`), ink `--c-font-title` (Calmido Blue · dark white) · pressed fills with `--c-outline`, ink `--c-surface-raised`
+- **Tonal** — `#DBF6ED` bg, `#081748` ink · hover flips to `#10C186` bg, ink stays `#081748` (white is 2.3:1)
+- **Text** — `--c-ink-green` (Green Ink · dark Bright Green), no bg · pressed adds a 12% green tint
+- **Icon button** (top bar) — 36 circle, 44 touch target, 1px border `--c-font-body` at 70%, icon 20 in `--c-font-body`
 - **Disabled** — `opacity 0.6`, `cursor: not-allowed`
 
 See `index.html` for live specimens including forms, switches, avatars, badges, the full Material-style icon set, the three Who-is-calling card variants, the cross-platform **Threat meter**, and the generic **Section card** primitive (light + inverse, linked + static).
@@ -231,6 +233,31 @@ Horizontal community-threat gauge (`threat-bar`) shared by web, iOS, and Android
 - **Level colour** (band + arrow): Low `--c-dark-green` · Elevated `#F5A623` · High `--c-stop-red` · Unknown `--c-mid-grey`.
 - **Verdict chip:** every surface shows the verdict as icon + word next to the meter — Safe (check, green ink) · Suspicious (attention, elevated ink) · Dangerous (danger, dangerous ink) · Unrated (word only). Never colour or position alone.
 - **Band fallback** (if server `band` absent): derive from the *lower* bound — `≥ 0.72 → High`, `≥ 0.45 → Elevated`, else Low; null interval → Unknown. Gating on the lower bound means a lone unconfirmed complaint self-suppresses until corroborated.
+
+### Switch
+
+Same on web, iOS and Android, in light and dark.
+
+- Track 52 × 32, pill. Thumb 24, white, 4 inset, same size on and off.
+- On: Bright Green track (#40EDAB). Off: track in `--c-border` (#DADBE0 light, #55565B dark).
+- Disabled: the whole row at 60% opacity.
+- Settings row: label Open Sans 15 / 20 in `font-body`, optional subtitle 12 / 16 in `font-muted`. Padding 12 × 16, min height 48, switch trailing. The whole row toggles.
+- iOS uses the system switch tinted Bright Green. Android uses the Material 3 `Switch` with these colours and no outline.
+
+### App controls
+
+The look is shared; where a control sits on a screen is up to each app.
+
+| Control | Light | Dark |
+|---|---|---|
+| Search field fill | `surface-raised` White | `surface-raised` #040B20 |
+| Search field border | `border-strong` #6F797A, 1 px | same |
+| Search field, focused | `ink-green` Green Ink #0A7A55, 1.5 px | `ink-green` Bright Green #40EDAB, 1.5 px |
+| Search text / icon + placeholder | `font-body` / `font-muted` | same roles |
+| Dialpad button fill / icon | Bright Green #40EDAB / Dark Blue #081748 | same |
+| Dialpad button, pressed | Calmido Blue #07369E / White | same |
+
+Search field: 44 high, pill, `search` icon 20, Open Sans 15. Dialpad button: 56 circle, `dialpad` icon 24, shadow black 30% blur 6 y 3 (Android elevation 6).
 
 ### Section card
 
