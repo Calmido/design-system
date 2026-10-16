@@ -794,6 +794,8 @@
   .app-search:focus-within, .app-search--focus { border: 1.5px solid var(--c-ink-green); }
   .app-fab { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: var(--c-bright-green); color: var(--c-dark-blue); box-shadow: 0 3px 6px rgba(0,0,0,.3); }
   .app-fab--pressed { background: var(--c-blue); color: var(--c-white); }
+  .list-header { padding: 8px 16px 4px; font: 600 14px/20px "Open Sans"; color: var(--c-font-muted); }
+  .list-row { padding: 10px 16px; font: 400 15px/20px "Open Sans"; color: var(--c-font-body); }
 </style>
 </head>
 <body>
@@ -2722,7 +2724,7 @@
 
   <section id="app-controls" class="block">
     <h2 class="sec">App controls</h2>
-    <p class="sec-sub">search field · dialpad button · same on iOS and Android</p>
+    <p class="sec-sub">search field · dialpad button · list section header · same on iOS and Android</p>
 
     <div class="panel">
       <h3>Light &amp; dark — rest, focused, pressed</h3>
@@ -2755,6 +2757,25 @@
         <li><b>Dialpad button</b> — 56 circle, Bright Green fill with a Dark Blue <code>dialpad</code> icon 24, in light and dark (11.4:1). Shadow black 30%, blur 6, y 3 (Android: elevation 6).</li>
         <li><b>Dialpad · pressed</b> — Calmido Blue (#07369E) fill with a white icon, as the filled button.</li>
         <li>Where these sit on a screen is up to each app.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>List section header — light &amp; dark</h3>
+      <div class="theme-pair">
+        <div class="theme-demo" data-theme="light" style="padding:8px 0;">
+          <div class="list-header">A</div><div class="list-row">Anna de Vries</div><div class="list-row">Arjen Bakker</div>
+          <div class="list-header">Today</div><div class="list-row">+31 20 123 4567</div>
+        </div>
+        <div class="theme-demo" data-theme="dark" style="padding:8px 0;">
+          <div class="list-header">A</div><div class="list-row">Anna de Vries</div><div class="list-row">Arjen Bakker</div>
+          <div class="list-header">Today</div><div class="list-row">+31 20 123 4567</div>
+        </div>
+      </div>
+      <ul class="t-body-m" style="margin:16px 0 0; padding-left:18px; line-height:1.7;">
+        <li>One style for every list section: letters (Contacts) and words (Recents: Today, Yesterday, Older).</li>
+        <li>Plain text, no circle or fill: Open Sans 14 / 20 semibold in <code>font-muted</code> (#6F797A light · #B8B8BA dark) on the list background (<code>surface</code>, #FBFBFB light · #202128 dark), sentence case. Padding 8 top · 4 bottom · 16 sides.</li>
+        <li>Sticky while scrolling; hidden while a search query is typed.</li>
+        <li>Alignment and position are up to each app.</li>
       </ul>
     </div>
   </section>
