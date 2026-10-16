@@ -259,6 +259,8 @@ The look is shared; where a control sits on a screen is up to each app.
 
 Search field: 44 high, pill, `search` icon 20, Open Sans 15. Dialpad button: 56 circle, `dialpad` icon 24, shadow black 30% blur 6 y 3 (Android elevation 6).
 
+**List section header** — one style for letters (Contacts) and words (Recents: Today, Yesterday, Older). Plain text, no circle or fill: Open Sans 14 / 20 semibold in `font-muted` (#6F797A light · #B8B8BA dark) on the list background (`surface`, #FBFBFB light · #202128 dark), sentence case, padding 8 top · 4 bottom · 16 sides. Sticky while scrolling, hidden while a search query is typed. Alignment and position are up to each app.
+
 ### Section card
 
 Generic content-card primitive used for download cards, testimonials, feature highlights, and similar grid content.
