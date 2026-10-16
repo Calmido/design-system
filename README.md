@@ -218,7 +218,7 @@ Styles reference (all pill 100px radius, 44px tall):
 - **Outlined** — border `--c-outline` (Calmido Blue · dark `#BEC8C9`), ink `--c-font-title` (Calmido Blue · dark white) · pressed fills with `--c-outline`, ink `--c-surface-raised`
 - **Tonal** — `#DBF6ED` bg, `#081748` ink · hover flips to `#10C186` bg, ink stays `#081748` (white is 2.3:1)
 - **Text** — `--c-ink-green` (Green Ink · dark Bright Green), no bg · pressed adds a 12% green tint
-- **Icon button** (top bar) — 36 circle, 44 touch target, 1px border `--c-font-body` at 70%, icon 20 in `--c-font-body`
+- **Round icon buttons** — fixed icon size, never a share of the circle: **S** 36 circle / 20 icon (top bar, inline) · **M** 50 / 24 (bottom bar, call actions) · **L** 56 / 24 (dialpad). Outlined: 1px border `--c-font-body` at 70%, icon `--c-font-body`. Filled: Bright Green / Dark Blue icon in both themes. Touch target ≥ 44 iOS / 48 Android.
 - **Disabled** — `opacity 0.6`, `cursor: not-allowed`
 
 See `index.html` for live specimens including forms, switches, avatars, badges, the full Material-style icon set, the three Who-is-calling card variants, the cross-platform **Threat meter**, and the generic **Section card** primitive (light + inverse, linked + static).
