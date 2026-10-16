@@ -129,13 +129,15 @@
   }
   .btn:active { transform: translateY(1px); }
   .btn--filled   { background: var(--c-bright-green); color: var(--c-dark-blue); }
-  .btn--filled:hover { background: var(--c-blue); color: var(--c-white); }
-  .btn--outlined { background: transparent; color: var(--c-blue); border: 1px solid var(--c-blue); }
-  .btn--outlined:hover { background: var(--c-blue); color: var(--c-white); }
+  .btn--filled:hover, .btn--filled.is-pressed { background: var(--c-blue); color: var(--c-white); }
+  .btn--outlined { background: transparent; color: var(--c-font-title); border: 1px solid var(--c-outline); }
+  .btn--outlined:hover, .btn--outlined.is-pressed { background: var(--c-outline); color: var(--c-surface-raised); }
   .btn--tonal    { background: var(--c-tonal-green); color: var(--c-dark-blue); }
-  .btn--tonal:hover { background: var(--c-dark-green); color: var(--c-white); }
-  .btn--text     { background: transparent; color: var(--c-green-ink); padding: 0 12px; }
-  .btn--text:hover { background: rgba(16,193,134,0.08); }
+  .btn--tonal:hover, .btn--tonal.is-pressed { background: var(--c-dark-green); color: var(--c-dark-blue); }
+  .btn--text     { background: transparent; color: var(--c-ink-green); padding: 0 12px; }
+  .btn--text:hover, .btn--text.is-pressed { background: rgba(16,193,134,0.12); }
+  .icon-btn { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; box-sizing: border-box; border: 1px solid color-mix(in srgb, var(--c-font-body) 70%, transparent); color: var(--c-font-body); background: transparent; }
+  .icon-btn .ico-mask { width: 20px; height: 20px; }
   .btn--icon-only { width: 44px; padding: 0; }
   .btn:disabled { opacity: 0.6; cursor: not-allowed; }
   .btn .ico { width: 18px; height: 18px; }
@@ -278,10 +280,15 @@
   .number-check button:hover { filter: brightness(0.96); }
 
   /* Switch (Checked LT) */
-  .switch { position: relative; width: 52px; height: 32px; border-radius: 100px; background: var(--c-white); border: 1px solid var(--c-dark-green); display: inline-block; cursor: pointer; }
-  .switch .dot { position: absolute; right: 4px; top: 4px; width: 22px; height: 22px; border-radius: 22px; background: var(--c-dark-green); transition: all .18s ease; }
-  .switch[data-on="false"] { border-color: var(--c-dark-grey); background: var(--c-light-grey); }
-  .switch[data-on="false"] .dot { right: auto; left: 4px; background: var(--c-white); }
+  .switch { position: relative; flex: 0 0 auto; width: 52px; height: 32px; border-radius: 100px; background: var(--c-border); display: inline-block; cursor: pointer; }
+  .switch .dot { position: absolute; left: 4px; top: 4px; width: 24px; height: 24px; border-radius: 50%; background: var(--c-white); box-shadow: 0 1px 3px rgba(0,0,0,.3); transition: left .18s ease; }
+  .switch[data-on="true"] { background: var(--c-bright-green); }
+  .switch[data-on="true"] .dot { left: 24px; }
+  .setting-row--disabled { opacity: .6; }
+  .setting-row { display: flex; align-items: center; gap: 16px; min-height: 48px; padding: 12px 16px; box-sizing: border-box; }
+  .setting-row__text { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+  .setting-row__label { font: 400 15px/20px "Open Sans"; color: var(--c-font-body); }
+  .setting-row__sub { font: 400 12px/16px "Open Sans"; color: var(--c-font-muted); }
 
   /* Checkbox / Radio */
   .ctrl-row { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
@@ -775,6 +782,14 @@
   .tabbar__circle .ico-mask { width: 24px; height: 24px; }
   .tabbar__circle .ico-mask--brand { width: 30px; height: 30px; }
   .tabbar__label { font-family: var(--font-body, 'Open Sans', sans-serif); font-size: 12px; line-height: 16px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-font-body); white-space: nowrap; }
+  .app-search { display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 16px; box-sizing: border-box; border-radius: var(--r-pill); background: var(--c-surface-raised); border: 1px solid var(--c-border-strong); color: var(--c-font-muted); font: 400 15px "Open Sans"; }
+  .app-search .ico-mask { width: 20px; height: 20px; flex: 0 0 auto; }
+  .app-search input { flex: 1; min-width: 0; padding: 0; border: 0; background: transparent; font: inherit; color: var(--c-font-body); caret-color: var(--c-ink-green); }
+  .app-search input::placeholder { color: var(--c-font-muted); }
+  .app-search input:focus-visible { outline: 0; box-shadow: none; }
+  .app-search:focus-within, .app-search--focus { border: 1.5px solid var(--c-ink-green); }
+  .app-fab { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: var(--c-bright-green); color: var(--c-dark-blue); box-shadow: 0 3px 6px rgba(0,0,0,.3); }
+  .app-fab--pressed { background: var(--c-blue); color: var(--c-white); }
 </style>
 </head>
 <body>
@@ -812,6 +827,7 @@
     <a href="#threat-bar">Threat meter</a>
     <a href="#section-card">Section card</a>
     <a href="#bottom-bar">Bottom bar</a>
+    <a href="#app-controls">App controls</a>
   </nav>
 
   <!-- ─────────────────────────────── BRAND ─────────────────────────────── -->
@@ -1227,6 +1243,30 @@
     </div>
 
     <div class="panel">
+      <h3>Light &amp; dark — rest, pressed, icon button</h3>
+      <div class="theme-pair">
+        <div class="theme-demo" data-theme="light" style="display:flex; flex-direction:column; gap:14px;">
+          <div class="btn-row"><button class="btn btn--filled">Filled</button><button class="btn btn--outlined">Outlined</button><button class="btn btn--tonal">Tonal</button><button class="btn btn--text">Text</button></div>
+          <div class="btn-row"><button class="btn btn--filled is-pressed">Pressed</button><button class="btn btn--outlined is-pressed">Pressed</button><button class="btn btn--tonal is-pressed">Pressed</button><button class="btn btn--text is-pressed">Pressed</button></div>
+          <div class="btn-row"><span class="icon-btn" role="img" aria-label="Add contact"><span class="ico-mask" style="--ico:url('icons/person_add.svg')"></span></span><span class="icon-btn" role="img" aria-label="Settings"><span class="ico-mask" style="--ico:url('icons/settings.svg')"></span></span></div>
+        </div>
+        <div class="theme-demo" data-theme="dark" style="display:flex; flex-direction:column; gap:14px;">
+          <div class="btn-row"><button class="btn btn--filled">Filled</button><button class="btn btn--outlined">Outlined</button><button class="btn btn--tonal">Tonal</button><button class="btn btn--text">Text</button></div>
+          <div class="btn-row"><button class="btn btn--filled is-pressed">Pressed</button><button class="btn btn--outlined is-pressed">Pressed</button><button class="btn btn--tonal is-pressed">Pressed</button><button class="btn btn--text is-pressed">Pressed</button></div>
+          <div class="btn-row"><span class="icon-btn" role="img" aria-label="Add contact"><span class="ico-mask" style="--ico:url('icons/person_add.svg')"></span></span><span class="icon-btn" role="img" aria-label="Settings"><span class="ico-mask" style="--ico:url('icons/settings.svg')"></span></span></div>
+        </div>
+      </div>
+      <ul class="t-body-m" style="margin:16px 0 0; padding-left:18px; line-height:1.7;">
+        <li><b>Filled</b> — Bright Green / Dark Blue ink in both themes. Pressed: Calmido Blue / white.</li>
+        <li><b>Outlined</b> — 1 px border in <code>outline</code> (Calmido Blue on light, #BEC8C9 on dark), ink in <code>font-title</code> (Calmido Blue / white). Pressed: filled with <code>outline</code>, ink in <code>surface-raised</code> (white on light, navy on dark).</li>
+        <li><b>Tonal</b> — Tonal Green / Dark Blue in both themes. Pressed: Dark Green / Dark Blue (7.3:1; white would be 2.3:1).</li>
+        <li><b>Text</b> — ink in <code>ink-green</code> (Green Ink / Bright Green). Pressed: a 12% green tint.</li>
+        <li><b>Icon button</b> (top bar) — 36 circle with a 44 touch target, 1 px border in <code>font-body</code> at 70%, icon 20 in <code>font-body</code> (Dark Blue / white).</li>
+        <li>All buttons are 44 high; label Open Sans SemiBold 14.</li>
+      </ul>
+    </div>
+
+    <div class="panel">
       <h3>Sizes &amp; variants</h3>
       <div class="btn-row">
         <button class="btn btn--filled" style="height:52px; padding:0 28px; font-size:15px;">Large filled</button>
@@ -1389,6 +1429,33 @@
         <span class="rb" data-on="false"><span class="ring"></span>Beide</span>
       </div>
     </div>
+    <div class="panel">
+      <h3>Switch &amp; settings row — light &amp; dark</h3>
+      <div class="theme-pair">
+        <div class="theme-demo" data-theme="light">
+          <div class="theme-demo__card" style="padding:4px 0; gap:0;">
+            <div class="setting-row"><div class="setting-row__text"><span class="setting-row__label">Announce callers</span><span class="setting-row__sub">Speaks the caller's name before the ringtone.</span></div><span class="switch" data-on="true" role="switch" aria-checked="true" aria-label="Announce callers"><span class="dot"></span></span></div>
+            <div class="setting-row"><div class="setting-row__text"><span class="setting-row__label">Double tap to call</span></div><span class="switch" data-on="false" role="switch" aria-checked="false" aria-label="Double tap to call"><span class="dot"></span></span></div>
+            <div class="setting-row setting-row--disabled"><div class="setting-row__text"><span class="setting-row__label">Result tone</span><span class="setting-row__sub">Needs Announce callers.</span></div><span class="switch" data-on="true" role="switch" aria-checked="true" aria-disabled="true" aria-label="Result tone"><span class="dot"></span></span></div>
+          </div>
+        </div>
+        <div class="theme-demo" data-theme="dark">
+          <div class="theme-demo__card" style="padding:4px 0; gap:0;">
+            <div class="setting-row"><div class="setting-row__text"><span class="setting-row__label">Announce callers</span><span class="setting-row__sub">Speaks the caller's name before the ringtone.</span></div><span class="switch" data-on="true" role="switch" aria-checked="true" aria-label="Announce callers"><span class="dot"></span></span></div>
+            <div class="setting-row"><div class="setting-row__text"><span class="setting-row__label">Double tap to call</span></div><span class="switch" data-on="false" role="switch" aria-checked="false" aria-label="Double tap to call"><span class="dot"></span></span></div>
+            <div class="setting-row setting-row--disabled"><div class="setting-row__text"><span class="setting-row__label">Result tone</span><span class="setting-row__sub">Needs Announce callers.</span></div><span class="switch" data-on="true" role="switch" aria-checked="true" aria-disabled="true" aria-label="Result tone"><span class="dot"></span></span></div>
+          </div>
+        </div>
+      </div>
+      <ul class="t-body-m" style="margin:16px 0 0; padding-left:18px; line-height:1.7;">
+        <li><b>Switch</b> — track 52 × 32, pill. Thumb 24, white, 4 inset, same size on and off, with a soft shadow (black 30%, blur 3, y 1).</li>
+        <li><b>On</b> — Bright Green track (#40EDAB) in light and dark.</li>
+        <li><b>Off</b> — track in <code>border</code> (Light Grey #DADBE0 on light, #55565B on dark).</li>
+        <li><b>Disabled</b> — the whole row at 60% opacity.</li>
+        <li><b>Row</b> — label Open Sans 15 / 20 in <code>font-body</code>; optional subtitle 12 / 16 in <code>font-muted</code>, 2 below. Padding 12 × 16, min height 48, switch trailing with 16 gap. The whole row toggles. No dividers between rows.</li>
+        <li><b>Platforms</b> — iOS: the system switch tinted Bright Green. Android: Material 3 <code>Switch</code> with these colours, no outline (border transparent) and a thumb that keeps its size when off.</li>
+      </ul>
+    </div>
   </section>
 
   <!-- ─────────────────────────────── AVATARS ─────────────────────────────── -->
@@ -1533,6 +1600,7 @@
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/recents.svg')"></span></div><div class="icon-caption">recents</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/refresh.svg')"></span></div><div class="icon-caption">refresh</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/report.svg')"></span></div><div class="icon-caption">report</div></div>
+        <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/dialpad.svg')"></span></div><div class="icon-caption">dialpad</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/search.svg')"></span></div><div class="icon-caption">search</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/settings.svg')"></span></div><div class="icon-caption">settings</div></div>
         <div><div class="icon-tile"><span class="ico-mask" style="--ico:url('icons/shield_check.svg')"></span></div><div class="icon-caption">shield_check</div></div>
@@ -2591,12 +2659,20 @@
     <p class="sec-sub">the app's tab bar · same on iOS and Android</p>
 
     <div class="panel">
-      <h3>At rest — first tab selected</h3>
-      <div class="tabbar">
+      <h3>At rest — first tab selected, light &amp; dark</h3>
+      <div class="theme-pair">
+        <div data-theme="light"><div class="tabbar">
         <div class="tabbar__item tabbar__item--on"><div class="tabbar__circle"><span class="ico-mask" style="--ico:url('icons/front_hand.svg')"></span></div><span class="tabbar__label">Reports</span></div>
         <div class="tabbar__item"><div class="tabbar__circle"><span class="ico-mask" style="--ico:url('icons/recents.svg')"></span></div><span class="tabbar__label">Recent</span></div>
         <div class="tabbar__item"><div class="tabbar__circle"><span class="ico-mask" style="--ico:url('icons/contacts.svg')"></span></div><span class="tabbar__label">Contacts</span></div>
         <div class="tabbar__item"><div class="tabbar__circle"><span class="ico-mask ico-mask--brand" style="--ico:url('icons/calmido_c.svg')"></span></div><span class="tabbar__label">Calmido</span></div>
+      </div></div>
+        <div data-theme="dark"><div class="tabbar">
+        <div class="tabbar__item tabbar__item--on"><div class="tabbar__circle"><span class="ico-mask" style="--ico:url('icons/front_hand.svg')"></span></div><span class="tabbar__label">Reports</span></div>
+        <div class="tabbar__item"><div class="tabbar__circle"><span class="ico-mask" style="--ico:url('icons/recents.svg')"></span></div><span class="tabbar__label">Recent</span></div>
+        <div class="tabbar__item"><div class="tabbar__circle"><span class="ico-mask" style="--ico:url('icons/contacts.svg')"></span></div><span class="tabbar__label">Contacts</span></div>
+        <div class="tabbar__item"><div class="tabbar__circle"><span class="ico-mask ico-mask--brand" style="--ico:url('icons/calmido_c.svg')"></span></div><span class="tabbar__label">Calmido</span></div>
+      </div></div>
       </div>
       <small class="tok">Recent is Android only: iOS cannot read the call log, so it opens on Reports.</small>
     </div>
@@ -2611,6 +2687,45 @@
         <li><b>Label</b> — Open Sans 12 / 16, uppercase, 0.08em tracking, <code>font-body</code>, one line, 5 under the circle. 12 is the type floor.</li>
         <li><b>Layout</b> — equal slots, each as wide as the widest item; padding 10 top · 5 bottom · 16 sides. When the slots don't fit (the developer-only Debug tab), the bar scrolls sideways.</li>
         <li><b>Icons</b> — <code>front_hand</code> (Reports), <code>recents</code>, <code>contacts</code>, <code>calmido_c</code> (Calmido), <code>ladybug</code> (Debug). All from <code>icons/</code> (Material Symbols), never a platform's own symbol set such as SF Symbols.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="app-controls" class="block">
+    <h2 class="sec">App controls</h2>
+    <p class="sec-sub">search field · dialpad button · same on iOS and Android</p>
+
+    <div class="panel">
+      <h3>Light &amp; dark — rest, focused, pressed</h3>
+      <div class="theme-pair">
+        <div class="theme-demo" data-theme="light" style="display:flex; flex-direction:column; gap:16px;">
+          <label class="app-search"><span class="ico-mask" style="--ico:url('icons/search.svg')" aria-hidden="true"></span><input placeholder="Search contacts" aria-label="Search contacts" /></label>
+          <label class="app-search app-search--focus"><span class="ico-mask" style="--ico:url('icons/search.svg')" aria-hidden="true"></span><input value="Sarah" aria-label="Search contacts, focused" /></label>
+          <div style="display:flex; gap:16px;">
+            <span class="app-fab" role="img" aria-label="Dialpad"><span class="ico-mask" style="--ico:url('icons/dialpad.svg')"></span></span>
+            <span class="app-fab app-fab--pressed" role="img" aria-label="Dialpad, pressed"><span class="ico-mask" style="--ico:url('icons/dialpad.svg')"></span></span>
+          </div>
+        </div>
+        <div class="theme-demo" data-theme="dark" style="display:flex; flex-direction:column; gap:16px;">
+          <label class="app-search"><span class="ico-mask" style="--ico:url('icons/search.svg')" aria-hidden="true"></span><input placeholder="Search contacts" aria-label="Search contacts" /></label>
+          <label class="app-search app-search--focus"><span class="ico-mask" style="--ico:url('icons/search.svg')" aria-hidden="true"></span><input value="Sarah" aria-label="Search contacts, focused" /></label>
+          <div style="display:flex; gap:16px;">
+            <span class="app-fab" role="img" aria-label="Dialpad"><span class="ico-mask" style="--ico:url('icons/dialpad.svg')"></span></span>
+            <span class="app-fab app-fab--pressed" role="img" aria-label="Dialpad, pressed"><span class="ico-mask" style="--ico:url('icons/dialpad.svg')"></span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>Spec</h3>
+      <ul class="t-body-m" style="margin:0; padding-left:18px; line-height:1.7;">
+        <li><b>Search field</b> — 44 high, pill. Fill <code>surface-raised</code> (white on light, #040B20 on dark), 1 px border in <code>border-strong</code> (#6F797A).</li>
+        <li><b>Search · content</b> — <code>search</code> icon 20 in <code>font-muted</code>, 12 gap, padding 16 sides. Text Open Sans 15 in <code>font-body</code>; placeholder the same size in <code>font-muted</code>; cursor in <code>ink-green</code>.</li>
+        <li><b>Search · focused</b> — border 1.5 px in <code>ink-green</code> (Green Ink on light, Bright Green on dark). The website adds the shared focus ring.</li>
+        <li><b>Dialpad button</b> — 56 circle, Bright Green fill with a Dark Blue <code>dialpad</code> icon 24, in light and dark (11.4:1). Shadow black 30%, blur 6, y 3 (Android: elevation 6).</li>
+        <li><b>Dialpad · pressed</b> — Calmido Blue (#07369E) fill with a white icon, as the filled button.</li>
+        <li>Where these sit on a screen is up to each app.</li>
       </ul>
     </div>
   </section>

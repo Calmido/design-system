@@ -54,6 +54,7 @@
   --c-surface-muted:  var(--c-light-grey);  /* filled chips, tracks; dark keeps ink-danger ≥ 4.5:1 */
   --c-border:         var(--c-light-grey);  /* dividers, card edges; dark = iOS divider (#B8B8BA @ 35%) */
   --c-border-strong:  var(--c-dark-grey);  /* input borders — ≥ 3:1 on the surface (dark: 3.6:1, as iOS) */
+  --c-outline:        var(--c-blue);  /* outlined button border, pressed fill; dark = iOS outlined button */
   --c-ink-link:       var(--c-blue);  /* always underlined; dark = white, as iOS */
   --c-ink-green:      var(--c-green-ink);  /* green text and icons */
   --c-ink-danger:     var(--c-threat-dangerous-ink);  /* dangerous verdict, errors; dark = iOS alertRed, 4.9:1 on bg-dark */
@@ -97,6 +98,7 @@
     --c-surface-muted: #1A2340;
     --c-border: #55565B;
     --c-border-strong: var(--c-dark-grey);
+    --c-outline: #BEC8C9;
     --c-ink-link: var(--c-white);
     --c-ink-green: var(--c-bright-green);
     --c-ink-danger: var(--c-alert-red);
@@ -114,6 +116,7 @@
   --c-surface-muted: #1A2340;
   --c-border: #55565B;
   --c-border-strong: var(--c-dark-grey);
+  --c-outline: #BEC8C9;
   --c-ink-link: var(--c-white);
   --c-ink-green: var(--c-bright-green);
   --c-ink-danger: var(--c-alert-red);
@@ -130,6 +133,7 @@
   --c-surface-muted: var(--c-light-grey);
   --c-border: var(--c-light-grey);
   --c-border-strong: var(--c-dark-grey);
+  --c-outline: var(--c-blue);
   --c-ink-link: var(--c-blue);
   --c-ink-green: var(--c-green-ink);
   --c-ink-danger: var(--c-threat-dangerous-ink);
