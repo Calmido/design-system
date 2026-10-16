@@ -259,7 +259,7 @@ The look is shared; where a control sits on a screen is up to each app.
 
 Search field: 44 high, pill, `search` icon 20, Open Sans 15. Dialpad button: 56 circle, `dialpad` icon 24, shadow black 30% blur 6 y 3 (Android elevation 6).
 
-**List section header** — one style for letters (Contacts) and words (Recents: Today, Yesterday, Older). Plain text, no circle or fill: Open Sans 14 / 20 semibold in `font-muted` (#6F797A light · #B8B8BA dark), transparent background, sentence case, padding 8 top · 4 bottom · 16 sides. Sticky while scrolling, still transparent over the rows, hidden while a search query is typed. Alignment and position are up to each app.
+**List section header** — one style for letters (Contacts) and words (Recents: Today, Yesterday, Older). Plain text, no circle or fill: Open Sans 14 / 20 semibold in `font-muted` (#6F797A light · #B8B8BA dark), transparent background, sentence case, padding 8 top · 4 bottom · 16 sides. Hidden while a search query is typed. Alignment and position are up to each app.
 
 **Loading indicator** — spinner 24, 3 stroke, a 270° arc in `ink-green` (Green Ink #0A7A55 light · Bright Green #40EDAB dark), no track, one turn a second; never a fixed Dark Blue. Pull to refresh puts it on a 40 disc: `surface-raised` fill (white · #040B20), 1 px `border` (#DADBE0 · #55565B), shadow black 30% blur 3 y 1 (Android elevation 3). Inside a button: 16 spinner, 2 stroke, in the button's ink. Android: `PullToRefreshDefaults.Indicator` / `CircularProgressIndicator` with these colours; iOS: `UIRefreshControl.appearance().tintColor` and `ProgressView().tint` = `ink-green`.
 
