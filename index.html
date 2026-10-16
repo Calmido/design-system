@@ -138,6 +138,10 @@
   .btn--text:hover, .btn--text.is-pressed { background: rgba(16,193,134,0.12); }
   .icon-btn { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; box-sizing: border-box; border: 1px solid color-mix(in srgb, var(--c-font-body) 70%, transparent); color: var(--c-font-body); background: transparent; }
   .icon-btn .ico-mask { width: 20px; height: 20px; }
+  .icon-btn--filled { border: 0; background: var(--c-bright-green); color: var(--c-dark-blue); }
+  .icon-btn--m { width: 50px; height: 50px; }
+  .icon-btn--l { width: 56px; height: 56px; }
+  .icon-btn--m .ico-mask, .icon-btn--l .ico-mask { width: 24px; height: 24px; }
   .btn--icon-only { width: 44px; padding: 0; }
   .btn:disabled { opacity: 0.6; cursor: not-allowed; }
   .btn .ico { width: 18px; height: 18px; }
@@ -1261,8 +1265,33 @@
         <li><b>Outlined</b> — 1 px border in <code>outline</code> (Calmido Blue on light, #BEC8C9 on dark), ink in <code>font-title</code> (Calmido Blue / white). Pressed: filled with <code>outline</code>, ink in <code>surface-raised</code> (white on light, navy on dark).</li>
         <li><b>Tonal</b> — Tonal Green / Dark Blue in both themes. Pressed: Dark Green / Dark Blue (7.3:1; white would be 2.3:1).</li>
         <li><b>Text</b> — ink in <code>ink-green</code> (Green Ink / Bright Green). Pressed: a 12% green tint.</li>
-        <li><b>Icon button</b> (top bar) — 36 circle with a 44 touch target, 1 px border in <code>font-body</code> at 70%, icon 20 in <code>font-body</code> (Dark Blue / white).</li>
+        <li><b>Icon button</b> (top bar) — round icon button size S, outlined: see below.</li>
         <li>All buttons are 44 high; label Open Sans SemiBold 14.</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h3>Round icon buttons — sizes</h3>
+      <div class="theme-pair">
+        <div class="theme-demo" data-theme="light">
+          <div class="btn-row" style="align-items:center;"><span class="icon-btn " role="img" aria-label="Add contact"><span class="ico-mask" style="--ico:url('icons/person_add.svg')"></span></span><span class="icon-btn icon-btn--filled" role="img" aria-label="Add contact, filled"><span class="ico-mask" style="--ico:url('icons/person_add.svg')"></span></span><span class="icon-btn icon-btn--m" role="img" aria-label="Add, medium"><span class="ico-mask" style="--ico:url('icons/add.svg')"></span></span><span class="icon-btn icon-btn--m icon-btn--filled" role="img" aria-label="Add, medium filled"><span class="ico-mask" style="--ico:url('icons/add.svg')"></span></span><span class="icon-btn icon-btn--l icon-btn--filled" role="img" aria-label="Dialpad"><span class="ico-mask" style="--ico:url('icons/dialpad.svg')"></span></span></div>
+        </div>
+        <div class="theme-demo" data-theme="dark">
+          <div class="btn-row" style="align-items:center;"><span class="icon-btn " role="img" aria-label="Add contact"><span class="ico-mask" style="--ico:url('icons/person_add.svg')"></span></span><span class="icon-btn icon-btn--filled" role="img" aria-label="Add contact, filled"><span class="ico-mask" style="--ico:url('icons/person_add.svg')"></span></span><span class="icon-btn icon-btn--m" role="img" aria-label="Add, medium"><span class="ico-mask" style="--ico:url('icons/add.svg')"></span></span><span class="icon-btn icon-btn--m icon-btn--filled" role="img" aria-label="Add, medium filled"><span class="ico-mask" style="--ico:url('icons/add.svg')"></span></span><span class="icon-btn icon-btn--l icon-btn--filled" role="img" aria-label="Dialpad"><span class="ico-mask" style="--ico:url('icons/dialpad.svg')"></span></span></div>
+        </div>
+      </div>
+      <table class="t-body-m" style="margin-top:16px; border-collapse:collapse;">
+        <tr><th style="text-align:left; padding:4px 16px 4px 0;">Size</th><th style="text-align:left; padding:4px 16px 4px 0;">Circle</th><th style="text-align:left; padding:4px 16px 4px 0;">Icon</th><th style="text-align:left; padding:4px 0;">Used for</th></tr>
+        <tr><td style="padding:4px 16px 4px 0;">S</td><td style="padding:4px 16px 4px 0;">36</td><td style="padding:4px 16px 4px 0;">20</td><td>top-bar actions (add contact, help, close), inline actions</td></tr>
+        <tr><td style="padding:4px 16px 4px 0;">M</td><td style="padding:4px 16px 4px 0;">50</td><td style="padding:4px 16px 4px 0;">24</td><td>bottom bar, call and confirm actions in a row</td></tr>
+        <tr><td style="padding:4px 16px 4px 0;">L</td><td style="padding:4px 16px 4px 0;">56</td><td style="padding:4px 16px 4px 0;">24</td><td>floating action (dialpad)</td></tr>
+      </table>
+      <ul class="t-body-m" style="margin:16px 0 0; padding-left:18px; line-height:1.7;">
+        <li><b>Icon size is fixed</b>, never a share of the circle. It is the full 24-grid box of the <code>icons/</code> file, padding included, so the same number gives the same glyph on every platform.</li>
+        <li><b>Outlined</b> — 1 px border in <code>font-body</code> at 70%, icon in <code>font-body</code> (Dark Blue on light, white on dark).</li>
+        <li><b>Filled</b> — Bright Green with a Dark Blue icon, in light and dark. Pressed: Calmido Blue with a white icon.</li>
+        <li><b>Touch target</b> — at least 44 on iOS and 48 on Android, centred on the circle, also for S.</li>
+        <li>Disabled: 60% opacity. Larger one-off buttons (such as a hero call button) keep the 24 icon unless their screen spec says otherwise.</li>
       </ul>
     </div>
 
