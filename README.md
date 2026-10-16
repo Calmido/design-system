@@ -261,6 +261,8 @@ Search field: 44 high, pill, `search` icon 20, Open Sans 15. Dialpad button: 56 
 
 **List section header** — one style for letters (Contacts) and words (Recents: Today, Yesterday, Older). Plain text, no circle or fill: Open Sans 14 / 20 semibold in `font-muted` (#6F797A light · #B8B8BA dark) on the list background (`surface`, #FBFBFB light · #202128 dark), sentence case, padding 8 top · 4 bottom · 16 sides. Sticky while scrolling, hidden while a search query is typed. Alignment and position are up to each app.
 
+**Loading indicator** — spinner 24, 3 stroke, a 270° arc in `ink-green` (Green Ink #0A7A55 light · Bright Green #40EDAB dark), no track, one turn a second; never a fixed Dark Blue. Pull to refresh puts it on a 40 disc: `surface-raised` fill (white · #040B20), 1 px `border` (#DADBE0 · #55565B), shadow black 30% blur 3 y 1 (Android elevation 3). Inside a button: 16 spinner, 2 stroke, in the button's ink. Android: `PullToRefreshDefaults.Indicator` / `CircularProgressIndicator` with these colours; iOS: `UIRefreshControl.appearance().tintColor` and `ProgressView().tint` = `ink-green`.
+
 ### Section card
 
 Generic content-card primitive used for download cards, testimonials, feature highlights, and similar grid content.
