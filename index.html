@@ -800,12 +800,12 @@
   .spinner--s { width: 16px; height: 16px; border-width: 2px; }
   .ptr { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--c-surface-raised); border: 1px solid var(--c-border); box-shadow: 0 1px 3px rgba(0,0,0,.3); }
   .btn .spinner { color: inherit; }
-  .notice { display: flex; align-items: center; gap: 12px; min-height: 48px; box-sizing: border-box; padding: 12px 16px; background: var(--c-surface-raised); border-bottom: 1px solid var(--c-ink-warning); color: var(--c-font-muted); text-align: left; }
-  .notice > .ico-mask:first-child { flex: 0 0 auto; width: 24px; height: 24px; color: var(--c-ink-warning); }
-  .notice__chev { flex: 0 0 auto; width: 20px; height: 20px; }
+  .notice { display: flex; align-items: center; gap: 12px; min-height: 48px; box-sizing: border-box; padding: 12px 16px; background: var(--c-surface-raised); border-bottom: 1px solid color-mix(in srgb, var(--c-bright-green) 40%, transparent); color: var(--c-font-muted); text-align: left; }
+  .notice > .ico-mask:first-child { flex: 0 0 auto; width: 22px; height: 22px; color: var(--c-ink-green); }
+  .notice__chev { flex: 0 0 auto; width: 14px; height: 14px; }
   .notice__text { flex: 1; min-width: 0; }
-  .notice__title { font: 600 15px/20px "Open Sans"; color: var(--c-font-body); }
-  .notice__body { font: 400 14px/20px "Open Sans"; color: var(--c-font-muted); }
+  .notice__title { font: 600 14px/20px "Open Sans"; color: var(--c-font-body); }
+  .notice__body { margin-top: 2px; font: 400 14px/20px "Open Sans"; color: var(--c-font-muted); }
   @keyframes spin { to { transform: rotate(360deg); } }
   @media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 2s; } }
 </style>
@@ -2847,10 +2847,11 @@
       </div>
       <ul class="t-body-m" style="margin:16px 0 0; padding-left:18px; line-height:1.7;">
         <li><b>Use</b> — a setting outside the app stops Calmido from protecting the user (Live Caller ID or Call Directory off on iOS, Do Not Disturb on Android). Stays until the setting changes, then goes by itself; no close button.</li>
-        <li><b>Box</b> — full width, min height 48, padding 12 × 16, 12 gap. Fill <code>surface-raised</code> (white · #040B20), 1 px bottom border in <code>ink-warning</code> (#8A5300 · #F5A623); no side borders, no radius.</li>
-        <li><b>Icon</b> — <code>attention</code> 24 in <code>ink-warning</code>. Warning colour, never green: something is off.</li>
-        <li><b>Text</b> — title Open Sans 15 / 20 semibold in <code>font-body</code>; body 14 / 20 in <code>font-muted</code> (14 is the floor for instructions). Both wrap, never truncate.</li>
-        <li><b>Action</b> — the whole banner is one button that opens the right settings page; trailing <code>chevron_right</code> 20 in <code>font-muted</code>. Accessible name = title + body, hint = what the tap does.</li>
+        <li><b>Box</b> — full width, min height 48, padding 12 × 16, 12 gap. Fill <code>surface-raised</code> (white · #040B20), 1 px bottom line in Bright Green at 40%; no side borders, no radius.</li>
+        <li><b>Icon</b> — <code>attention</code> 22 in <code>ink-green</code> (Green Ink · Bright Green).</li>
+        <li><b>Text</b> — title Open Sans 14 / 20 semibold in <code>font-body</code>, body 14 / 20 in <code>font-muted</code> (14 is the floor for instructions; iOS has 12 today), 2 apart. Both wrap, never truncate.</li>
+        <li><b>Action</b> — the whole banner is one button that opens the right settings page; trailing <code>chevron_right</code> 14 in <code>font-muted</code>. Accessible name = title + body, hint = what the tap does.</li>
+        <li>iOS <code>CallDirectoryBanner</code> is the reference.</li>
         <li>Where the banner sits (above the content, under the top bar) is up to each app.</li>
       </ul>
     </div>
