@@ -118,7 +118,8 @@ Caller-card gradients: `caller-warning-start/end` `#B45309` → `#DF1803`, `call
 | Warm Canvas | `#F2EEED` |
 | Content Light Grey | `#DADBE0` |
 | Content Mid Grey | `#C1C3EB` |
-| Content Dark Grey | `#6F797A` |
+| Content Dark Grey | `#6F797A` — borders and outlines only (4.48:1 on white: not for text) |
+| Grey Ink | `#5F6869` — muted text and placeholders on light (5.72:1 on white, 5.53:1 on `#FBFBFB`, 4.14:1 on Light Grey: not on `surface-muted`) |
 | BG Dark Grey | `#202128` |
 | Infocard Dark | `#16171C` |
 
@@ -165,7 +166,8 @@ palette names:
 | `--c-border` | Light Grey | `#55565B` |
 | `--c-border-strong` | Dark Grey `#6F797A` | Dark Grey |
 | `--c-outline` | Calmido Blue | `#BEC8C9` (iOS outlined button) |
-| `--c-font-title` / `-body` / `-muted` | Blue / Dark Blue / Dark Grey | White / White / `#B8B8BA` (as iOS) |
+| `--c-font-title` / `-body` / `-muted` | Blue / Dark Blue / Grey Ink `#5F6869` | White / White / `#B8B8BA` (as iOS) |
+| `--c-placeholder` | Grey Ink `#5F6869` | `#8E9094` |
 | `--c-ink-link` | Blue `#07369E` | White (underlined) |
 | `--c-ink-green` | Green Ink `#0A7A55` | Bright Green `#40EDAB` |
 | `--c-ink-danger` | `#D0103A` | Alert Red `#FD5240` (as iOS) |
@@ -196,6 +198,13 @@ low vision, colour blindness, ADHD, anxiety and motor impairments.
 - **Focus ring.** Two-tone on `:focus-visible`: 2px `dark-blue` outline, offset 2px, over a 2px white halo. A border colour is not a focus indicator; never `outline: none` on an input (put the ring on the pill shell instead).
 - **Type floor.** 12px minimum; 14px for meaningful text (verdicts, warnings, instructions); 16px in inputs.
 - **Touch targets.** 44px on the web, 44pt on iOS, 48dp on Android.
+- **Muted text and placeholders.** Light uses `grey-ink` `#5F6869` (`font-muted`, `placeholder`), never `dark-grey` `#6F797A` (4.48:1 on white, 4.33:1 on `#FBFBFB`): that is for borders and outlines. `grey-ink` is not for text on `surface-muted` (4.14:1). Dark: `font-muted` `#B8B8BA` (8.1:1 on `#202128`), `placeholder` `#8E9094` (5.0:1 on `#202128`, 4.8:1 on `#1A2340`, 6.1:1 on `#040B20`). A surface takes the `placeholder` role; it does not hard-code a grey.
+- **Dark pairs.** `ink-danger` `#FD5240` is 4.93:1 on `#202128` and 4.75:1 on `#1A2340` (`surface-muted`). `border` `#55565B` is 2.19:1 on `#202128`: decorative only (dividers, card edges), never the only sign of an input, control or state. Controls use `border-strong` (3.6:1 in dark).
+- **Reduced motion.** Honour the system setting (`prefers-reduced-motion`, iOS Reduce Motion, Android animator duration scale 0). Nothing animates forever (WCAG 2.2.2): decorative motion plays once or for at most 5 s, then stops; a spinner may loop only while work is in progress and slows or becomes static under reduced motion. No wiggle, shake or pulse on buttons, cards or errors.
+- **Forced colors.** Under `forced-colors: active` (Windows high contrast) or Increase Contrast, nothing may rely on a background or gradient fill to be seen: the threat meter keeps a 1px border on the track and a system-colour marker (`CanvasText`) for the arrow and band; mask icons use `background-color: CanvasText` (or `currentColor`); focus is a real `outline`, not a `box-shadow`; filled states (selected, checked, pressed) get a border or an icon, not only a fill.
+- **Toasts.** Visible for at least 6 s, longer with more text (about 1 s per 3 words after the first 6 s). With a screen reader on (TalkBack, VoiceOver, or an `aria-live` region in use) they do not auto-dismiss; they stay until closed, announced politely. A toast never carries the only way to an action.
+- **No colour-only status.** Every status (error, warning, success, verdict, selected, online) has an icon or a word as well as a colour. Form errors say what is wrong in text, next to the field.
+- **Cards grow.** Text in cards, rows and chips wraps and the card grows; no truncation or fixed heights for meaningful text (names, numbers, verdicts, warnings). Must hold at iOS Dynamic Type XXL, Android font scale 200% and 200% browser zoom (WCAG 1.4.4, 1.4.10). Only decorative secondary text may use `…`, with the full text in the accessible name.
 
 ---
 
@@ -216,7 +225,7 @@ Styles reference (all pill 100px radius, 44px tall):
 
 - **Filled** — `#40EDAB` bg, `#081748` ink · hover flips to `#07369E` bg + white ink
 - **Outlined** — border `--c-outline` (Calmido Blue · dark `#BEC8C9`), ink `--c-font-title` (Calmido Blue · dark white) · pressed fills with `--c-outline`, ink `--c-surface-raised`
-- **Tonal** — `#DBF6ED` bg, `#081748` ink · hover flips to `#10C186` bg, ink stays `#081748` (white is 2.3:1)
+- **Tonal** — `#DBF6ED` bg, `#081748` ink · hover flips to `#10C186` bg, ink stays `#081748` in hover and pressed, on every surface (7.3:1; white on `#10C186` is 2.33:1)
 - **Text** — `--c-ink-green` (Green Ink · dark Bright Green), no bg · pressed adds a 12% green tint
 - **Round icon buttons** — fixed icon size, never a share of the circle: **S** 36 circle / 20 icon (top bar, inline) · **M** 50 / 24 (bottom bar, call actions) · **L** 56 / 24 (dialpad). Outlined: 1px border `--c-font-body` at 70%, icon `--c-font-body`. Filled: Bright Green / Dark Blue icon in both themes. Touch target ≥ 44 iOS / 48 Android.
 - **Disabled** — `opacity 0.6`, `cursor: not-allowed`
@@ -231,7 +240,7 @@ Horizontal community-threat gauge (`threat-bar`) shared by web, iOS, and Android
 - **Marks:** gradient track (danger axis) · confidence band spanning `[lower, upper]`, tinted by level · downward arrow at `mean` (clamped to `[2%, 98%]`).
 - **Track gradient:** `--c-dark-green` 0% → `#9ACD32` 30% → `#F5A623` 58% → `--c-stop-red` 100%.
 - **Level colour** (band + arrow): Low `--c-dark-green` · Elevated `#F5A623` · High `--c-stop-red` · Unknown `--c-mid-grey`.
-- **Verdict chip:** every surface shows the verdict as icon + word next to the meter — Safe (check, green ink) · Suspicious (attention, elevated ink) · Dangerous (danger, dangerous ink) · Unrated (word only). Never colour or position alone.
+- **Verdict chip:** every surface shows the verdict as icon + word next to the meter — Safe (check, green ink) · Suspicious (attention, elevated ink) · Dangerous (danger, dangerous ink) · Unrated (question mark, neutral). Every band has a chip, including Low and Unknown; never colour or position alone. Chip = 14px text, 14px icon, pill, tinted fill with the matching ink. **Unrated** (band 0, no score or interval too thin): fill `light-grey`, ink `body-ink` `#3A4268`, `question_mark` icon, the word "Unrated" (nl: "Niet beoordeeld"); neutral grey, never green or red, and it implies neither safe nor unsafe. The meter marks the missing score with a grey band and a centred pointer, not a position on the scale.
 - **Band fallback** (if server `band` absent): derive from the *lower* bound — `≥ 0.72 → High`, `≥ 0.45 → Elevated`, else Low; null interval → Unknown. Gating on the lower bound means a lone unconfirmed complaint self-suppresses until corroborated.
 
 ### Switch
@@ -259,7 +268,7 @@ The look is shared; where a control sits on a screen is up to each app.
 
 Search field: 44 high, pill, `search` icon 20, Open Sans 15. Dialpad button: 56 circle, `dialpad` icon 24, shadow black 30% blur 6 y 3 (Android elevation 6).
 
-**List section header** — one style for letters (Contacts) and words (Recents: Today, Yesterday, Older). Plain text, no circle or fill: Open Sans 14 / 20 semibold in `font-muted` (#6F797A light · #B8B8BA dark), transparent background, sentence case, padding 8 top · 4 bottom · 16 sides. Hidden while a search query is typed. Alignment and position are up to each app.
+**List section header** — one style for letters (Contacts) and words (Recents: Today, Yesterday, Older). Plain text, no circle or fill: Open Sans 14 / 20 semibold in `font-muted` (#5F6869 light · #B8B8BA dark), transparent background, sentence case, padding 8 top · 4 bottom · 16 sides. Hidden while a search query is typed. Alignment and position are up to each app.
 
 **Loading indicator** — spinner 24, 3 stroke, a 270° arc in `ink-green` (Green Ink #0A7A55 light · Bright Green #40EDAB dark), no track, one turn a second; never a fixed Dark Blue. Pull to refresh puts it on a 40 disc: `surface-raised` fill (white · #040B20), 1 px `border` (#DADBE0 · #55565B), shadow black 30% blur 3 y 1 (Android elevation 3). Inside a button: 16 spinner, 2 stroke, in the button's ink. Android: `PullToRefreshDefaults.Indicator` / `CircularProgressIndicator` with these colours; iOS: `UIRefreshControl.appearance().tintColor` and `ProgressView().tint` = `ink-green`.
 

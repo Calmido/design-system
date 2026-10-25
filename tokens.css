@@ -15,7 +15,8 @@
   --c-bg-dark:              #202128;
   --c-infocard-dark:        #16171C;
   --c-mid-grey:             #C1C3EB;
-  --c-dark-grey:            #6F797A;  /* outlined border / secondary ink */
+  --c-dark-grey:            #6F797A;  /* borders and outlines only — 4.48:1 on white, never text */
+  --c-grey-ink:             #5F6869;  /* muted text and placeholders on light — 5.72:1 on white, 5.53:1 on light-bg */
   --c-light-grey:           #DADBE0;
   --c-light-bg:             #FBFBFB;
   --c-white:                #FFFFFF;
@@ -45,7 +46,7 @@
   --c-font-title-inverse: var(--c-white);
   --c-font-body:          var(--c-dark-blue);  /* dark: solid white, as iOS */
   --c-font-body-inverse:  #FFFFFFBF;  /* white @ 75% */
-  --c-font-muted:         var(--c-dark-grey);  /* dark: iOS textSecondaryDark */
+  --c-font-muted:         var(--c-grey-ink);  /* dark: iOS textSecondaryDark */
   --c-font-muted-inverse: #FFFFFF99;  /* white @ 60% */
 
   /* ── Theme roles: "value" is light, "dark" is dark. Components use these, not palette names, so they follow the theme. ── */
@@ -59,6 +60,7 @@
   --c-ink-green:      var(--c-green-ink);  /* green text and icons */
   --c-ink-danger:     var(--c-threat-dangerous-ink);  /* dangerous verdict, errors; dark = iOS alertRed, 4.9:1 on bg-dark */
   --c-ink-warning:    var(--c-threat-elevated-ink);  /* suspicious verdict — 7.9:1 on bg-dark */
+  --c-placeholder:    var(--c-grey-ink);  /* input placeholder — ≥ 4.5:1 on the input surface (dark: 4.8:1 on surface-muted, 5.0:1 on bg-dark, 6.1:1 on surface-raised) */
   --c-focus-ring:     var(--c-dark-blue);  /* 2px outline; dark = iOS focused-field green */
   --c-focus-halo:     var(--c-white);  /* 2px halo inside the ring */
 
@@ -103,6 +105,7 @@
     --c-ink-green: var(--c-bright-green);
     --c-ink-danger: var(--c-alert-red);
     --c-ink-warning: var(--c-threat-elevated);
+    --c-placeholder: #8E9094;
     --c-focus-ring: var(--c-bright-green);
     --c-focus-halo: var(--c-dark-blue);
   }
@@ -121,13 +124,14 @@
   --c-ink-green: var(--c-bright-green);
   --c-ink-danger: var(--c-alert-red);
   --c-ink-warning: var(--c-threat-elevated);
+  --c-placeholder: #8E9094;
   --c-focus-ring: var(--c-bright-green);
   --c-focus-halo: var(--c-dark-blue);
 }
 [data-theme="light"] {
   --c-font-title: var(--c-blue);
   --c-font-body: var(--c-dark-blue);
-  --c-font-muted: var(--c-dark-grey);
+  --c-font-muted: var(--c-grey-ink);
   --c-surface: var(--c-light-bg);
   --c-surface-raised: var(--c-white);
   --c-surface-muted: var(--c-light-grey);
@@ -138,6 +142,7 @@
   --c-ink-green: var(--c-green-ink);
   --c-ink-danger: var(--c-threat-dangerous-ink);
   --c-ink-warning: var(--c-threat-elevated-ink);
+  --c-placeholder: var(--c-grey-ink);
   --c-focus-ring: var(--c-dark-blue);
   --c-focus-halo: var(--c-white);
 }
