@@ -113,9 +113,12 @@
   .theme-demo__card { display: flex; flex-direction: column; gap: 10px; padding: 20px; border-radius: var(--r-lg); background: var(--c-surface-raised); border: 1px solid var(--c-border); }
   .theme-demo__card p { margin: 0; }
   .theme-demo__input { height: 44px; padding: 0 16px; border-radius: var(--r-pill); border: 1px solid var(--c-border-strong); background: transparent; color: var(--c-font-body); font: 16px "Open Sans"; }
-  .theme-demo .badge--safe    { background: var(--c-surface-muted); color: var(--c-ink-green); }
-  .theme-demo .badge--warning { background: var(--c-surface-muted); color: var(--c-ink-warning); }
-  .theme-demo .badge--danger  { background: var(--c-surface-muted); color: var(--c-ink-danger); }
+  /* Verdict chip: 14 / 28 tall; light = verdict tint (ink ≥ 4.5:1), dark = surface-muted. */
+  .theme-demo .badge { height: 28px; font-size: 14px; }
+  .theme-demo .badge--safe    { background: rgba(16,193,134,0.14); color: var(--c-ink-green); }
+  .theme-demo .badge--warning { background: rgba(245,166,35,0.16); color: var(--c-ink-warning); }
+  .theme-demo .badge--danger  { background: rgba(255,50,96,0.12);  color: var(--c-ink-danger); }
+  [data-theme="dark"].theme-demo :is(.badge--safe, .badge--warning, .badge--danger) { background: var(--c-surface-muted); }
   .theme-demo .badge .ico-mask { width: 14px; height: 14px; }
 
   /* ── Buttons ──────────────────────────────────────────────────── */
@@ -546,7 +549,7 @@
   .threat-bar--unknown  .threat-bar__pointer { border-top-color: var(--c-mid-grey); }
   .threat-bar__scale { display: flex; justify-content: space-between; margin-top: 8px; color: var(--c-font-muted); }
   /* Verdict chip: icon + word, so the verdict never rests on hue or position. */
-  .threat-bar__verdict { margin-top: 12px; font-size: 14px; }
+  .threat-bar__verdict { margin-top: 12px; height: 28px; font-size: 14px; }
   .threat-bar__verdict .ico-mask { width: 14px; height: 14px; }
   .threat-bar--low      .threat-bar__verdict { background: rgba(16,193,134,0.14); color: var(--c-green-ink); }
   .threat-bar--elevated .threat-bar__verdict { background: rgba(245,166,35,0.16); color: var(--c-threat-elevated-ink); }
