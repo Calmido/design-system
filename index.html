@@ -806,6 +806,15 @@
   .notice__text { flex: 1; min-width: 0; }
   .notice__title { font: 600 14px/20px "Open Sans"; color: var(--c-font-body); }
   .notice__body { margin-top: 2px; font: 400 14px/20px "Open Sans"; color: var(--c-font-muted); }
+  .edges { position: relative; height: 300px; display: flex; flex-direction: column; background: var(--c-surface); color: var(--c-font-body); font: 400 15px/20px "Open Sans"; }
+  .edges__bar { padding: 12px 16px; font-weight: 600; }
+  .edges__bar--bottom { display: flex; justify-content: space-around; padding: 10px 16px 8px; }
+  .edges__bar--bottom span { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--c-font-body); }
+  .edges__bar--bottom span:first-child { background: var(--c-bright-green); border-color: var(--c-bright-green); }
+  .edges__scroll { position: relative; flex: 1; overflow: hidden; }
+  .edges__scroll::before, .edges__scroll::after { content: ""; position: absolute; left: 0; right: 0; pointer-events: none; }
+  .edges__scroll::before { top: 0; height: 6px; background: linear-gradient(var(--c-edge-shadow), transparent); z-index: 2; }
+  .edges__scroll::after { bottom: 0; height: 48px; background: linear-gradient(to top, var(--c-edge-shadow), transparent 6px), linear-gradient(transparent, var(--c-surface)); z-index: 2; }
   @keyframes spin { to { transform: rotate(360deg); } }
   @media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 2s; } }
 </style>
@@ -2757,7 +2766,7 @@
 
   <section id="app-controls" class="block">
     <h2 class="sec">App controls</h2>
-    <p class="sec-sub">search field · dialpad button · list section header · loading indicator · notice banner · same on iOS and Android</p>
+    <p class="sec-sub">search field · dialpad button · list section header · loading indicator · notice banner · scroll edges · same on iOS and Android</p>
 
     <div class="panel">
       <h3>Light &amp; dark — rest, focused, pressed</h3>
@@ -2853,6 +2862,23 @@
         <li><b>Action</b> — the whole banner is one button that opens the right settings page; trailing <code>chevron_right</code> 14 in <code>font-muted</code>. Accessible name = title + body, hint = what the tap does.</li>
         <li>iOS <code>CallDirectoryBanner</code> is the reference.</li>
         <li>Where the banner sits (above the content, under the top bar) is up to each app.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Scroll edges — light &amp; dark</h3>
+      <div class="theme-pair">
+        <div class="theme-demo" data-theme="light" style="padding:0; overflow:hidden;">
+          <div class="edges"><div class="edges__bar">Contacts</div><div class="edges__scroll"><div class="list-row">Anna de Vries</div><div class="list-row">Arjen Bakker</div><div class="list-row">Bas Jansen</div><div class="list-row">Bram de Wit</div><div class="list-row">Carla Smit</div><div class="list-row">Daan Visser</div><div class="list-row">Eva Mulder</div><div class="list-row">Fleur Bos</div><div class="list-row">Gijs Kok</div></div><div class="edges__bar edges__bar--bottom"><span></span><span></span><span></span><span></span></div></div>
+        </div>
+        <div class="theme-demo" data-theme="dark" style="padding:0; overflow:hidden;">
+          <div class="edges"><div class="edges__bar">Contacts</div><div class="edges__scroll"><div class="list-row">Anna de Vries</div><div class="list-row">Arjen Bakker</div><div class="list-row">Bas Jansen</div><div class="list-row">Bram de Wit</div><div class="list-row">Carla Smit</div><div class="list-row">Daan Visser</div><div class="list-row">Eva Mulder</div><div class="list-row">Fleur Bos</div><div class="list-row">Gijs Kok</div></div><div class="edges__bar edges__bar--bottom"><span></span><span></span><span></span><span></span></div></div>
+        </div>
+      </div>
+      <ul class="t-body-m" style="margin:16px 0 0; padding-left:18px; line-height:1.7;">
+        <li><b>Why</b> — the top and bottom bars have no fill of their own; these keep content scrolling beneath them from running into them.</li>
+        <li><b>Edge band</b> — 6 tall at the top and the bottom of the scroll area, <code>edge-shadow</code> (#DADBE0 light · #131417 dark) fading to transparent away from the bar. Always drawn, in both themes.</li>
+        <li><b>More below</b> — 48 tall at the bottom, <code>surface</code> (#FBFBFB · #202128) fading in from transparent, only while there is more content below; fades in and out over 200 ms. The edge band sits on top of it.</li>
+        <li>No bottom bar: only the top band.</li>
       </ul>
     </div>
   </section>
