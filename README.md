@@ -168,6 +168,7 @@ palette names:
 | `--c-outline` | Calmido Blue | `#BEC8C9` (iOS outlined button) |
 | `--c-font-title` / `-body` / `-muted` | Blue / Dark Blue / Grey Ink `#5F6869` | White / White / `#B8B8BA` (as iOS) |
 | `--c-placeholder` | Grey Ink `#5F6869` | `#8E9094` |
+| `--c-edge-shadow` | Light Grey `#DADBE0` | `#131417` (black 40% over BG Dark) |
 | `--c-ink-link` | Blue `#07369E` | White (underlined) |
 | `--c-ink-green` | Green Ink `#0A7A55` | Bright Green `#40EDAB` |
 | `--c-ink-danger` | `#D0103A` | Alert Red `#FD5240` (as iOS) |
@@ -269,6 +270,8 @@ The look is shared; where a control sits on a screen is up to each app.
 Search field: 44 high, pill, `search` icon 20, Open Sans 15. Dialpad button: 56 circle, `dialpad` icon 24, shadow black 30% blur 6 y 3 (Android elevation 6).
 
 **List section header** — one style for letters (Contacts) and words (Recents: Today, Yesterday, Older). Plain text, no circle or fill: Open Sans 14 / 20 semibold in `font-muted` (#5F6869 light · #B8B8BA dark), transparent background, sentence case, padding 8 top · 4 bottom · 16 sides. Hidden while a search query is typed. Alignment and position are up to each app.
+
+**Scroll edges** — the top and bottom bars have no fill of their own; two treatments separate them from the content scrolling beneath. **Edge band:** 6 tall at the top and bottom of the scroll area, `edge-shadow` (#DADBE0 · #131417) fading to transparent away from the bar; always drawn, in light and dark. **More below:** 48 tall at the bottom, `surface` (#FBFBFB · #202128) fading in from transparent, shown only while there is more content below (fade in and out over 200 ms); it sits under the edge band. Screens without a bottom bar get only the top band.
 
 **Notice banner** — for a setting outside the app that stops Calmido from protecting the user (iOS: Live Caller ID or Call Directory off; Android: Do Not Disturb on). iOS `CallDirectoryBanner` is the reference. Full width, min height 48, padding 12 × 16, gap 12; fill `surface-raised` (white · #040B20) with a 1 px bottom line in Bright Green at 40%, no side borders or radius. `attention` icon 22 in `ink-green`; title Open Sans 14 / 20 semibold `font-body`, body 14 / 20 `font-muted` (14 is the floor for instructions; iOS has 12 today), 2 apart, both wrapping; trailing `chevron_right` 14 in `font-muted`. The whole banner is one button to the right settings page. It stays until the setting changes and has no close button. Placement is up to each app.
 

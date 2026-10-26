@@ -61,6 +61,7 @@
   --c-ink-danger:     var(--c-threat-dangerous-ink);  /* dangerous verdict, errors; dark = iOS alertRed, 4.9:1 on bg-dark */
   --c-ink-warning:    var(--c-threat-elevated-ink);  /* suspicious verdict — 7.9:1 on bg-dark */
   --c-placeholder:    var(--c-grey-ink);  /* input placeholder — ≥ 4.5:1 on the input surface (dark: 4.8:1 on surface-muted, 5.0:1 on bg-dark, 6.1:1 on surface-raised) */
+  --c-edge-shadow:    var(--c-light-grey);  /* 6px band where scrolling content meets a top or bottom bar, fading away from the bar; dark = black 40% over bg-dark */
   --c-focus-ring:     var(--c-dark-blue);  /* 2px outline; dark = iOS focused-field green */
   --c-focus-halo:     var(--c-white);  /* 2px halo inside the ring */
 
@@ -106,6 +107,7 @@
     --c-ink-danger: var(--c-alert-red);
     --c-ink-warning: var(--c-threat-elevated);
     --c-placeholder: #8E9094;
+    --c-edge-shadow: #131417;
     --c-focus-ring: var(--c-bright-green);
     --c-focus-halo: var(--c-dark-blue);
   }
@@ -125,6 +127,7 @@
   --c-ink-danger: var(--c-alert-red);
   --c-ink-warning: var(--c-threat-elevated);
   --c-placeholder: #8E9094;
+  --c-edge-shadow: #131417;
   --c-focus-ring: var(--c-bright-green);
   --c-focus-halo: var(--c-dark-blue);
 }
@@ -143,6 +146,7 @@
   --c-ink-danger: var(--c-threat-dangerous-ink);
   --c-ink-warning: var(--c-threat-elevated-ink);
   --c-placeholder: var(--c-grey-ink);
+  --c-edge-shadow: var(--c-light-grey);
   --c-focus-ring: var(--c-dark-blue);
   --c-focus-halo: var(--c-white);
 }
