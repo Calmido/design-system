@@ -297,6 +297,10 @@ Each icon is a standalone 24×24 SVG with `fill="currentColor"`. Top-level
 icons sit directly in `icons/` (e.g. `icons/call.svg`); related sets are
 grouped under a subfolder (e.g. `icons/report_categories/category_phishing.svg`).
 
+One icon is drawn as a stroke rather than a fill: `message.svg`, Android's `icon_message` (a
+1.5 pt outline on a 16 × 16 grid, scaled to 24 × 24). It uses `stroke="currentColor"`, so it
+takes its colour the same way.
+
 ### Naming
 
 The filename **is** the icon name. There is no manifest / index file —
