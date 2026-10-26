@@ -25,7 +25,7 @@ design system because they are the Calmido website.
 | `icons/` | Icon set — 24×24 SVGs with `currentColor` fill, grouped into subfolders by domain (see [Icons](#icons)) |
 
 App Store and Google Play listing copy lives in the knowledge base, in
-[`Organization/store-listing/`](https://github.com/Calmido/knowledge-base/tree/main/Organization/store-listing).
+[`App/store-listing/`](https://github.com/Calmido/knowledge-base/tree/main/App/store-listing).
 
 Open `index.html` locally or visit the Pages URL above. GitHub Pages is
 configured (legacy mode, `main` / root) to auto-deploy on every push.
