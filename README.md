@@ -250,6 +250,8 @@ Horizontal community-threat gauge (`threat-bar`) shared by web, iOS, and Android
 
 Recents, Reports, Contacts and the dialpad result. Same on Android and iOS (`calmido-phone-android/docs/avatars.md`).
 
+- **One row for Recents and Reports:** the 40 avatar · the name (semibold) over the date and time (small, secondary) · the chip, icon + word. Only the chip's place and the right side differ: Recents puts one compact chip on the second row and the call button on the right; Reports puts the full-size chip(s) on the right, with no call button.
+
 - **Avatar badge: a member's only, never a verdict.** Locked (red lock) › Shielded (dark lock) › verified member seal (Bright Green). Blocked, Dangerous or Warning: no badge, not even the seal; the chip says it.
 - **Recents, second row:** call-direction icon · date and time · then **one compact chip** (Blocked › Suspicious / Dangerous › Safe › Confirmed) or else the region. Never both. Safe is the user's own Safe report, Confirmed a business card they confirmed. Expanded, when the third row shows the number, the region follows it: `+31 20 123 4567 • Netherlands`.
 - **Compact chip:** the verdict chip at 20 tall, padding 0 × 8, gap 4, 12px icon; the word stays 14px semibold (the floor for a verdict). Icon + word, same fills and inks. **Blocked** (`block`) uses the Dangerous fill and ink.
