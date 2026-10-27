@@ -368,9 +368,19 @@
   .bc-table .avatar { width: 40px; height: 40px; font-size: 14px; }
   .recents-mock__first { display: flex; align-items: center; min-width: 0; }
   .recents-mock__first .recents-mock__name { min-width: 0; }
-  .recents-mock .av-badge { border-color: var(--c-surface-raised); }
   .recents-mock__flag { width: 16px; height: 11px; margin-right: 8px; flex: 0 0 auto; background: linear-gradient(to bottom, #000000 0 33.3%, #DD0000 33.3% 66.6%, #FFCE00 66.6% 100%); }
-  .recents-mock__lock { width: 16px; height: 16px; margin-left: 8px; flex: 0 0 auto; color: var(--c-font-body); }
+  .recents-mock__item + .recents-mock__item { margin-top: 0; }
+  .recents-mock__line { display: flex; align-items: center; gap: 4px; font-family: 'Open Sans', sans-serif; font-size: 12px; color: var(--c-font-muted); white-space: nowrap; }
+  .recents-mock__line .ico-mask { width: 14px; height: 14px; flex: 0 0 auto; }
+  .recents-mock__hairline { height: 1px; background: var(--c-border); margin: 8px 0; }
+  .recents-mock__question { display: flex; align-items: center; gap: 8px; font-family: 'Open Sans', sans-serif; font-size: 12px; color: var(--c-font-body); }
+  .recents-mock__question span:first-child { flex: 1; }
+  .recents-mock__answer { width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+  .recents-mock__answer .ico-mask { width: 24px; height: 24px; }
+  .recents-mock__bar { display: flex; padding-bottom: 6px; }
+  .recents-mock__action { flex: 1; min-height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-family: 'Open Sans', sans-serif; font-size: 12px; color: var(--c-font-body); }
+  .recents-mock__action .ico-mask { width: 22px; height: 22px; }
+  .recents-mock__lock { width: 14px; height: 14px; flex: 0 0 auto; color: var(--c-ink-green); }
   .recents-mock .badge--alert { color: var(--c-ink-warning); }
   .recents-mock .badge--stop { color: var(--c-ink-danger); }
   .recents-mock .badge--verified { color: var(--c-ink-green); }
@@ -1693,16 +1703,17 @@
       <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-grey-ink);">The second row carries the call: direction icon · date and time · one compact chip, or else the region; never both. Expanded, a contact, business or member gets a third row with the number and its region. The call's outcome is the direction icon's colour, never words.</p>
       <h4 style="margin: 24px 0 8px;">The rules</h4>
       <ul class="t-body-m" style="margin: 0 0 16px; padding-left: 20px; color: var(--c-grey-ink); line-height: 1.6;">
-        <li><strong>Row 1:</strong> the name, one line (two when the row is opened). An unknown caller's row 1 is its number. <strong>iOS: no lock</strong> after the name: every call listed is a secure call. <strong>Android:</strong> a lock after the name of a verified secure call, because its Recents lists every call.</li>
+        <li><strong>Row 1:</strong> the name, one line (two when the row is opened). An unknown caller's row 1 is its number.</li>
         <li><strong>Foreign number:</strong> an unknown number from another country than the user's gets that country's flag before the number: 16 wide, aspect kept (about 16 × 11), 8 before the number; the country's name is its screen-reader label.</li>
-        <li><strong>Row 2:</strong> call-direction icon · date and time · <strong>one compact chip</strong> (Blocked › Suspicious / Dangerous › Safe › Confirmed), or else the region. Never both. The chip's word is never cut; the date gives way first.</li>
-        <li><strong>Row 3</strong> (opened, and only for a contact, business or member): number • region. Never the call's outcome.</li>
-        <li><strong>Outcome:</strong> the direction icon's colour: <strong>green when the call connected, the danger ink when it was missed</strong> (not answered, or no connection), the block icon when declined. Never in words; screen readers hear it on the icon ("Incoming, connected", "Incoming, missed").</li>
+        <li><strong>Row 2:</strong> call-direction icon · date and time · the <strong>secure lock</strong> (<code>lock</code> 14, <code>ink-green</code>, only when the handshake was verified) · <strong>one compact chip</strong> (Blocked › Suspicious / Dangerous › Safe › Confirmed), or else the region. Never both. The chip's word is never cut; the date gives way first.</li>
+        <li><strong>Row 3</strong> (opened, and only for a contact, business or member): number • region.</li>
+        <li><strong>Opened:</strong> the <strong>handshake line</strong> for a secure call (<code>handshake</code> 14 + the state in words, 12: Verified green; Not verified, declined red; timed out, cancelled muted), the question row if this is the number's newest row, then the <strong>action bar</strong> under a hairline: equal slots, icon 22 over its word 12, at least 44 tall: Add / Edit · Message · Block / Unblock · Report, and Call last for a caller with no call button on the row.</li>
+        <li><strong>Outcome:</strong> the direction icon's colour: <strong>green when the call connected, the danger ink when it was missed</strong> (not answered, or no connection), the block icon when declined. Never in words on a closed row; screen readers hear it on the icon ("Incoming, connected", "Incoming, missed").</li>
         <li><strong>No call button</strong> for a caller we warn about: Suspicious, Dangerous, Blocked, a locked member or an invalid number. The text takes its place.</li>
         <li><strong>Question row</strong> (Report this call / Confirm the name): at most one per number, on that number's <strong>newest</strong> row, under a hairline divider with 8 above and below.</li>
       </ul>
-      <h4 style="margin: 24px 0 8px;">Example</h4>
-      <p class="t-body-m" style="margin: 0 0 12px; color: var(--c-grey-ink);">One example for both apps, at 375&nbsp;px, light and dark. From the top: a verified secure call (the lock after the name, the seal on the member's avatar); a Suspicious contact, with the chip and no call button; a contact's normal call; a missed call (danger ink); an unknown number from abroad with its flag. <strong>iOS hides the lock</strong>: it lists only secure calls. The lock is <code>lock</code> 16, 8 after the name, in <code>font-body</code>; the direction icon 16, green when the call connected, the danger ink when it was missed.</p>
+      <h4 style="margin: 24px 0 8px;">Example — closed rows</h4>
+      <p class="t-body-m" style="margin: 0 0 12px; color: var(--c-grey-ink);">One example for both apps, at 375&nbsp;px, light and dark. From the top: a verified secure call (the green lock on the second row, the seal on the member's avatar); a Suspicious contact, with the chip and no call button; a contact's normal call; a missed call (danger ink); an unknown number from abroad with its flag. The lock is <code>lock</code> 14 in <code>ink-green</code>, after the time; the direction icon 16, green when the call connected, the danger ink when it was missed.</p>
       <div class="theme-pair">
         <div data-theme="light">
           <div class="recents-mock">
@@ -1710,8 +1721,8 @@
             <div class="recents-mock__row">
               <span class="av"><span class="avatar avatar--face" style="width:40px;height:40px;font-size:14px;">SB</span><span class="av-badge av-badge--seal"><span class="ico-mask" style="--ico:url('icons/verified.svg')"></span></span></span>
               <div class="recents-mock__text">
-                <div class="recents-mock__first"><span class="recents-mock__name">Sanne Bakker</span><span class="ico-mask recents-mock__lock" style="--ico:url('icons/lock.svg');" role="img" aria-label="Secure call"></span></div>
-                <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_received.svg'); width:16px; height:16px; color: var(--c-ink-green);" aria-hidden="true"></span><span class="recents-mock__region">Today 14:32 • Netherlands</span></div>
+                <div class="recents-mock__first"><span class="recents-mock__name">Sanne Bakker</span></div>
+                <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_received.svg'); width:16px; height:16px; color: var(--c-ink-green);" aria-hidden="true"></span><span>Today 14:32</span><span class="ico-mask recents-mock__lock" style="--ico:url('icons/lock.svg');" role="img" aria-label="Verified"></span><span class="recents-mock__region">• Netherlands</span></div>
               </div>
               <span class="ico-mask recents-mock__call" style="--ico:url('icons/call/call.svg');" aria-label="Call"></span>
             </div>
@@ -1754,8 +1765,8 @@
             <div class="recents-mock__row">
               <span class="av"><span class="avatar avatar--face" style="width:40px;height:40px;font-size:14px;">SB</span><span class="av-badge av-badge--seal"><span class="ico-mask" style="--ico:url('icons/verified.svg')"></span></span></span>
               <div class="recents-mock__text">
-                <div class="recents-mock__first"><span class="recents-mock__name">Sanne Bakker</span><span class="ico-mask recents-mock__lock" style="--ico:url('icons/lock.svg');" role="img" aria-label="Secure call"></span></div>
-                <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_received.svg'); width:16px; height:16px; color: var(--c-ink-green);" aria-hidden="true"></span><span class="recents-mock__region">Today 14:32 • Netherlands</span></div>
+                <div class="recents-mock__first"><span class="recents-mock__name">Sanne Bakker</span></div>
+                <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_received.svg'); width:16px; height:16px; color: var(--c-ink-green);" aria-hidden="true"></span><span>Today 14:32</span><span class="ico-mask recents-mock__lock" style="--ico:url('icons/lock.svg');" role="img" aria-label="Verified"></span><span class="recents-mock__region">• Netherlands</span></div>
               </div>
               <span class="ico-mask recents-mock__call" style="--ico:url('icons/call/call.svg');" aria-label="Call"></span>
             </div>
@@ -1789,6 +1800,90 @@
                 <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_received.svg'); width:16px; height:16px; color: var(--c-ink-green);" aria-hidden="true"></span><span class="recents-mock__region">Today 08:12 • Germany</span></div>
               </div>
               <span class="ico-mask recents-mock__call" style="--ico:url('icons/call/call.svg');" aria-label="Call"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h4 style="margin: 24px 0 8px;">Example — opened rows</h4>
+      <p class="t-body-m" style="margin: 0 0 12px; color: var(--c-grey-ink);">The same list with rows opened, light and dark. A verified member: the number moves to row 3, so the region goes with it; then the handshake line and the action bar. A Suspicious contact: no call button on the row, so Call is the last action; its handshake timed out (muted). An unknown number, the newest call of that number: no row 3 (row 1 already is the number), no handshake line (no handshake with a non-member); the question row, then the action bar.</p>
+      <div class="theme-pair">
+        <div data-theme="light">
+          <div class="recents-mock">
+            <div class="list-header">Today</div>
+            <div class="recents-mock__item">
+              <div class="recents-mock__row">
+                <span class="av"><span class="avatar avatar--face" style="width:40px;height:40px;font-size:14px;">SB</span><span class="av-badge av-badge--seal"><span class="ico-mask" style="--ico:url('icons/verified.svg')"></span></span></span>
+                <div class="recents-mock__text">
+                  <div class="recents-mock__first"><span class="recents-mock__name">Sanne Bakker</span></div>
+                  <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_received.svg'); width:16px; height:16px; color: var(--c-ink-green);" aria-hidden="true"></span><span>Today 14:32</span><span class="ico-mask recents-mock__lock" style="--ico:url('icons/lock.svg');" role="img" aria-label="Verified"></span></div>
+                  <div class="recents-mock__line">+31 6 12 34 56 78 • Netherlands</div><div class="recents-mock__line" style="color: var(--c-ink-green);"><span class="ico-mask" style="--ico:url('icons/handshake.svg');" aria-hidden="true"></span><span>Verified</span></div>
+                </div>
+                <span class="ico-mask recents-mock__call" style="--ico:url('icons/call/call.svg');" aria-label="Call"></span>
+              </div>
+              <div class="recents-mock__hairline"></div><div class="recents-mock__bar"><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/person_add.svg');" aria-hidden="true"></span><span>Add</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/message.svg');" aria-hidden="true"></span><span>Message</span></span><span class="recents-mock__action" style="color: var(--c-ink-danger);"><span class="ico-mask" style="--ico:url('icons/block.svg');" aria-hidden="true"></span><span>Block</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/report.svg');" aria-hidden="true"></span><span>Report</span></span></div>
+            </div>
+            <div class="recents-mock__item">
+              <div class="recents-mock__row">
+                <span class="avatar avatar--face" style="width:40px;height:40px;font-size:14px;">AH</span>
+                <div class="recents-mock__text">
+                  <div class="recents-mock__first"><span class="recents-mock__name">Annemarie van den Hoogenband</span></div>
+                  <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_received.svg'); width:16px; height:16px; color: var(--c-ink-green);" aria-hidden="true"></span><span>Today 13:10</span><span class="badge badge--compact badge--alert"><span class="ico-mask" style="--ico:url('icons/attention.svg')" aria-hidden="true"></span>Suspicious</span></div>
+                  <div class="recents-mock__line">+31 20 555 12 34 • Netherlands</div><div class="recents-mock__line" style="color: var(--c-font-muted);"><span class="ico-mask" style="--ico:url('icons/handshake.svg');" aria-hidden="true"></span><span>Not verified: timed out</span></div>
+                </div>
+              </div>
+              <div class="recents-mock__hairline"></div><div class="recents-mock__bar"><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/edit.svg');" aria-hidden="true"></span><span>Edit</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/message.svg');" aria-hidden="true"></span><span>Message</span></span><span class="recents-mock__action" style="color: var(--c-ink-danger);"><span class="ico-mask" style="--ico:url('icons/block.svg');" aria-hidden="true"></span><span>Block</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/report.svg');" aria-hidden="true"></span><span>Report</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/call/call.svg');" aria-hidden="true"></span><span>Call</span></span></div>
+            </div>
+            <div class="recents-mock__item">
+              <div class="recents-mock__row">
+                <span class="avatar avatar--unknown" style="width:40px;height:40px;"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>
+                <div class="recents-mock__text">
+                  <div class="recents-mock__first"><span class="recents-mock__name">+31 20 123 4567</span></div>
+                  <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_missed.svg'); width:16px; height:16px; color: var(--c-ink-danger);" aria-hidden="true"></span><span class="recents-mock__region">Today 09:05 • Netherlands</span></div>
+                  
+                </div>
+                <span class="ico-mask recents-mock__call" style="--ico:url('icons/call/call.svg');" aria-label="Call"></span>
+              </div>
+              <div class="recents-mock__hairline"></div><div class="recents-mock__question"><span>Help our community! This call was:</span><span class="recents-mock__answer" style="color: var(--c-ink-green);" aria-label="Safe"><span class="ico-mask" style="--ico:url('icons/safe.svg');" aria-hidden="true"></span></span><span class="recents-mock__answer" style="color: var(--c-ink-danger);" aria-label="Suspicious"><span class="ico-mask" style="--ico:url('icons/unsafe.svg');" aria-hidden="true"></span></span></div><div class="recents-mock__hairline"></div><div class="recents-mock__bar"><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/person_add.svg');" aria-hidden="true"></span><span>Add</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/message.svg');" aria-hidden="true"></span><span>Message</span></span><span class="recents-mock__action" style="color: var(--c-ink-danger);"><span class="ico-mask" style="--ico:url('icons/block.svg');" aria-hidden="true"></span><span>Block</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/report.svg');" aria-hidden="true"></span><span>Report</span></span></div>
+            </div>
+          </div>
+        </div>
+        <div data-theme="dark">
+          <div class="recents-mock">
+            <div class="list-header">Today</div>
+            <div class="recents-mock__item">
+              <div class="recents-mock__row">
+                <span class="av"><span class="avatar avatar--face" style="width:40px;height:40px;font-size:14px;">SB</span><span class="av-badge av-badge--seal"><span class="ico-mask" style="--ico:url('icons/verified.svg')"></span></span></span>
+                <div class="recents-mock__text">
+                  <div class="recents-mock__first"><span class="recents-mock__name">Sanne Bakker</span></div>
+                  <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_received.svg'); width:16px; height:16px; color: var(--c-ink-green);" aria-hidden="true"></span><span>Today 14:32</span><span class="ico-mask recents-mock__lock" style="--ico:url('icons/lock.svg');" role="img" aria-label="Verified"></span></div>
+                  <div class="recents-mock__line">+31 6 12 34 56 78 • Netherlands</div><div class="recents-mock__line" style="color: var(--c-ink-green);"><span class="ico-mask" style="--ico:url('icons/handshake.svg');" aria-hidden="true"></span><span>Verified</span></div>
+                </div>
+                <span class="ico-mask recents-mock__call" style="--ico:url('icons/call/call.svg');" aria-label="Call"></span>
+              </div>
+              <div class="recents-mock__hairline"></div><div class="recents-mock__bar"><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/person_add.svg');" aria-hidden="true"></span><span>Add</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/message.svg');" aria-hidden="true"></span><span>Message</span></span><span class="recents-mock__action" style="color: var(--c-ink-danger);"><span class="ico-mask" style="--ico:url('icons/block.svg');" aria-hidden="true"></span><span>Block</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/report.svg');" aria-hidden="true"></span><span>Report</span></span></div>
+            </div>
+            <div class="recents-mock__item">
+              <div class="recents-mock__row">
+                <span class="avatar avatar--face" style="width:40px;height:40px;font-size:14px;">AH</span>
+                <div class="recents-mock__text">
+                  <div class="recents-mock__first"><span class="recents-mock__name">Annemarie van den Hoogenband</span></div>
+                  <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_received.svg'); width:16px; height:16px; color: var(--c-ink-green);" aria-hidden="true"></span><span>Today 13:10</span><span class="badge badge--compact badge--alert"><span class="ico-mask" style="--ico:url('icons/attention.svg')" aria-hidden="true"></span>Suspicious</span></div>
+                  <div class="recents-mock__line">+31 20 555 12 34 • Netherlands</div><div class="recents-mock__line" style="color: var(--c-font-muted);"><span class="ico-mask" style="--ico:url('icons/handshake.svg');" aria-hidden="true"></span><span>Not verified: timed out</span></div>
+                </div>
+              </div>
+              <div class="recents-mock__hairline"></div><div class="recents-mock__bar"><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/edit.svg');" aria-hidden="true"></span><span>Edit</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/message.svg');" aria-hidden="true"></span><span>Message</span></span><span class="recents-mock__action" style="color: var(--c-ink-danger);"><span class="ico-mask" style="--ico:url('icons/block.svg');" aria-hidden="true"></span><span>Block</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/report.svg');" aria-hidden="true"></span><span>Report</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/call/call.svg');" aria-hidden="true"></span><span>Call</span></span></div>
+            </div>
+            <div class="recents-mock__item">
+              <div class="recents-mock__row">
+                <span class="avatar avatar--unknown" style="width:40px;height:40px;"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>
+                <div class="recents-mock__text">
+                  <div class="recents-mock__first"><span class="recents-mock__name">+31 20 123 4567</span></div>
+                  <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_missed.svg'); width:16px; height:16px; color: var(--c-ink-danger);" aria-hidden="true"></span><span class="recents-mock__region">Today 09:05 • Netherlands</span></div>
+                  
+                </div>
+                <span class="ico-mask recents-mock__call" style="--ico:url('icons/call/call.svg');" aria-label="Call"></span>
+              </div>
+              <div class="recents-mock__hairline"></div><div class="recents-mock__question"><span>Help our community! This call was:</span><span class="recents-mock__answer" style="color: var(--c-ink-green);" aria-label="Safe"><span class="ico-mask" style="--ico:url('icons/safe.svg');" aria-hidden="true"></span></span><span class="recents-mock__answer" style="color: var(--c-ink-danger);" aria-label="Suspicious"><span class="ico-mask" style="--ico:url('icons/unsafe.svg');" aria-hidden="true"></span></span></div><div class="recents-mock__hairline"></div><div class="recents-mock__bar"><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/person_add.svg');" aria-hidden="true"></span><span>Add</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/message.svg');" aria-hidden="true"></span><span>Message</span></span><span class="recents-mock__action" style="color: var(--c-ink-danger);"><span class="ico-mask" style="--ico:url('icons/block.svg');" aria-hidden="true"></span><span>Block</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/report.svg');" aria-hidden="true"></span><span>Report</span></span></div>
             </div>
           </div>
         </div>
