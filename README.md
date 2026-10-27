@@ -282,7 +282,7 @@ The look is shared; where a control sits on a screen is up to each app.
 
 Search field: 44 high, pill, `search` icon 20, Open Sans 15. Dialpad button: 56 circle, `dialpad` icon 24, shadow black 30% blur 6 y 3 (Android elevation 6).
 
-**List section header** — one style for letters (Contacts) and words (Recents: Today, Yesterday, Older). Plain text, no circle or fill: Open Sans 14 / 20 semibold in `font-muted` (#5F6869 light · #B8B8BA dark), transparent background, sentence case, padding 8 top · 4 bottom · 16 sides. Hidden while a search query is typed. Alignment and position are up to each app.
+**List section header** — one style for letters (Contacts) and words (Recents: Today, Yesterday, Older). Plain text, no circle or fill: Open Sans 14 / 20 semibold in `font-muted` (#5F6869 light · #B8B8BA dark), transparent background, sentence case, padding 8 top · 4 bottom · 16 sides. Hidden while a search query is typed. **Recents pins it** at the top while its day scrolls, still transparent: the rows pass under it, as in an iOS plain list. Contacts lets it scroll with the rows. Alignment is up to each app.
 
 **Scroll edges** — the top and bottom bars have no fill of their own; two treatments separate them from the content scrolling beneath. **Edge band:** 6 tall at the top and bottom of the scroll area, `edge-shadow` (#DADBE0 · #131417) fading to transparent away from the bar; always drawn, in light and dark. **More below:** 48 tall at the bottom, `surface` (#FBFBFB · #202128) fading in from transparent, shown only while there is more content below (fade in and out over 200 ms); it sits under the edge band. Screens without a bottom bar get only the top band.
 
