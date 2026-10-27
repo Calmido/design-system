@@ -246,6 +246,15 @@ Horizontal community-threat gauge (`threat-bar`) shared by web, iOS, and Android
 - **Verdict chip:** every surface shows the verdict as icon + word next to the meter — Safe (check, green ink) · Suspicious (attention, elevated ink) · Dangerous (danger, dangerous ink) · Unrated (question mark, neutral). Every band has a chip, including Low and Unknown; never colour or position alone. Chip = pill 28 tall, padding 0 × 10, gap 6, 14px icon next to 14px semibold text. Fill, light: the verdict colour as a tint (Safe #10C186 14%, Suspicious #F5A623 16%, Dangerous #FF3260 12%), ink 4.5–5.7:1 on it; never `surface-muted` in light (green and red drop to 3.9–4.0:1). Fill, dark: `surface-muted` #1A2340 with the dark inks (4.75–10.3:1). **Unrated** (band 0, no score or interval too thin): fill `light-grey`, ink `body-ink` `#3A4268`, `question_mark` icon, the word "Unrated" (nl: "Niet beoordeeld"); neutral grey, never green or red, and it implies neither safe nor unsafe. The meter marks the missing score with a grey band and a centred pointer, not a position on the scale.
 - **Band fallback** (if server `band` absent): derive from the *lower* bound — `≥ 0.72 → High`, `≥ 0.45 → Elevated`, else Low; null interval → Unknown. Gating on the lower bound means a lone unconfirmed complaint self-suppresses until corroborated.
 
+### List rows
+
+Recents, Reports, Contacts and the dialpad result. Same on Android and iOS (`calmido-phone-android/docs/avatars.md`).
+
+- **Avatar badge: a member's only, never a verdict.** Locked (red lock) › Shielded (dark lock) › verified member seal (Bright Green). Blocked, Dangerous or Warning: no badge, not even the seal; the chip says it.
+- **Recents, second row:** call-direction icon · date and time · then **one compact chip** (Blocked › Suspicious / Dangerous › Safe › Confirmed) or else the region. Never both. Safe is the user's own Safe report, Confirmed a business card they confirmed. Expanded, when the third row shows the number, the region follows it: `+31 20 123 4567 • Netherlands`.
+- **Compact chip:** the verdict chip at 20 tall, padding 0 × 8, gap 4, 12px icon; the word stays 14px semibold (the floor for a verdict). Icon + word, same fills and inks. **Blocked** (`block`) uses the Dangerous fill and ink.
+- **Reports:** the verdict or Confirmed chip at full size, and a **Blocked** chip next to it for a blocked number.
+
 ### Switch
 
 Same on web, iOS and Android, in light and dark.

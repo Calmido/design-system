@@ -352,6 +352,9 @@
   .badge--stop     { background: rgba(255,50,96,0.12); color: var(--c-threat-dangerous-ink); }
   .badge--unknown  { background: var(--c-light-grey); color: var(--c-body-ink); }
   .badge svg { width: 14px; height: 14px; }
+  /* Compact verdict chip: inside a line of small text (Recents' second row). The word stays 14. */
+  .badge--compact { height: 20px; padding: 0 8px; gap: 4px; font-size: 14px; letter-spacing: 0; }
+  .badge--compact .ico-mask { width: 12px; height: 12px; }
 
   /* ── Calmido Caller Card ───────────────────────────────────────
      Shared 320×200 caller-card spec used by the website, Android and iOS.
@@ -1566,17 +1569,28 @@
     </div>
 
     <div class="panel">
-      <h3>Lists — face + one badge</h3>
-      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-grey-ink);">Recents, Contacts and the dialpad result always show the face, with at most one badge — the most urgent. The green seal vouches for the caller, so only a <strong>verified</strong> member gets it, when there is nothing to warn about. An <strong>unverified</strong> member shows the Calmido C and no badge — never their own photo, initials or name in a list. A <strong>shielded</strong> member shows the C with a dark lock badge: anonymous, not dangerous. No arcs anywhere in the app.</p>
+      <h3>Lists — face + a member badge</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-grey-ink);">Recents, Reports, Contacts and the dialpad result always show the face, with at most one badge, and only a <strong>member's</strong>: never a verdict, the chip carries that. A <strong>locked</strong> member gets the red lock. The green seal vouches for the caller, so only a <strong>verified</strong> member gets it, when there is nothing to warn about. An <strong>unverified</strong> member shows the Calmido C and no badge — never their own photo, initials or name in a list. A <strong>shielded</strong> member shows the C with a dark lock badge: anonymous, not dangerous. No arcs anywhere in the app.</p>
       <div class="av-row">
-        <div class="av-cell"><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--red"><span class="ico-mask" style="--ico:url('icons/block.svg')"></span></span></span><span class="av-cap">blocked</span></div>
         <div class="av-cell"><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--red"><span class="ico-mask" style="--ico:url('icons/lock.svg')"></span></span></span><span class="av-cap">locked</span></div>
-        <div class="av-cell"><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--red"><span class="ico-mask" style="--ico:url('icons/danger.svg')"></span></span></span><span class="av-cap">dangerous</span></div>
-        <div class="av-cell"><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--amber"><span class="ico-mask" style="--ico:url('icons/danger.svg')"></span></span></span><span class="av-cap">warning</span></div>
         <div class="av-cell"><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--seal"><span class="ico-mask" style="--ico:url('icons/verified.svg')"></span></span></span><span class="av-cap">verified member</span></div>
         <div class="av-cell"><span class="av"><span class="avatar avatar--unknown"><span class="ico-mask" style="--ico:url('icons/logo_1.svg'); width:24px; height:24px"></span></span></span><span class="av-cap">unverified member</span></div>
         <div class="av-cell"><span class="av"><span class="avatar avatar--unknown"><span class="ico-mask" style="--ico:url('icons/logo_1.svg'); width:24px; height:24px"></span></span><span class="av-badge av-badge--dark"><span class="ico-mask" style="--ico:url('icons/lock.svg')"></span></span></span><span class="av-cap">shielded member</span></div>
       </div>
+      <small class="tok">Locked › shielded › seal. Blocked, a threat or a warning: no badge, not even the seal.</small>
+    </div>
+
+    <div class="panel">
+      <h3>Lists — the chip</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-grey-ink);">Recents' second row: the call-direction icon, the date and time, then <strong>one compact chip</strong> — Blocked › Suspicious / Dangerous › Safe › Confirmed — or else the region; never both. Expanded, the region follows the number on the third row. Reports shows the chip at full size, with a Blocked chip beside the verdict. Every chip is icon + word.</p>
+      <div class="av-row" style="align-items: center;">
+        <span class="badge badge--compact badge--stop"><span class="ico-mask" style="--ico:url('icons/block.svg')" aria-hidden="true"></span>Blocked</span>
+        <span class="badge badge--compact badge--alert"><span class="ico-mask" style="--ico:url('icons/attention.svg')" aria-hidden="true"></span>Suspicious</span>
+        <span class="badge badge--compact badge--stop"><span class="ico-mask" style="--ico:url('icons/danger.svg')" aria-hidden="true"></span>Dangerous</span>
+        <span class="badge badge--compact badge--verified"><span class="ico-mask" style="--ico:url('icons/check.svg')" aria-hidden="true"></span>Safe</span>
+        <span class="badge badge--compact badge--verified"><span class="ico-mask" style="--ico:url('icons/thumb_up.svg')" aria-hidden="true"></span>Confirmed</span>
+      </div>
+      <small class="tok">Compact: 20 tall · padding 0 × 8 · gap 4 · icon 12 · word 14 semibold. Blocked: the Dangerous fill and ink.</small>
     </div>
 
     <div class="panel">
