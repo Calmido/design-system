@@ -259,7 +259,7 @@ Recents, Reports, Contacts and the dialpad result. Same on Android and iOS (`cal
 - **Spacing, every list** (Recents, Reports, Contacts; Android's, both apps): **10 between rows**, no divider line between them. In a row: the 40 avatar, a 15 gap, the text lines stacked with no extra gap between them, and on the right the call button's 48 touch target (Recents, Contacts) or the chips (Reports); the 48 sets the row's minimum height. Recents' question row sits under a hairline divider with 8 above and below it.
 - **Recents, question row** (Report this call / Confirm the name): at most one per number, always on that number's **newest** row, whichever of its calls asks it. Calling someone back doesn't push the question down to an older row.
 - **Compact chip:** the verdict chip at 20 tall, padding 0 × 8, gap 4, 12px icon; the word stays 14px semibold (the floor for a verdict). Icon + word, same fills and inks. **Blocked** (`block`) uses the Dangerous fill and ink.
-- **Reports:** the verdict or Confirmed chip at full size, and a **Blocked** chip next to it for a blocked number.
+- **Reports:** the verdict or Confirmed chip at full size, and a **Blocked** chip next to it for a blocked number. Grouped like Recents, **Today › Yesterday › Older** (a report without a date is Older), under the list section header, pinned while its rows scroll.
 
 ### Switch
 
