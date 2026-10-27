@@ -1600,7 +1600,16 @@
         <span class="badge badge--compact badge--verified"><span class="ico-mask" style="--ico:url('icons/thumb_up.svg')" aria-hidden="true"></span>Confirmed</span>
       </div>
       <small class="tok">Compact: 20 tall · padding 0 × 8 · gap 4 · icon 12 · word 14 semibold. Blocked: the Dangerous fill and ink.</small>
-      <h4 style="margin: 24px 0 8px;">Recents rows</h4>
+      <h4 style="margin: 24px 0 8px;">Recents rows — the rules</h4>
+      <ul class="t-body-m" style="margin: 0 0 16px; padding-left: 20px; color: var(--c-grey-ink); line-height: 1.6;">
+        <li><strong>Row 1:</strong> the name, one line (two when the row is opened). An unknown caller's row 1 is its number. <strong>iOS: no lock</strong> after the name: every call listed is a secure call. <strong>Android:</strong> a lock after the name of a verified secure call, because its Recents lists every call.</li>
+        <li><strong>Row 2:</strong> call-direction icon · date and time · <strong>one compact chip</strong> (Blocked › Suspicious / Dangerous › Safe › Confirmed), or else the region. Never both. The chip's word is never cut; the date gives way first.</li>
+        <li><strong>Row 3</strong> (opened, and only for a contact, business or member): number • region. Never the call's outcome.</li>
+        <li><strong>Outcome:</strong> the direction icon's colour: green when verified, the danger ink otherwise, the block icon when declined. Never in words; screen readers hear it on the icon ("Incoming, verified", "Incoming, timed out").</li>
+        <li><strong>Question row</strong> (Report this call / Confirm the name): at most one per number, on that number's <strong>newest</strong> row, under a hairline divider with 8 above and below.</li>
+        <li><strong>Spacing, every list</strong> (Recents, Reports, Contacts): 10 between rows, no divider · avatar 40 · gap 15 · lines with no extra gap · call button 48, which sets the minimum row height.</li>
+      </ul>
+      <h4 style="margin: 24px 0 8px;">Recents rows — example</h4>
       <p class="t-body-m" style="margin: 0 0 12px; color: var(--c-grey-ink);">At 375&nbsp;px, iOS. Top: a name, and a chip on the second row. Bottom: an unknown number with no chip, so the region follows the time. A green direction icon means verified; iOS shows no lock after the name.</p>
       <div class="recents-mock">
         <div class="recents-mock__row">
