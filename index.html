@@ -347,10 +347,8 @@
 
   .badge { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 100px; font-family: "Open Sans"; font-weight: 600; font-size: 12px; letter-spacing: 0.02em; }
   .badge--verified { background: rgba(16,193,134,0.14); color: var(--c-green-ink); }
-  .badge--business { background: rgba(7,54,158,0.10); color: var(--c-blue); }
   .badge--alert    { background: rgba(245,166,35,0.16); color: var(--c-threat-elevated-ink); }
   .badge--stop     { background: rgba(255,50,96,0.12); color: var(--c-threat-dangerous-ink); }
-  .badge--unknown  { background: var(--c-light-grey); color: var(--c-body-ink); }
   .badge svg { width: 14px; height: 14px; }
   /* Compact verdict chip: inside a line of small text (Recents' second row). The word stays 14. */
   .badge--compact { height: 20px; padding: 0 8px; gap: 4px; font-size: 14px; letter-spacing: 0; }
@@ -1060,7 +1058,7 @@
             <p class="t-body-m">Body ink on the card. <span style="color: var(--c-font-muted)">Muted ink.</span></p>
             <p class="t-body-m"><a href="#colors" style="color: var(--c-ink-link)">Link ink</a> · <span style="color: var(--c-ink-green)">green ink</span></p>
             <div class="btn-row">
-              <span class="badge badge--safe"><span class="ico-mask" style="--ico:url('icons/check.svg')" aria-hidden="true"></span>Safe</span>
+              <span class="badge badge--safe"><span class="ico-mask" style="--ico:url('icons/shield_check.svg')" aria-hidden="true"></span>Safe</span>
               <span class="badge badge--warning"><span class="ico-mask" style="--ico:url('icons/attention.svg')" aria-hidden="true"></span>Suspicious</span>
               <span class="badge badge--danger"><span class="ico-mask" style="--ico:url('icons/danger.svg')" aria-hidden="true"></span>Dangerous</span>
             </div>
@@ -1074,7 +1072,7 @@
             <p class="t-body-m">Body ink on the card. <span style="color: var(--c-font-muted)">Muted ink.</span></p>
             <p class="t-body-m"><a href="#colors" style="color: var(--c-ink-link)">Link ink</a> · <span style="color: var(--c-ink-green)">green ink</span></p>
             <div class="btn-row">
-              <span class="badge badge--safe"><span class="ico-mask" style="--ico:url('icons/check.svg')" aria-hidden="true"></span>Safe</span>
+              <span class="badge badge--safe"><span class="ico-mask" style="--ico:url('icons/shield_check.svg')" aria-hidden="true"></span>Safe</span>
               <span class="badge badge--warning"><span class="ico-mask" style="--ico:url('icons/attention.svg')" aria-hidden="true"></span>Suspicious</span>
               <span class="badge badge--danger"><span class="ico-mask" style="--ico:url('icons/danger.svg')" aria-hidden="true"></span>Dangerous</span>
             </div>
@@ -1596,8 +1594,8 @@
         <span class="badge badge--compact badge--stop"><span class="ico-mask" style="--ico:url('icons/block.svg')" aria-hidden="true"></span>Blocked</span>
         <span class="badge badge--compact badge--alert"><span class="ico-mask" style="--ico:url('icons/attention.svg')" aria-hidden="true"></span>Suspicious</span>
         <span class="badge badge--compact badge--stop"><span class="ico-mask" style="--ico:url('icons/danger.svg')" aria-hidden="true"></span>Dangerous</span>
-        <span class="badge badge--compact badge--verified"><span class="ico-mask" style="--ico:url('icons/check.svg')" aria-hidden="true"></span>Safe</span>
-        <span class="badge badge--compact badge--verified"><span class="ico-mask" style="--ico:url('icons/thumb_up.svg')" aria-hidden="true"></span>Confirmed</span>
+        <span class="badge badge--compact badge--verified"><span class="ico-mask" style="--ico:url('icons/shield_check.svg')" aria-hidden="true"></span>Safe</span>
+        <span class="badge badge--compact badge--verified"><span class="ico-mask" style="--ico:url('icons/verified.svg')" aria-hidden="true"></span>Confirmed</span>
       </div>
       <small class="tok">Compact: 20 tall · padding 0 × 8 · gap 4 · icon 12 · word 14 semibold. Blocked: the Dangerous fill and ink.</small>
       <h4 style="margin: 24px 0 8px;">Recents rows — the rules</h4>
@@ -1661,29 +1659,6 @@
       </div>
       <small class="tok" style="display: block; margin-bottom: 8px;">Dangerous = threat band High, or an invalid number (which gets the striped ring). Warning = band Elevated. Red --c-threat-dangerous · amber --c-threat-elevated · green --c-threat-safe. One danger icon means “dangerous” everywhere — no skull. An unverified member's self-chosen name and photo are never shown: the API sends them to the member only (api-service 3.3.4). The caller card names what the number is — Calmido Member, Reported Caller, Dangerous Caller — and reads <strong>NOT VERIFIED</strong> where the logo sits.</small>
       <small class="tok">Source: calmido-phone-android <code>app/src/screenshotTest/…/AvatarMatrixPreview.kt</code>; re-render with <code>./gradlew :app:updateDebugScreenshotTest --tests '*AvatarMatrix*'</code> when the rules change. Fixtures: contact Leonard Wolters, member Sanne Bakker, business HEMA / Support Afdeling.</small>
-    </div>
-
-    <div class="panel">
-      <h3>Status badges</h3>
-      <div class="btn-row">
-        <span class="badge badge--verified">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          Verified
-        </span>
-        <span class="badge badge--business">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4v14h16V6z"/></svg>
-          Geregistreerd zakelijk
-        </span>
-        <span class="badge badge--alert">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
-          Melding
-        </span>
-        <span class="badge badge--stop">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13H5v-2h14v2z"/></svg>
-          Blocked
-        </span>
-        <span class="badge badge--unknown">Unknown</span>
-      </div>
     </div>
   </section>
 
@@ -2355,7 +2330,7 @@
               <span class="threat-bar__pointer" style="left:28%;" aria-hidden="true"></span>
             </div>
             <div class="threat-bar__scale t-body-s"><span>Safe</span><span>Dangerous</span></div>
-            <span class="badge threat-bar__verdict"><span class="ico-mask" style="--ico:url('icons/check.svg')" aria-hidden="true"></span>Safe</span>
+            <span class="badge threat-bar__verdict"><span class="ico-mask" style="--ico:url('icons/shield_check.svg')" aria-hidden="true"></span>Safe</span>
           </div>
           <p class="threat-bar__data">mean 0.28 · [0.12, 0.44] · lower &lt; 0.45</p>
         </figure>
