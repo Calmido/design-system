@@ -84,6 +84,8 @@ artifact can't silently drift from `tokens.json`. See
 > `#05028E` everywhere. Re-export `logo/calmido_*.png` rasters from the
 > updated SVGs and align downstream surfaces — see issue #1.
 
+**Logo on a background you don't control (email).** Use `logo/calmido_email_logo.png`: the wordmark on a white rounded tile (200 × 56, radius 12, padding 0 × 14), baked into the PNG at 2× (400 × 112). A transparent Logo Blue wordmark disappears on a dark card, and mail clients (Gmail, Outlook) recolour backgrounds in dark mode but never images, so a CSS or `prefers-color-scheme` swap is not reliable. Send it inline (`cid:`), not as a remote URL: clients block or proxy remote images. Shown at `width="200" height="56"`, `alt="Calmido"`.
+
 ### Status
 
 | Token | Hex | Usage |
