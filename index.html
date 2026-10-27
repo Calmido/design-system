@@ -1713,7 +1713,7 @@
         <li><strong>Question row</strong> (Report this call / Confirm the name): at most one per number, on that number's <strong>newest</strong> row, under a hairline divider with 8 above and below.</li>
       </ul>
       <h4 style="margin: 24px 0 8px;">Example — closed rows</h4>
-      <p class="t-body-m" style="margin: 0 0 12px; color: var(--c-grey-ink);">One example for both apps, at 375&nbsp;px, light and dark. From the top: a verified member (the seal on the avatar); a Suspicious contact with a long name, cut with an ellipsis, with the chip and no call button; a contact's normal call; a missed call (danger ink); an unknown number from abroad with its flag. The direction icon is 16, green when the call connected, the danger ink when it was missed.</p>
+      <p class="t-body-m" style="margin: 0 0 12px; color: var(--c-grey-ink);">One example for both apps, at 375&nbsp;px, light and dark. From the top: a verified member (the seal on the avatar); a Suspicious contact with a long name, cut with an ellipsis, with the chip and no call button; an unknown number the community rates Dangerous: the number as name, the chip, no call button, no badge; a contact's normal call; a missed call (danger ink); an unknown number from abroad with its flag. The direction icon is 16, green when the call connected, the danger ink when it was missed.</p>
       <div class="theme-pair">
         <div data-theme="light">
           <div class="recents-mock">
@@ -1731,6 +1731,14 @@
               <div class="recents-mock__text">
                 <div class="recents-mock__first"><span class="recents-mock__name">Annemarie van den Hoogenband-Vermeulen</span></div>
                 <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_received.svg'); width:16px; height:16px; color: var(--c-ink-green);" aria-hidden="true"></span><span>Today 13:10</span><span class="badge badge--compact badge--alert"><span class="ico-mask" style="--ico:url('icons/attention.svg')" aria-hidden="true"></span>Suspicious</span></div>
+              </div>
+              <span class="recents-mock__call" aria-hidden="true"></span>
+            </div>
+            <div class="recents-mock__row">
+              <span class="avatar avatar--unknown" style="width:40px;height:40px;"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>
+              <div class="recents-mock__text">
+                <div class="recents-mock__first"><span class="recents-mock__name">+31 85 208 11 40</span></div>
+                <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_missed.svg'); width:16px; height:16px; color: var(--c-ink-danger);" aria-hidden="true"></span><span>Today 12:41</span><span class="badge badge--compact badge--stop"><span class="ico-mask" style="--ico:url('icons/danger.svg')" aria-hidden="true"></span>Dangerous</span></div>
               </div>
               <span class="recents-mock__call" aria-hidden="true"></span>
             </div>
@@ -1776,6 +1784,14 @@
               <div class="recents-mock__text">
                 <div class="recents-mock__first"><span class="recents-mock__name">Annemarie van den Hoogenband-Vermeulen</span></div>
                 <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_received.svg'); width:16px; height:16px; color: var(--c-ink-green);" aria-hidden="true"></span><span>Today 13:10</span><span class="badge badge--compact badge--alert"><span class="ico-mask" style="--ico:url('icons/attention.svg')" aria-hidden="true"></span>Suspicious</span></div>
+              </div>
+              <span class="recents-mock__call" aria-hidden="true"></span>
+            </div>
+            <div class="recents-mock__row">
+              <span class="avatar avatar--unknown" style="width:40px;height:40px;"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>
+              <div class="recents-mock__text">
+                <div class="recents-mock__first"><span class="recents-mock__name">+31 85 208 11 40</span></div>
+                <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_missed.svg'); width:16px; height:16px; color: var(--c-ink-danger);" aria-hidden="true"></span><span>Today 12:41</span><span class="badge badge--compact badge--stop"><span class="ico-mask" style="--ico:url('icons/danger.svg')" aria-hidden="true"></span>Dangerous</span></div>
               </div>
               <span class="recents-mock__call" aria-hidden="true"></span>
             </div>
