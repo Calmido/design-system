@@ -1709,7 +1709,7 @@
         <li><strong>Row 3</strong> (opened, and only for a contact, business or member): number • region.</li>
         <li><strong>Opened:</strong> the question row if this is the number's newest row, then the <strong>action bar</strong> under a hairline: equal slots, icon 22 over its word 12, at least 44 tall: Add / Edit · Message · Block / Unblock · Report, and Call last for a caller with no call button on the row.</li>
         <li><strong>Outcome:</strong> the direction icon's colour: <strong>green when the call connected, the danger ink when it was missed</strong> (not answered, or no connection), the block icon when declined. Never in words on a closed row; screen readers hear it on the icon ("Incoming, connected", "Incoming, missed").</li>
-        <li><strong>No call button</strong> for a caller we warn about: Suspicious, Dangerous, Blocked, a locked member or an invalid number. The text takes its place.</li>
+        <li><strong>No call button</strong> for a caller we warn about: Suspicious, Dangerous, Blocked, a locked member or an invalid number. <strong>Its 48 space stays empty</strong>, so the text keeps the width of every other row and nothing reflows when a verdict changes.</li>
         <li><strong>Question row</strong> (Report this call / Confirm the name): at most one per number, on that number's <strong>newest</strong> row, under a hairline divider with 8 above and below.</li>
       </ul>
       <h4 style="margin: 24px 0 8px;">Example — closed rows</h4>
@@ -1732,6 +1732,7 @@
                 <div class="recents-mock__first"><span class="recents-mock__name">Annemarie van den Hoogenband-Vermeulen</span></div>
                 <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_received.svg'); width:16px; height:16px; color: var(--c-ink-green);" aria-hidden="true"></span><span>Today 13:10</span><span class="badge badge--compact badge--alert"><span class="ico-mask" style="--ico:url('icons/attention.svg')" aria-hidden="true"></span>Suspicious</span></div>
               </div>
+              <span class="recents-mock__call" aria-hidden="true"></span>
             </div>
             <div class="recents-mock__row">
               <span class="avatar avatar--face" style="width:40px;height:40px;font-size:14px;">JB</span>
@@ -1776,6 +1777,7 @@
                 <div class="recents-mock__first"><span class="recents-mock__name">Annemarie van den Hoogenband-Vermeulen</span></div>
                 <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_received.svg'); width:16px; height:16px; color: var(--c-ink-green);" aria-hidden="true"></span><span>Today 13:10</span><span class="badge badge--compact badge--alert"><span class="ico-mask" style="--ico:url('icons/attention.svg')" aria-hidden="true"></span>Suspicious</span></div>
               </div>
+              <span class="recents-mock__call" aria-hidden="true"></span>
             </div>
             <div class="recents-mock__row">
               <span class="avatar avatar--face" style="width:40px;height:40px;font-size:14px;">JB</span>
@@ -1830,6 +1832,7 @@
                   <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_received.svg'); width:16px; height:16px; color: var(--c-ink-green);" aria-hidden="true"></span><span>Today 13:10</span><span class="badge badge--compact badge--alert"><span class="ico-mask" style="--ico:url('icons/attention.svg')" aria-hidden="true"></span>Suspicious</span></div>
                   <div class="recents-mock__line">+31 20 555 12 34 • Netherlands</div>
                 </div>
+                <span class="recents-mock__call" aria-hidden="true"></span>
               </div>
               <div class="recents-mock__hairline"></div><div class="recents-mock__bar"><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/edit.svg');" aria-hidden="true"></span><span>Edit</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/message.svg');" aria-hidden="true"></span><span>Message</span></span><span class="recents-mock__action" style="color: var(--c-ink-danger);"><span class="ico-mask" style="--ico:url('icons/block.svg');" aria-hidden="true"></span><span>Block</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/report.svg');" aria-hidden="true"></span><span>Report</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/call/call.svg');" aria-hidden="true"></span><span>Call</span></span></div>
             </div>
@@ -1870,6 +1873,7 @@
                   <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_received.svg'); width:16px; height:16px; color: var(--c-ink-green);" aria-hidden="true"></span><span>Today 13:10</span><span class="badge badge--compact badge--alert"><span class="ico-mask" style="--ico:url('icons/attention.svg')" aria-hidden="true"></span>Suspicious</span></div>
                   <div class="recents-mock__line">+31 20 555 12 34 • Netherlands</div>
                 </div>
+                <span class="recents-mock__call" aria-hidden="true"></span>
               </div>
               <div class="recents-mock__hairline"></div><div class="recents-mock__bar"><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/edit.svg');" aria-hidden="true"></span><span>Edit</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/message.svg');" aria-hidden="true"></span><span>Message</span></span><span class="recents-mock__action" style="color: var(--c-ink-danger);"><span class="ico-mask" style="--ico:url('icons/block.svg');" aria-hidden="true"></span><span>Block</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/report.svg');" aria-hidden="true"></span><span>Report</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/call/call.svg');" aria-hidden="true"></span><span>Call</span></span></div>
             </div>
