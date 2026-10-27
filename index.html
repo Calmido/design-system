@@ -861,6 +861,7 @@
     <a href="#links">Links</a>
     <a href="#forms">Forms</a>
     <a href="#avatars">Avatars &amp; badges</a>
+    <a href="#lists">List rows</a>
     <a href="#icons">Icons</a>
     <a href="#images">Images</a>
     <a href="#widgets">Caller card</a>
@@ -1588,49 +1589,6 @@
     </div>
 
     <div class="panel">
-      <h3>Lists — the chip</h3>
-      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-grey-ink);">Recents' second row: the call-direction icon, the date and time, then <strong>one compact chip</strong> — Blocked › Suspicious / Dangerous › Safe › Confirmed — or else the region; never both. Expanded, a contact, business or member gets a third row with the number and its region (an unknown caller's first row already is the number, so it has none), never the call's outcome: the direction icon's colour carries that (Android also puts a lock after the name of a verified secure call, because its Recents lists every call). A number's question row (Report this call / Confirm the name) appears once, on its newest row. Reports shows the chip at full size on the right, with a Blocked chip beside the verdict. Otherwise the two share one row: avatar · name over date and time · chip. Every chip is icon + word.</p>
-      <div class="av-row" style="align-items: center;">
-        <span class="badge badge--compact badge--stop"><span class="ico-mask" style="--ico:url('icons/block.svg')" aria-hidden="true"></span>Blocked</span>
-        <span class="badge badge--compact badge--alert"><span class="ico-mask" style="--ico:url('icons/attention.svg')" aria-hidden="true"></span>Suspicious</span>
-        <span class="badge badge--compact badge--stop"><span class="ico-mask" style="--ico:url('icons/danger.svg')" aria-hidden="true"></span>Dangerous</span>
-        <span class="badge badge--compact badge--verified"><span class="ico-mask" style="--ico:url('icons/shield_check.svg')" aria-hidden="true"></span>Safe</span>
-        <span class="badge badge--compact badge--verified"><span class="ico-mask" style="--ico:url('icons/verified.svg')" aria-hidden="true"></span>Confirmed</span>
-      </div>
-      <small class="tok">Compact: 20 tall · padding 0 × 8 · gap 4 · icon 12 · word 14 semibold. Blocked: the Dangerous fill and ink.</small>
-      <h4 style="margin: 24px 0 8px;">Recents rows — the rules</h4>
-      <ul class="t-body-m" style="margin: 0 0 16px; padding-left: 20px; color: var(--c-grey-ink); line-height: 1.6;">
-        <li><strong>Row 1:</strong> the name, one line (two when the row is opened). An unknown caller's row 1 is its number. <strong>iOS: no lock</strong> after the name: every call listed is a secure call. <strong>Android:</strong> a lock after the name of a verified secure call, because its Recents lists every call.</li>
-        <li><strong>Row 2:</strong> call-direction icon · date and time · <strong>one compact chip</strong> (Blocked › Suspicious / Dangerous › Safe › Confirmed), or else the region. Never both. The chip's word is never cut; the date gives way first.</li>
-        <li><strong>Row 3</strong> (opened, and only for a contact, business or member): number • region. Never the call's outcome.</li>
-        <li><strong>Outcome:</strong> the direction icon's colour: green when verified, the danger ink otherwise, the block icon when declined. Never in words; screen readers hear it on the icon ("Incoming, verified", "Incoming, timed out").</li>
-        <li><strong>Question row</strong> (Report this call / Confirm the name): at most one per number, on that number's <strong>newest</strong> row, under a hairline divider with 8 above and below.</li>
-        <li><strong>Spacing, every list</strong> (Recents, Reports, Contacts): 10 between rows, no divider · avatar 40 · gap 15 · lines with no extra gap · call button 48, which sets the minimum row height.</li>
-      </ul>
-      <h4 style="margin: 24px 0 8px;">Recents rows — example</h4>
-      <p class="t-body-m" style="margin: 0 0 12px; color: var(--c-grey-ink);">At 375&nbsp;px, iOS. Top: a name, and a chip on the second row. Bottom: an unknown number with no chip, so the region follows the time. A green direction icon means verified; iOS shows no lock after the name.</p>
-      <div class="recents-mock">
-        <div class="recents-mock__row">
-          <span class="avatar avatar--face" style="width:40px;height:40px;font-size:14px;">AH</span>
-          <div class="recents-mock__text">
-            <div class="recents-mock__first"><span class="recents-mock__name">Annemarie van den Hoogenband</span></div>
-            <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_received.svg'); width:14px; height:14px; color: var(--c-green-ink);" aria-hidden="true"></span><span>Today 14:32</span><span class="badge badge--compact badge--alert"><span class="ico-mask" style="--ico:url('icons/attention.svg')" aria-hidden="true"></span>Suspicious</span></div>
-          </div>
-          <span class="ico-mask recents-mock__call" style="--ico:url('icons/call/call.svg');" aria-label="Call"></span>
-        </div>
-        <div class="recents-mock__row">
-          <span class="avatar avatar--unknown" style="width:40px;height:40px;"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>
-          <div class="recents-mock__text">
-            <div class="recents-mock__first"><span class="recents-mock__name">+31 6 12 34 56 78</span></div>
-            <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_placed.svg'); width:14px; height:14px; color: var(--c-green-ink);" aria-hidden="true"></span><span class="recents-mock__region">Yesterday 09:05 • Netherlands</span></div>
-          </div>
-          <span class="ico-mask recents-mock__call" style="--ico:url('icons/call/call.svg');" aria-label="Call"></span>
-        </div>
-      </div>
-      <small class="tok">Spacing, every list (Recents, Reports, Contacts): 10 between rows, no divider · avatar 40 · gap 15 · lines with no extra gap · call button 48.</small>
-    </div>
-
-    <div class="panel">
       <h3>System caller ID — rings</h3>
       <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-grey-ink);">The phone's own call screen and the notification. No badges; the ring carries it. <strong>Every caller but a saved contact has a ring</strong> — the grey track alone when Calmido has checked the number but has no score for it yet. <strong>A solid arc is a community score</strong>, sweeping from 12 o'clock. Only a <strong>verified</strong> member's own photo (else initials) and name ring; an unverified member rings as the Calmido C and, in the dialer, as <em>Calmido Member</em>. <strong>A striped ring is Calmido's flag, not a score</strong>: a locked account and an invalid number. A saved contact keeps its bare face; blocked is the member's own decision and gets no ring.</p>
       <div class="av-row">
@@ -1659,6 +1617,90 @@
       </div>
       <small class="tok" style="display: block; margin-bottom: 8px;">Dangerous = threat band High, or an invalid number (which gets the striped ring). Warning = band Elevated. Red --c-threat-dangerous · amber --c-threat-elevated · green --c-threat-safe. One danger icon means “dangerous” everywhere — no skull. An unverified member's self-chosen name and photo are never shown: the API sends them to the member only (api-service 3.3.4). The caller card names what the number is — Calmido Member, Reported Caller, Dangerous Caller — and reads <strong>NOT VERIFIED</strong> where the logo sits.</small>
       <small class="tok">Source: calmido-phone-android <code>app/src/screenshotTest/…/AvatarMatrixPreview.kt</code>; re-render with <code>./gradlew :app:updateDebugScreenshotTest --tests '*AvatarMatrix*'</code> when the rules change. Fixtures: contact Leonard Wolters, member Sanne Bakker, business HEMA / Support Afdeling.</small>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────── LIST ROWS ─────────────────────────────── -->
+  <section id="lists" class="block">
+    <h2 class="sec">List rows</h2>
+    <p class="sec-sub">Recents · Reports · Contacts · the chip · section header</p>
+
+    <div class="panel">
+      <h3>The row — every list</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-grey-ink);">Recents and Reports share one row: the 40 avatar (with at most a member's badge, see <a href="#avatars" style="color: var(--c-blue);">Avatars</a>) · the name (semibold) over the date and time (small, secondary) · the chip. Only the chip's place and the right side differ: Recents puts one compact chip on the second row and the call button on the right; Reports puts the full-size chip(s) on the right, with no call button.</p>
+      <small class="tok">Spacing, every list (Recents, Reports, Contacts): 10 between rows, no divider · avatar 40 · gap 15 · lines with no extra gap · call button 48, which sets the minimum row height.</small>
+    </div>
+
+    <div class="panel">
+      <h3>The chip</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-grey-ink);">One chip per row, the verdict never on the avatar: Blocked › Suspicious / Dangerous › Safe › Confirmed. Safe is the user's own Safe report, Confirmed a business card they confirmed. Every chip is icon + word.</p>
+      <div class="av-row" style="align-items: center;">
+        <span class="badge badge--compact badge--stop"><span class="ico-mask" style="--ico:url('icons/block.svg')" aria-hidden="true"></span>Blocked</span>
+        <span class="badge badge--compact badge--alert"><span class="ico-mask" style="--ico:url('icons/attention.svg')" aria-hidden="true"></span>Suspicious</span>
+        <span class="badge badge--compact badge--stop"><span class="ico-mask" style="--ico:url('icons/danger.svg')" aria-hidden="true"></span>Dangerous</span>
+        <span class="badge badge--compact badge--verified"><span class="ico-mask" style="--ico:url('icons/shield_check.svg')" aria-hidden="true"></span>Safe</span>
+        <span class="badge badge--compact badge--verified"><span class="ico-mask" style="--ico:url('icons/verified.svg')" aria-hidden="true"></span>Confirmed</span>
+      </div>
+      <small class="tok">Compact: 20 tall · padding 0 × 8 · gap 4 · icon 12 · word 14 semibold. Blocked: the Dangerous fill and ink.</small>
+      <small class="tok" style="display:block;">Full size (Reports): the <a href="#threat-bar" style="color: var(--c-blue);">verdict chip</a>, 28 tall.</small>
+    </div>
+
+    <div class="panel">
+      <h3>Recents</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-grey-ink);">The second row carries the call: direction icon · date and time · one compact chip, or else the region; never both. Expanded, a contact, business or member gets a third row with the number and its region. The call's outcome is the direction icon's colour, never words.</p>
+      <h4 style="margin: 24px 0 8px;">The rules</h4>
+      <ul class="t-body-m" style="margin: 0 0 16px; padding-left: 20px; color: var(--c-grey-ink); line-height: 1.6;">
+        <li><strong>Row 1:</strong> the name, one line (two when the row is opened). An unknown caller's row 1 is its number. <strong>iOS: no lock</strong> after the name: every call listed is a secure call. <strong>Android:</strong> a lock after the name of a verified secure call, because its Recents lists every call.</li>
+        <li><strong>Row 2:</strong> call-direction icon · date and time · <strong>one compact chip</strong> (Blocked › Suspicious / Dangerous › Safe › Confirmed), or else the region. Never both. The chip's word is never cut; the date gives way first.</li>
+        <li><strong>Row 3</strong> (opened, and only for a contact, business or member): number • region. Never the call's outcome.</li>
+        <li><strong>Outcome:</strong> the direction icon's colour: green when verified, the danger ink otherwise, the block icon when declined. Never in words; screen readers hear it on the icon ("Incoming, verified", "Incoming, timed out").</li>
+        <li><strong>Question row</strong> (Report this call / Confirm the name): at most one per number, on that number's <strong>newest</strong> row, under a hairline divider with 8 above and below.</li>
+      </ul>
+      <h4 style="margin: 24px 0 8px;">Example</h4>
+      <p class="t-body-m" style="margin: 0 0 12px; color: var(--c-grey-ink);">At 375&nbsp;px, iOS. Top: a name, and a chip on the second row. Bottom: an unknown number with no chip, so the region follows the time. A green direction icon means verified; iOS shows no lock after the name.</p>
+      <div class="recents-mock">
+        <div class="recents-mock__row">
+          <span class="avatar avatar--face" style="width:40px;height:40px;font-size:14px;">AH</span>
+          <div class="recents-mock__text">
+            <div class="recents-mock__first"><span class="recents-mock__name">Annemarie van den Hoogenband</span></div>
+            <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_received.svg'); width:14px; height:14px; color: var(--c-green-ink);" aria-hidden="true"></span><span>Today 14:32</span><span class="badge badge--compact badge--alert"><span class="ico-mask" style="--ico:url('icons/attention.svg')" aria-hidden="true"></span>Suspicious</span></div>
+          </div>
+          <span class="ico-mask recents-mock__call" style="--ico:url('icons/call/call.svg');" aria-label="Call"></span>
+        </div>
+        <div class="recents-mock__row">
+          <span class="avatar avatar--unknown" style="width:40px;height:40px;"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>
+          <div class="recents-mock__text">
+            <div class="recents-mock__first"><span class="recents-mock__name">+31 6 12 34 56 78</span></div>
+            <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_placed.svg'); width:14px; height:14px; color: var(--c-green-ink);" aria-hidden="true"></span><span class="recents-mock__region">Yesterday 09:05 • Netherlands</span></div>
+          </div>
+          <span class="ico-mask recents-mock__call" style="--ico:url('icons/call/call.svg');" aria-label="Call"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>Reports</h3>
+      <p class="t-body-m" style="margin: 0; color: var(--c-grey-ink);">The verdict or Confirmed chip at full size on the right, and a <strong>Blocked</strong> chip next to it for a blocked number. No call button. Grouped like Recents, <strong>Today › Yesterday › Older</strong> (a report without a date is Older), under the list section header.</p>
+    </div>
+
+    <div class="panel">
+      <h3>List section header — light &amp; dark</h3>
+      <div class="theme-pair">
+        <div class="theme-demo" data-theme="light" style="padding:8px 0;">
+          <div class="list-header">A</div><div class="list-row">Anna de Vries</div><div class="list-row">Arjen Bakker</div>
+          <div class="list-header">Today</div><div class="list-row">+31 20 123 4567</div>
+        </div>
+        <div class="theme-demo" data-theme="dark" style="padding:8px 0;">
+          <div class="list-header">A</div><div class="list-row">Anna de Vries</div><div class="list-row">Arjen Bakker</div>
+          <div class="list-header">Today</div><div class="list-row">+31 20 123 4567</div>
+        </div>
+      </div>
+      <ul class="t-body-m" style="margin:16px 0 0; padding-left:18px; line-height:1.7;">
+        <li>One style for every list section: letters (Contacts) and words (Recents: Today, Yesterday, Older).</li>
+        <li>Plain text, no circle or fill: Open Sans 14 / 20 semibold in <code>font-muted</code> (#5F6869 light · #B8B8BA dark), transparent background, sentence case. Padding 8 top · 4 bottom · 16 sides.</li>
+        <li>Hidden while a search query is typed.</li>
+        <li>Alignment and position are up to each app.</li>
+      </ul>
     </div>
   </section>
 
@@ -2811,7 +2853,7 @@
 
   <section id="app-controls" class="block">
     <h2 class="sec">App controls</h2>
-    <p class="sec-sub">search field · dialpad button · list section header · loading indicator · notice banner · scroll edges · same on iOS and Android</p>
+    <p class="sec-sub">search field · dialpad button · loading indicator · notice banner · scroll edges · same on iOS and Android</p>
 
     <div class="panel">
       <h3>Light &amp; dark — rest, focused, pressed</h3>
@@ -2844,25 +2886,6 @@
         <li><b>Dialpad button</b> — 56 circle, Bright Green fill with a Dark Blue <code>dialpad</code> icon 24, in light and dark (11.4:1). Shadow black 30%, blur 6, y 3 (Android: elevation 6).</li>
         <li><b>Dialpad · pressed</b> — Calmido Blue (#07369E) fill with a white icon, as the filled button.</li>
         <li>Where these sit on a screen is up to each app.</li>
-      </ul>
-    </div>
-    <div class="panel">
-      <h3>List section header — light &amp; dark</h3>
-      <div class="theme-pair">
-        <div class="theme-demo" data-theme="light" style="padding:8px 0;">
-          <div class="list-header">A</div><div class="list-row">Anna de Vries</div><div class="list-row">Arjen Bakker</div>
-          <div class="list-header">Today</div><div class="list-row">+31 20 123 4567</div>
-        </div>
-        <div class="theme-demo" data-theme="dark" style="padding:8px 0;">
-          <div class="list-header">A</div><div class="list-row">Anna de Vries</div><div class="list-row">Arjen Bakker</div>
-          <div class="list-header">Today</div><div class="list-row">+31 20 123 4567</div>
-        </div>
-      </div>
-      <ul class="t-body-m" style="margin:16px 0 0; padding-left:18px; line-height:1.7;">
-        <li>One style for every list section: letters (Contacts) and words (Recents: Today, Yesterday, Older).</li>
-        <li>Plain text, no circle or fill: Open Sans 14 / 20 semibold in <code>font-muted</code> (#5F6869 light · #B8B8BA dark), transparent background, sentence case. Padding 8 top · 4 bottom · 16 sides.</li>
-        <li>Hidden while a search query is typed.</li>
-        <li>Alignment and position are up to each app.</li>
       </ul>
     </div>
     <div class="panel">
