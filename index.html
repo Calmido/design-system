@@ -1699,14 +1699,14 @@
 
     <div class="panel">
       <h3>Recents</h3>
-      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-grey-ink);">The second row carries the call: direction icon · date and time · one compact chip, or else the region; never both. Expanded, a contact, business or member gets a third row with the number and its region. The call's outcome is the direction icon's colour, never words.</p>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-grey-ink);">The second row carries the call: direction icon · date and time · one compact chip, or else the region; never both. Expanded, a contact, business or member gets a third row with the number and its region; an unknown number whose chip took the region gets a third row with only the region. The call's outcome is the direction icon's colour, never words.</p>
       <h4 style="margin: 24px 0 8px;">The rules</h4>
       <ul class="t-body-m" style="margin: 0 0 16px; padding-left: 20px; color: var(--c-grey-ink); line-height: 1.6;">
         <li><strong>Lines:</strong> a closed row has at most <strong>two</strong> lines, an opened row at most <strong>three</strong> (name · call · number). The question row and the action bar come under them, not counted.</li>
         <li><strong>Row 1:</strong> the name, <strong>always one line</strong>, opened too. A long name is cut at the end with an ellipsis (…), never wrapped, and never pushes the call button away; screen readers read it in full. An unknown caller's row 1 is its number, which is never cut.</li>
         <li><strong>Foreign number:</strong> an unknown number from another country than the user's gets that country's flag before the number: 16 wide, aspect kept (about 16 × 11), 8 before the number; the country's name is its screen-reader label.</li>
         <li><strong>Row 2:</strong> call-direction icon · date and time · <strong>one compact chip</strong> (Blocked › Suspicious / Dangerous › Safe › Confirmed), or else the region. Never both. The chip's word is never cut; the date gives way first.</li>
-        <li><strong>Row 3</strong> (opened, and only for a contact, business or member): number • region.</li>
+        <li><strong>Row 3</strong> (opened): number • region for a contact, business or member; for an unknown number, a row 3 <strong>only when a chip took the region</strong> on row 2, and then only the region (row 1 already is the number).</li>
         <li><strong>Opened:</strong> the question row if this is the number's newest row, then the <strong>action bar</strong> under a hairline: equal slots, icon 22 over its word 12, at least 44 tall: Add / Edit · Message · Block / Unblock · Report, and Call last for a caller with no call button on the row.</li>
         <li><strong>Outcome:</strong> the direction icon's colour: <strong>green when the call connected, the danger ink when it was missed</strong> (not answered, or no connection), the block icon when declined. Never in words on a closed row; screen readers hear it on the icon ("Incoming, connected", "Incoming, missed").</li>
         <li><strong>No call button</strong> for a caller we warn about: Suspicious, Dangerous, Blocked, a locked member or an invalid number. <strong>Its 48 space stays empty</strong>, so the text keeps the width of every other row and nothing reflows when a verdict changes.</li>
@@ -1823,7 +1823,7 @@
         </div>
       </div>
       <h4 style="margin: 24px 0 8px;">Example — opened rows</h4>
-      <p class="t-body-m" style="margin: 0 0 12px; color: var(--c-grey-ink);">The same list with rows opened, light and dark. A verified member: the number moves to row 3, so the region goes with it; then the action bar. A Suspicious contact with a long name: still one line, cut with an ellipsis; no call button on the row, so Call is the last action. An unknown number, the newest call of that number: no row 3 (row 1 already is the number); the question row, then the action bar.</p>
+      <p class="t-body-m" style="margin: 0 0 12px; color: var(--c-grey-ink);">The same list with rows opened, light and dark. A verified member: the number moves to row 3, so the region goes with it; then the action bar. A Suspicious contact with a long name: still one line, cut with an ellipsis; no call button on the row, so Call is the last action. An unknown number rated Dangerous: row 1 is the number, row 2 carries the chip, so row 3 shows the region; Call is the last action. An unknown number, the newest call of that number: no chip, so the region stays on row 2 and there is no row 3; the question row, then the action bar.</p>
       <div class="theme-pair">
         <div data-theme="light">
           <div class="recents-mock">
@@ -1851,6 +1851,18 @@
                 <span class="recents-mock__call" aria-hidden="true"></span>
               </div>
               <div class="recents-mock__hairline"></div><div class="recents-mock__bar"><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/edit.svg');" aria-hidden="true"></span><span>Edit</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/message.svg');" aria-hidden="true"></span><span>Message</span></span><span class="recents-mock__action" style="color: var(--c-ink-danger);"><span class="ico-mask" style="--ico:url('icons/block.svg');" aria-hidden="true"></span><span>Block</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/report.svg');" aria-hidden="true"></span><span>Report</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/call/call.svg');" aria-hidden="true"></span><span>Call</span></span></div>
+            </div>
+            <div class="recents-mock__item">
+              <div class="recents-mock__row">
+                <span class="avatar avatar--unknown" style="width:40px;height:40px;"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>
+                <div class="recents-mock__text">
+                  <div class="recents-mock__first"><span class="recents-mock__name">+31 85 208 11 40</span></div>
+                  <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_missed.svg'); width:16px; height:16px; color: var(--c-ink-danger);" aria-hidden="true"></span><span>Today 12:41</span><span class="badge badge--compact badge--stop"><span class="ico-mask" style="--ico:url('icons/danger.svg')" aria-hidden="true"></span>Dangerous</span></div>
+                  <div class="recents-mock__line">Netherlands</div>
+                </div>
+                <span class="recents-mock__call" aria-hidden="true"></span>
+              </div>
+              <div class="recents-mock__hairline"></div><div class="recents-mock__bar"><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/person_add.svg');" aria-hidden="true"></span><span>Add</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/message.svg');" aria-hidden="true"></span><span>Message</span></span><span class="recents-mock__action" style="color: var(--c-ink-danger);"><span class="ico-mask" style="--ico:url('icons/block.svg');" aria-hidden="true"></span><span>Block</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/report.svg');" aria-hidden="true"></span><span>Report</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/call/call.svg');" aria-hidden="true"></span><span>Call</span></span></div>
             </div>
             <div class="recents-mock__item">
               <div class="recents-mock__row">
@@ -1892,6 +1904,18 @@
                 <span class="recents-mock__call" aria-hidden="true"></span>
               </div>
               <div class="recents-mock__hairline"></div><div class="recents-mock__bar"><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/edit.svg');" aria-hidden="true"></span><span>Edit</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/message.svg');" aria-hidden="true"></span><span>Message</span></span><span class="recents-mock__action" style="color: var(--c-ink-danger);"><span class="ico-mask" style="--ico:url('icons/block.svg');" aria-hidden="true"></span><span>Block</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/report.svg');" aria-hidden="true"></span><span>Report</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/call/call.svg');" aria-hidden="true"></span><span>Call</span></span></div>
+            </div>
+            <div class="recents-mock__item">
+              <div class="recents-mock__row">
+                <span class="avatar avatar--unknown" style="width:40px;height:40px;"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></span>
+                <div class="recents-mock__text">
+                  <div class="recents-mock__first"><span class="recents-mock__name">+31 85 208 11 40</span></div>
+                  <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_missed.svg'); width:16px; height:16px; color: var(--c-ink-danger);" aria-hidden="true"></span><span>Today 12:41</span><span class="badge badge--compact badge--stop"><span class="ico-mask" style="--ico:url('icons/danger.svg')" aria-hidden="true"></span>Dangerous</span></div>
+                  <div class="recents-mock__line">Netherlands</div>
+                </div>
+                <span class="recents-mock__call" aria-hidden="true"></span>
+              </div>
+              <div class="recents-mock__hairline"></div><div class="recents-mock__bar"><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/person_add.svg');" aria-hidden="true"></span><span>Add</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/message.svg');" aria-hidden="true"></span><span>Message</span></span><span class="recents-mock__action" style="color: var(--c-ink-danger);"><span class="ico-mask" style="--ico:url('icons/block.svg');" aria-hidden="true"></span><span>Block</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/report.svg');" aria-hidden="true"></span><span>Report</span></span><span class="recents-mock__action"><span class="ico-mask" style="--ico:url('icons/call/call.svg');" aria-hidden="true"></span><span>Call</span></span></div>
             </div>
             <div class="recents-mock__item">
               <div class="recents-mock__row">
