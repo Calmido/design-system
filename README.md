@@ -310,7 +310,7 @@ The look is shared; where a control sits on a screen is up to each app, except t
 
 Search field: 44 high, pill, `search` icon 20, Open Sans 15. Dialpad button: 56 circle, `dialpad` icon 24, shadow black 30% blur 6 y 3 (Android elevation 6).
 
-**Screen margins** — **20 at the sides** (`sp-5`) on every screen of both apps: the top bar's title and buttons, text, list rows, section headers, fields, banners' content and cards all start 20 from the screen edge. A card's or banner's own inner padding is separate; full-bleed images ignore the margin. Not up to each app.
+**Screen margins** — **20 at the sides** (`sp-5`) on every screen of both apps: the top bar's title and buttons, text, list rows, section headers, fields, banners' content and cards all start 20 from the screen edge. A card's or banner's own inner padding is separate; full-bleed images ignore the margin. **Sheets** too: their content starts 20 from the sides and 20 below the title bar; the title bar itself stays the platform's own (iOS: centred title, buttons at the system inset). Not up to each app.
 
 **Top bar** — 50 tall, 20 at the sides (the screen margin), on both apps. **The first content starts 20 below it** (`sp-5`, the same as the side margin) on every screen: the search field, a notice banner, help text or a card. A list counts its section header's own 8 top padding toward the 20, so the header's first word lines up with every other screen's first content. Not up to each app: the same gap everywhere.
 
