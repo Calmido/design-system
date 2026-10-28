@@ -3197,7 +3197,7 @@
       </div>
       <ul class="t-body-m" style="margin:16px 0 0; padding-left:18px; line-height:1.7;">
         <li><b>Use</b> — a setting outside the app stops Calmido from protecting the user (Live Caller ID or Call Directory off on iOS, Do Not Disturb on Android). Stays until the setting changes, then goes by itself; no close button.</li>
-        <li><b>Box</b> — full width, min height 48, padding 12 × 16, 12 gap. Fill <code>surface-raised</code> (white · #040B20), 1 px bottom line in Bright Green at 40%; no side borders, no radius.</li>
+        <li><b>Box</b> — full width, min height 48, padding 12 × 20 (the screen margin), 12 gap. Fill <code>surface-raised</code> (white · #040B20), 1 px bottom line in Bright Green at 40%; no side borders, no radius.</li>
         <li><b>Icon</b> — <code>attention</code> 22 in <code>ink-green</code> (Green Ink · Bright Green).</li>
         <li><b>Text</b> — title Open Sans 14 / 20 semibold in <code>font-body</code>, body 14 / 20 in <code>font-muted</code> (14 is the floor for instructions; iOS has 12 today), 2 apart. Both wrap, never truncate.</li>
         <li><b>Action</b> — the whole banner is one button that opens the right settings page; trailing <code>chevron_right</code> 14 in <code>font-muted</code>. Accessible name = title + body, hint = what the tap does.</li>
@@ -3206,12 +3206,13 @@
       </ul>
     </div>
     <div class="panel">
-      <h3>Top bar — the gap under it</h3>
+      <h3>Screen margins &amp; the gap under the top bar</h3>
       <ul class="t-body-m" style="margin: 0; padding-left: 20px; color: var(--c-font-body);">
-        <li>The top bar is 50 tall, 25 at the sides, on both apps.</li>
-        <li><strong>The first content starts 16 below it</strong> (<code>sp-4</code>) on every screen: the search field, a notice banner, help text or a card.</li>
-        <li>A list counts its section header's own 8 top padding toward the 16, so the header's first word lines up with every other screen's first content.</li>
-        <li>Not up to each app: the same gap on every screen.</li>
+        <li><strong>20 at the sides</strong> (<code>sp-5</code>) on every screen of both apps: the top bar's title and buttons, text, list rows, section headers, fields, banners' content and cards all start 20 from the screen edge. A card's or banner's own inner padding is separate; full-bleed images ignore it.</li>
+        <li>The top bar is 50 tall, 20 at the sides (the screen margin), on both apps.</li>
+        <li><strong>The first content starts 20 below it</strong> (<code>sp-5</code>, the same as the side margin) on every screen: the search field, a notice banner, help text or a card.</li>
+        <li>A list counts its section header's own 8 top padding toward the 20, so the header's first word lines up with every other screen's first content.</li>
+        <li>Not up to each app: the same margins on every screen.</li>
       </ul>
     </div>
     <div class="panel">
