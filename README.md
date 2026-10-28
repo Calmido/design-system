@@ -268,6 +268,19 @@ Recents, Reports, Contacts and the dialpad result. Same on Android and iOS (`cal
 
 **List section header** — one style for letters (Contacts) and words (Recents: Today, Yesterday, Older). Plain text, no circle or fill: Open Sans 14 / 20 semibold in `font-muted` (#5F6869 light · #B8B8BA dark), transparent background, sentence case, padding 8 top · 4 bottom · 16 sides. Hidden while a search query is typed. **Recents pins it** at the top while its day scrolls, still transparent: the rows pass under it, as in an iOS plain list. Contacts lets it scroll with the rows. **Android:** bold, as on iOS; Recents and Contacts both pin it, with the page background (`surface`) at 90% behind it only while a row passes under it, transparent at rest. Alignment is up to each app.
 
+### Phone input
+
+**Wherever the user types a phone number**, the apps use the Phone input (flag + dial code + chevron, then the national number, one pill; see `index.html`): Android `CustomPhoneNumberField`, iOS `CalmidoPhoneField`. Today that is sign-up, change number and Reports "+" (report a number), on both apps.
+
+- **Keyboard:** a phone pad only (Android `KeyboardType.Phone`, iOS `.phonePad`).
+- **Preselected country:** the user's own country setting.
+- **Country list:** sign-up and change number offer the server's supported countries (`/v2/server/countries`), with "Country not listed" below. Every other field, such as reporting a number, offers **all countries**: a scam call can come from anywhere.
+- **International entry:** a typed or pasted `+…` or `00…` number moves its dial code into the picker, and the national part's trunk zero is not part of the E.164 (`0612345678` under +31 is `+31612345678`).
+- **Action:** the screen's action (Report, Continue) stays off until the field holds a full number; the dial code alone is not one.
+- **Error:** directly under the pill (see `index.html`).
+
+Not in scope: the dialpad (a keypad, not a text field) and Apple's own new-contact sheet on iOS, whose fields an app can't change.
+
 ### Switch
 
 Same on web, iOS and Android, in light and dark.
