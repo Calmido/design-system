@@ -297,7 +297,7 @@ Same on web, iOS and Android, in light and dark.
 
 ### App controls
 
-The look is shared; where a control sits on a screen is up to each app.
+The look is shared; where a control sits on a screen is up to each app, except the gap under the top bar.
 
 | Control | Light | Dark |
 |---|---|---|
@@ -309,6 +309,8 @@ The look is shared; where a control sits on a screen is up to each app.
 | Dialpad button, pressed | Calmido Blue #07369E / White | same |
 
 Search field: 44 high, pill, `search` icon 20, Open Sans 15. Dialpad button: 56 circle, `dialpad` icon 24, shadow black 30% blur 6 y 3 (Android elevation 6).
+
+**Top bar** — 50 tall, 25 at the sides, on both apps. **The first content starts 16 below it** (`sp-4`) on every screen: the search field, a notice banner, help text or a card. A list counts its section header's own 8 top padding toward the 16, so the header's first word lines up with every other screen's first content. Not up to each app: the same gap everywhere.
 
 **Scroll edges** — the top and bottom bars have no fill of their own; two treatments separate them from the content scrolling beneath. **Edge band:** 6 tall at the top and bottom of the scroll area, `edge-shadow` (#DADBE0 · #131417) fading to transparent away from the bar; always drawn, in light and dark. **More below:** 48 tall at the bottom, `surface` (#FBFBFB · #202128) fading in from transparent, shown only while there is more content below (fade in and out over 200 ms); it sits under the edge band. Screens without a bottom bar get only the top band.
 

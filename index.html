@@ -3126,7 +3126,7 @@
 
   <section id="app-controls" class="block">
     <h2 class="sec">App controls</h2>
-    <p class="sec-sub">search field · dialpad button · loading indicator · notice banner · scroll edges · same on iOS and Android</p>
+    <p class="sec-sub">search field · dialpad button · loading indicator · notice banner · top bar · scroll edges · same on iOS and Android</p>
 
     <div class="panel">
       <h3>Light &amp; dark — rest, focused, pressed</h3>
@@ -3203,6 +3203,15 @@
         <li><b>Action</b> — the whole banner is one button that opens the right settings page; trailing <code>chevron_right</code> 14 in <code>font-muted</code>. Accessible name = title + body, hint = what the tap does.</li>
         <li>iOS <code>CallDirectoryBanner</code> is the reference.</li>
         <li>Where the banner sits (above the content, under the top bar) is up to each app.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Top bar — the gap under it</h3>
+      <ul class="t-body-m" style="margin: 0; padding-left: 20px; color: var(--c-font-body);">
+        <li>The top bar is 50 tall, 25 at the sides, on both apps.</li>
+        <li><strong>The first content starts 16 below it</strong> (<code>sp-4</code>) on every screen: the search field, a notice banner, help text or a card.</li>
+        <li>A list counts its section header's own 8 top padding toward the 16, so the header's first word lines up with every other screen's first content.</li>
+        <li>Not up to each app: the same gap on every screen.</li>
       </ul>
     </div>
     <div class="panel">
