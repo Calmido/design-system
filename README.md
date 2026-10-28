@@ -153,6 +153,10 @@ Three families — all free / Google Fonts:
 | Calm_Body_S | Open Sans 400 | 12 / 16 |
 | Calm_Label_S | Open Sans 400 | 12 / 16 · 0.08em tracked |
 
+### Alignment
+
+Text in the apps is **left-aligned** on both apps, as on Android, never centred, as iOS did. This covers help and explanation screens and empty states: the Contacts help, and the Reports and Recents help texts. Headings, paragraphs and lists start at the same left edge.
+
 ### Themes: light & dark
 
 Every surface supports both themes and follows the system setting. Theme
