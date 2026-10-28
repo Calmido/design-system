@@ -297,7 +297,7 @@ Same on web, iOS and Android, in light and dark.
 
 ### App controls
 
-The look is shared; where a control sits on a screen is up to each app, except the gap under the top bar.
+The look is shared; where a control sits on a screen is up to each app, except the screen margins and the gap under the top bar.
 
 | Control | Light | Dark |
 |---|---|---|
@@ -310,11 +310,13 @@ The look is shared; where a control sits on a screen is up to each app, except t
 
 Search field: 44 high, pill, `search` icon 20, Open Sans 15. Dialpad button: 56 circle, `dialpad` icon 24, shadow black 30% blur 6 y 3 (Android elevation 6).
 
-**Top bar** — 50 tall, 25 at the sides, on both apps. **The first content starts 16 below it** (`sp-4`) on every screen: the search field, a notice banner, help text or a card. A list counts its section header's own 8 top padding toward the 16, so the header's first word lines up with every other screen's first content. Not up to each app: the same gap everywhere.
+**Screen margins** — **20 at the sides** (`sp-5`) on every screen of both apps: the top bar's title and buttons, text, list rows, section headers, fields, banners' content and cards all start 20 from the screen edge. A card's or banner's own inner padding is separate; full-bleed images ignore the margin. Not up to each app.
+
+**Top bar** — 50 tall, 20 at the sides (the screen margin), on both apps. **The first content starts 20 below it** (`sp-5`, the same as the side margin) on every screen: the search field, a notice banner, help text or a card. A list counts its section header's own 8 top padding toward the 20, so the header's first word lines up with every other screen's first content. Not up to each app: the same gap everywhere.
 
 **Scroll edges** — the top and bottom bars have no fill of their own; two treatments separate them from the content scrolling beneath. **Edge band:** 6 tall at the top and bottom of the scroll area, `edge-shadow` (#DADBE0 · #131417) fading to transparent away from the bar; always drawn, in light and dark. **More below:** 48 tall at the bottom, `surface` (#FBFBFB · #202128) fading in from transparent, shown only while there is more content below (fade in and out over 200 ms); it sits under the edge band. Screens without a bottom bar get only the top band.
 
-**Notice banner** — for a setting outside the app that stops Calmido from protecting the user (iOS: Live Caller ID or Call Directory off; Android: Do Not Disturb on). iOS `CallDirectoryBanner` is the reference. Full width, min height 48, padding 12 × 16, gap 12; fill `surface-raised` (white · #040B20) with a 1 px bottom line in Bright Green at 40%, no side borders or radius. `attention` icon 22 in `ink-green`; title Open Sans 14 / 20 semibold `font-body`, body 14 / 20 `font-muted` (14 is the floor for instructions; iOS has 12 today), 2 apart, both wrapping; trailing `chevron_right` 14 in `font-muted`. The whole banner is one button to the right settings page. It stays until the setting changes and has no close button. Placement is up to each app.
+**Notice banner** — for a setting outside the app that stops Calmido from protecting the user (iOS: Live Caller ID or Call Directory off; Android: Do Not Disturb on). iOS `CallDirectoryBanner` is the reference. Full width, min height 48, padding 12 × 20 (the screen margin), gap 12; fill `surface-raised` (white · #040B20) with a 1 px bottom line in Bright Green at 40%, no side borders or radius. `attention` icon 22 in `ink-green`; title Open Sans 14 / 20 semibold `font-body`, body 14 / 20 `font-muted` (14 is the floor for instructions; iOS has 12 today), 2 apart, both wrapping; trailing `chevron_right` 14 in `font-muted`. The whole banner is one button to the right settings page. It stays until the setting changes and has no close button. Placement is up to each app.
 
 **Loading indicator** — spinner 24, 3 stroke, a 270° arc in `ink-green` (Green Ink #0A7A55 light · Bright Green #40EDAB dark), no track, one turn a second; never a fixed Dark Blue. Pull to refresh puts it on a 40 disc: `surface-raised` fill (white · #040B20), 1 px `border` (#DADBE0 · #55565B), shadow black 30% blur 3 y 1 (Android elevation 3). Inside a button: 16 spinner, 2 stroke, in the button's ink. Android: `PullToRefreshDefaults.Indicator` / `CircularProgressIndicator` with these colours; iOS: `UIRefreshControl.appearance().tintColor` and `ProgressView().tint` = `ink-green`.
 
