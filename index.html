@@ -1624,14 +1624,16 @@
 
     <div class="panel">
       <h3>Lists — face + a member badge</h3>
-      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-grey-ink);">Recents, Reports, Contacts and the dialpad result always show the face, with at most one badge, and only a <strong>member's</strong>: never a verdict, the chip carries that. A <strong>locked</strong> member gets the red lock. The green seal vouches for the caller, so only a <strong>verified</strong> member gets it, when there is nothing to warn about. An <strong>unverified</strong> member shows the Calmido C and no badge — never their own photo, initials or name in a list. A <strong>shielded</strong> member shows the C with a dark lock badge: anonymous, not dangerous. No arcs anywhere in the app.</p>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-grey-ink);">Recents, Reports, Contacts and the dialpad result always show the face, with at most one badge, and only a <strong>member's</strong>. A <strong>locked</strong> member gets the red lock. Only a <strong>verified</strong> member gets the seal, and its colour follows the threat: green normally, amber when Suspicious, red when Dangerous. Anyone else's verdict stays in the chip. An <strong>unverified</strong> member shows the Calmido C and no badge — never their own photo, initials or name in a list. A <strong>shielded</strong> member shows the C with a dark lock badge: anonymous, not dangerous. No arcs anywhere in the app.</p>
       <div class="av-row">
         <div class="av-cell"><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--red"><span class="ico-mask" style="--ico:url('icons/lock.svg')"></span></span></span><span class="av-cap">locked</span></div>
         <div class="av-cell"><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--seal"><span class="ico-mask" style="--ico:url('icons/verified.svg')"></span></span></span><span class="av-cap">verified member</span></div>
+        <div class="av-cell"><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--amber"><span class="ico-mask" style="--ico:url('icons/verified.svg')"></span></span></span><span class="av-cap">verified, suspicious</span></div>
+        <div class="av-cell"><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--red"><span class="ico-mask" style="--ico:url('icons/verified.svg')"></span></span></span><span class="av-cap">verified, dangerous</span></div>
         <div class="av-cell"><span class="av"><span class="avatar avatar--unknown"><span class="ico-mask" style="--ico:url('icons/logo_1.svg'); width:24px; height:24px"></span></span></span><span class="av-cap">unverified member</span></div>
         <div class="av-cell"><span class="av"><span class="avatar avatar--unknown"><span class="ico-mask" style="--ico:url('icons/logo_1.svg'); width:24px; height:24px"></span></span><span class="av-badge av-badge--dark"><span class="ico-mask" style="--ico:url('icons/lock.svg')"></span></span></span><span class="av-cap">shielded member</span></div>
       </div>
-      <small class="tok">Locked › shielded › seal. Blocked, a threat or a warning: no badge, not even the seal.</small>
+      <small class="tok">Locked › shielded › seal. Blocked: no badge. A shielded member with a threat: no badge.</small>
     </div>
 
     <div class="panel">
@@ -1704,19 +1706,19 @@
 
     <div class="panel">
       <h3>Badge or chip?</h3>
-      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-grey-ink);">Two different things, never mixed. The <strong>badge</strong> on the avatar is who the caller is as a Calmido member, from the member's status on the server. The <strong>chip</strong> after the time is what is known about the number, from your own reports or the community. At most one of each per row.</p>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-grey-ink);">Two different things. The <strong>badge</strong> on the avatar is who the caller is as a Calmido member, from the member's status on the server; a verified member's seal also takes the threat's colour. The <strong>chip</strong> after the time is what is known about the number, from your own reports or the community. At most one of each per row.</p>
       <h4 style="margin: 8px 0 8px;">Member badges — on the avatar</h4>
       <table class="t-body-m bc-table">
         <thead><tr><th>Avatar</th><th>Who</th><th>When</th></tr></thead>
         <tbody>
           <tr><td><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--red"><span class="ico-mask" style="--ico:url('icons/lock.svg')"></span></span></span></td><td><strong>Locked</strong></td><td>A member whose account Calmido locked. Wins over the others.</td></tr>
           <tr><td><span class="av"><span class="avatar avatar--unknown"><span class="ico-mask" style="--ico:url('icons/logo_1.svg'); width:22px; height:22px"></span></span><span class="av-badge av-badge--dark"><span class="ico-mask" style="--ico:url('icons/lock.svg')"></span></span></span></td><td><strong>Shielded</strong></td><td>A member who hides who they are: the Calmido C with a dark lock. Anonymous, not dangerous.</td></tr>
-          <tr><td><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--seal"><span class="ico-mask" style="--ico:url('icons/verified.svg')"></span></span></span></td><td><strong>Verified member</strong></td><td>Their own photo, else the Calmido C, with the green seal. Only when there is nothing to warn about.</td></tr>
+          <tr><td><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--seal"><span class="ico-mask" style="--ico:url('icons/verified.svg')"></span></span></span></td><td><strong>Verified member</strong></td><td>Their own photo, else the Calmido C, with the seal: green normally, amber when Suspicious, red when Dangerous.</td></tr>
           <tr><td><span class="av"><span class="avatar avatar--unknown"><span class="ico-mask" style="--ico:url('icons/logo_1.svg'); width:22px; height:22px"></span></span></span></td><td><strong>Unverified member</strong></td><td>The Calmido C, no badge, never their own name or photo.</td></tr>
           <tr><td><span class="av"><span class="avatar avatar--face">MV</span></span></td><td><strong>Contact, business, unknown number</strong></td><td>No badge.</td></tr>
         </tbody>
       </table>
-      <small class="tok" style="display:block; margin-bottom: 16px;">Locked › shielded › seal. Blocked, Suspicious or Dangerous: no badge, not even the seal; the chip says it.</small>
+      <small class="tok" style="display:block; margin-bottom: 16px;">Locked › shielded › seal. Blocked: no badge. A shielded member with a threat: no badge.</small>
       <h4 style="margin: 8px 0 8px;">Chips — after the time</h4>
       <table class="t-body-m bc-table">
         <thead><tr><th>Chip</th><th>Says</th><th>Source</th></tr></thead>
