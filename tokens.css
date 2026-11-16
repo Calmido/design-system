@@ -64,6 +64,11 @@
   --c-edge-shadow:    var(--c-light-grey);  /* 6px band where scrolling content meets a top or bottom bar, fading away from the bar; dark = black 40% over bg-dark */
   --c-focus-ring:     var(--c-dark-blue);  /* 2px outline; dark = iOS focused-field green */
   --c-focus-halo:     var(--c-white);  /* 2px halo inside the ring */
+  /* ── Circle-grid fills: the 'C' pattern on welcome, login, the guided setup and report info. Artwork like the logo, so dark keeps the light value for now. The pattern's other fills are dark-green, bright-green, bright-blue and blue. ── */
+  --c-grid-green-3:   #0E9960;
+  --c-grid-green-4:   #08A062;
+  --c-grid-green-5:   #28A55B;
+  --c-grid-teal:      #229499;
 
   /* ── Font families — three free / Google Fonts ── */
   --font-display: "Geologica", system-ui, -apple-system, Segoe UI, sans-serif;
@@ -110,6 +115,10 @@
     --c-edge-shadow: #131417;
     --c-focus-ring: var(--c-bright-green);
     --c-focus-halo: var(--c-dark-blue);
+    --c-grid-green-3: #0E9960;
+    --c-grid-green-4: #08A062;
+    --c-grid-green-5: #28A55B;
+    --c-grid-teal: #229499;
   }
 }
 [data-theme="dark"] {
@@ -130,6 +139,10 @@
   --c-edge-shadow: #131417;
   --c-focus-ring: var(--c-bright-green);
   --c-focus-halo: var(--c-dark-blue);
+  --c-grid-green-3: #0E9960;
+  --c-grid-green-4: #08A062;
+  --c-grid-green-5: #28A55B;
+  --c-grid-teal: #229499;
 }
 [data-theme="light"] {
   --c-font-title: var(--c-blue);
@@ -149,4 +162,8 @@
   --c-edge-shadow: var(--c-light-grey);
   --c-focus-ring: var(--c-dark-blue);
   --c-focus-halo: var(--c-white);
+  --c-grid-green-3: #0E9960;
+  --c-grid-green-4: #08A062;
+  --c-grid-green-5: #28A55B;
+  --c-grid-teal: #229499;
 }
