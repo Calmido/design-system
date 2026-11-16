@@ -328,9 +328,6 @@
   .av-badge { position: absolute; right: -5px; bottom: -5px; width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--c-white); display: inline-flex; align-items: center; justify-content: center; color: var(--c-white); }
   .av-badge .ico-mask { width: 14px; height: 14px; }
   .av-badge--red   { background: var(--c-threat-dangerous); }
-  .av-badge--amber { background: var(--c-threat-elevated); }
-  .av-badge--seal  { background: var(--c-bright-green); }
-  .av-badge--dark  { background: var(--c-bg-dark); }
   .av-ring { position: relative; width: 64px; height: 64px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: var(--ring); }
   .av-ring::before { content: ""; position: absolute; inset: 5px; border-radius: 50%; background: var(--c-white); }
   .av-ring > .avatar { position: relative; width: 50px; height: 50px; }
@@ -1623,17 +1620,14 @@
     </div>
 
     <div class="panel">
-      <h3>Lists — face + a member badge</h3>
-      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-grey-ink);">Recents, Reports, Contacts and the dialpad result always show the face, with at most one badge, and only a <strong>member's</strong>. A <strong>locked</strong> member gets the red lock. Only a <strong>verified</strong> member gets the seal, and its colour follows the threat: green normally, amber when Suspicious, red when Dangerous. Anyone else's verdict stays in the chip. An <strong>unverified</strong> member shows the Calmido C and no badge — never their own photo, initials or name in a list. A <strong>shielded</strong> member shows the C with a dark lock badge: anonymous, not dangerous. No arcs anywhere in the app.</p>
+      <h3>Lists — face, and the lock when locked</h3>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-grey-ink);">Recents, Reports, Contacts and the dialpad result always show the face, with one badge at most: the red lock of a <strong>locked</strong> member. Nothing else gets a badge in a list, not the verified seal and not the shielded lock: next to the chip and the call button they made the rows too busy, and the dark lock hardly showed (2026-11-16). A verdict stays in the chip. A <strong>verified</strong> member shows their own photo, else the Calmido C. An <strong>unverified</strong> member shows the C — never their own photo, initials or name in a list. A <strong>shielded</strong> member shows the C: anonymous, not dangerous. The seal and the shield stay on the caller card. No arcs anywhere in the app.</p>
       <div class="av-row">
         <div class="av-cell"><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--red"><span class="ico-mask" style="--ico:url('icons/lock.svg')"></span></span></span><span class="av-cap">locked</span></div>
-        <div class="av-cell"><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--seal"><span class="ico-mask" style="--ico:url('icons/verified.svg')"></span></span></span><span class="av-cap">verified member</span></div>
-        <div class="av-cell"><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--amber"><span class="ico-mask" style="--ico:url('icons/verified.svg')"></span></span></span><span class="av-cap">verified, suspicious</span></div>
-        <div class="av-cell"><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--red"><span class="ico-mask" style="--ico:url('icons/verified.svg')"></span></span></span><span class="av-cap">verified, dangerous</span></div>
         <div class="av-cell"><span class="av"><span class="avatar avatar--unknown"><span class="ico-mask" style="--ico:url('icons/logo_1.svg'); width:24px; height:24px"></span></span></span><span class="av-cap">unverified member</span></div>
-        <div class="av-cell"><span class="av"><span class="avatar avatar--unknown"><span class="ico-mask" style="--ico:url('icons/logo_1.svg'); width:24px; height:24px"></span></span><span class="av-badge av-badge--dark"><span class="ico-mask" style="--ico:url('icons/lock.svg')"></span></span></span><span class="av-cap">shielded member</span></div>
+        <div class="av-cell"><span class="av"><span class="avatar avatar--unknown"><span class="ico-mask" style="--ico:url('icons/logo_1.svg'); width:24px; height:24px"></span></span></span><span class="av-cap">shielded member</span></div>
       </div>
-      <small class="tok">Locked › shielded › seal. Blocked: no badge. A shielded member with a threat: no badge.</small>
+      <small class="tok">Only Locked has a badge in a list. Blocked: no badge, the chip says it.</small>
     </div>
 
     <div class="panel">
@@ -1706,19 +1700,19 @@
 
     <div class="panel">
       <h3>Badge or chip?</h3>
-      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-grey-ink);">Two different things. The <strong>badge</strong> on the avatar is who the caller is as a Calmido member, from the member's status on the server; a verified member's seal also takes the threat's colour. The <strong>chip</strong> after the time is what is known about the number, from your own reports or the community. At most one of each per row.</p>
-      <h4 style="margin: 8px 0 8px;">Member badges — on the avatar</h4>
+      <p class="t-body-m" style="margin: 0 0 16px; color: var(--c-grey-ink);">Two different things. The <strong>badge</strong> on the avatar is who the caller is as a Calmido member, from the member's status on the server; in a list only a locked account has one. The <strong>chip</strong> after the time is what is known about the number, from your own reports or the community. At most one of each per row.</p>
+      <h4 style="margin: 8px 0 8px;">Member badge — on the avatar</h4>
       <table class="t-body-m bc-table">
         <thead><tr><th>Avatar</th><th>Who</th><th>When</th></tr></thead>
         <tbody>
           <tr><td><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--red"><span class="ico-mask" style="--ico:url('icons/lock.svg')"></span></span></span></td><td><strong>Locked</strong></td><td>A member whose account Calmido locked. Wins over the others.</td></tr>
-          <tr><td><span class="av"><span class="avatar avatar--unknown"><span class="ico-mask" style="--ico:url('icons/logo_1.svg'); width:22px; height:22px"></span></span><span class="av-badge av-badge--dark"><span class="ico-mask" style="--ico:url('icons/lock.svg')"></span></span></span></td><td><strong>Shielded</strong></td><td>A member who hides who they are: the Calmido C with a dark lock. Anonymous, not dangerous.</td></tr>
-          <tr><td><span class="av"><span class="avatar avatar--face">MV</span><span class="av-badge av-badge--seal"><span class="ico-mask" style="--ico:url('icons/verified.svg')"></span></span></span></td><td><strong>Verified member</strong></td><td>Their own photo, else the Calmido C, with the seal: green normally, amber when Suspicious, red when Dangerous.</td></tr>
+          <tr><td><span class="av"><span class="avatar avatar--unknown"><span class="ico-mask" style="--ico:url('icons/logo_1.svg'); width:22px; height:22px"></span></span></span></td><td><strong>Shielded</strong></td><td>A member who hides who they are: the Calmido C, no badge. Anonymous, not dangerous.</td></tr>
+          <tr><td><span class="av"><span class="avatar avatar--face">MV</span></span></td><td><strong>Verified member</strong></td><td>Their own photo, else the Calmido C, no badge. The seal is the caller card's.</td></tr>
           <tr><td><span class="av"><span class="avatar avatar--unknown"><span class="ico-mask" style="--ico:url('icons/logo_1.svg'); width:22px; height:22px"></span></span></span></td><td><strong>Unverified member</strong></td><td>The Calmido C, no badge, never their own name or photo.</td></tr>
           <tr><td><span class="av"><span class="avatar avatar--face">MV</span></span></td><td><strong>Contact, business, unknown number</strong></td><td>No badge.</td></tr>
         </tbody>
       </table>
-      <small class="tok" style="display:block; margin-bottom: 16px;">Locked › shielded › seal. Blocked: no badge. A shielded member with a threat: no badge.</small>
+      <small class="tok" style="display:block; margin-bottom: 16px;">Only Locked has a badge in a list. Blocked: no badge, the chip says it.</small>
       <h4 style="margin: 8px 0 8px;">Chips — after the time</h4>
       <table class="t-body-m bc-table">
         <thead><tr><th>Chip</th><th>Says</th><th>Source</th></tr></thead>
@@ -1764,13 +1758,13 @@
         <li><strong>Question row</strong> (Report this call / Confirm the name): <strong>closed rows only</strong>, at most one per number, on that number's <strong>newest</strong> row, under a hairline divider with 8 above and below. Opening the row swaps it for the action bar.</li>
       </ul>
       <h4 style="margin: 24px 0 8px;">Example — closed rows</h4>
-      <p class="t-body-m" style="margin: 0 0 12px; color: var(--c-grey-ink);">One example for both apps, at 375&nbsp;px, light and dark. From the top: a verified member (the seal on the avatar); a Suspicious contact with a long name, cut with an ellipsis, with the chip and no call button; an unknown number the community rates Dangerous: the number as name, the chip, no call button, no badge; a contact's normal call; a missed call (danger ink), the number's newest call, so the question row under it; an unknown number from abroad with its flag. The direction icon is 16, green when the call connected, the danger ink when it was missed.</p>
+      <p class="t-body-m" style="margin: 0 0 12px; color: var(--c-grey-ink);">One example for both apps, at 375&nbsp;px, light and dark. From the top: a verified member (their photo, no badge); a Suspicious contact with a long name, cut with an ellipsis, with the chip and no call button; an unknown number the community rates Dangerous: the number as name, the chip, no call button, no badge; a contact's normal call; a missed call (danger ink), the number's newest call, so the question row under it; an unknown number from abroad with its flag. The direction icon is 16, green when the call connected, the danger ink when it was missed.</p>
       <div class="theme-pair">
         <div data-theme="light">
           <div class="recents-mock">
             <div class="list-header">Today</div>
             <div class="recents-mock__row">
-              <span class="av"><span class="avatar avatar--face" style="width:40px;height:40px;font-size:14px;">SB</span><span class="av-badge av-badge--seal"><span class="ico-mask" style="--ico:url('icons/verified.svg')"></span></span></span>
+              <span class="av"><span class="avatar avatar--face" style="width:40px;height:40px;font-size:14px;">SB</span></span>
               <div class="recents-mock__text">
                 <div class="recents-mock__first"><span class="recents-mock__name">Sanne Bakker</span></div>
                 <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_received.svg'); width:16px; height:16px; color: var(--c-ink-green);" aria-hidden="true"></span><span>Today 14:32</span><span class="recents-mock__region">• Netherlands</span></div>
@@ -1824,7 +1818,7 @@
           <div class="recents-mock">
             <div class="list-header">Today</div>
             <div class="recents-mock__row">
-              <span class="av"><span class="avatar avatar--face" style="width:40px;height:40px;font-size:14px;">SB</span><span class="av-badge av-badge--seal"><span class="ico-mask" style="--ico:url('icons/verified.svg')"></span></span></span>
+              <span class="av"><span class="avatar avatar--face" style="width:40px;height:40px;font-size:14px;">SB</span></span>
               <div class="recents-mock__text">
                 <div class="recents-mock__first"><span class="recents-mock__name">Sanne Bakker</span></div>
                 <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_received.svg'); width:16px; height:16px; color: var(--c-ink-green);" aria-hidden="true"></span><span>Today 14:32</span><span class="recents-mock__region">• Netherlands</span></div>
@@ -1883,7 +1877,7 @@
             <div class="list-header">Today</div>
             <div class="recents-mock__item">
               <div class="recents-mock__row">
-                <span class="av"><span class="avatar avatar--face" style="width:40px;height:40px;font-size:14px;">SB</span><span class="av-badge av-badge--seal"><span class="ico-mask" style="--ico:url('icons/verified.svg')"></span></span></span>
+                <span class="av"><span class="avatar avatar--face" style="width:40px;height:40px;font-size:14px;">SB</span></span>
                 <div class="recents-mock__text">
                   <div class="recents-mock__first"><span class="recents-mock__name">Sanne Bakker</span></div>
                   <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_received.svg'); width:16px; height:16px; color: var(--c-ink-green);" aria-hidden="true"></span><span>Today 14:32</span></div>
@@ -1937,7 +1931,7 @@
             <div class="list-header">Today</div>
             <div class="recents-mock__item">
               <div class="recents-mock__row">
-                <span class="av"><span class="avatar avatar--face" style="width:40px;height:40px;font-size:14px;">SB</span><span class="av-badge av-badge--seal"><span class="ico-mask" style="--ico:url('icons/verified.svg')"></span></span></span>
+                <span class="av"><span class="avatar avatar--face" style="width:40px;height:40px;font-size:14px;">SB</span></span>
                 <div class="recents-mock__text">
                   <div class="recents-mock__first"><span class="recents-mock__name">Sanne Bakker</span></div>
                   <div class="recents-mock__second"><span class="ico-mask" style="--ico:url('icons/call/call_received.svg'); width:16px; height:16px; color: var(--c-ink-green);" aria-hidden="true"></span><span>Today 14:32</span></div>
