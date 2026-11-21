@@ -27,6 +27,8 @@ design system because they are the Calmido website.
 App Store and Google Play listing copy lives in the knowledge base, in
 [`App/store-listing/`](https://github.com/Calmido/knowledge-base/tree/main/App/store-listing).
 
+Wat we zeggen (belofte, toon, woorden) staat in [`knowledge-base/Organization/brand/`](https://github.com/Calmido/knowledge-base/tree/main/Organization/brand).
+
 Open `index.html` locally or visit the Pages URL above. GitHub Pages is
 configured (legacy mode, `main` / root) to auto-deploy on every push.
 
