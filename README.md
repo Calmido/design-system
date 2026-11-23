@@ -162,6 +162,7 @@ Decided 2026-11-23 (#82). The scale stays as it is.
 - **14 px minimum** (Body_M) for explanation, warning and settings text, and help lines under a setting. Never Body_S for it.
 - **12 px** (Body_S, Label_S) only for labels, meta lines, footers and copyright.
 - **No 13 px.** It isn't on the scale: use 12 or 14.
+- **Inputs: 16 px**, the search field too. A placeholder takes its input's size, never Body_S; a field's label above it is a label (12).
 - Text follows the system text size (Dynamic Type, `sp`).
 
 ### Alignment
@@ -214,7 +215,7 @@ low vision, colour blindness, ADHD, anxiety and motor impairments.
 - **Caller-card gradients** carry white ink at ≥ 4.5:1 along the whole gradient: `caller-warning-start/end`, `caller-alert-start/end`.
 - **Verdict = icon + word.** A threat verdict is never only a colour or a position; show the verdict chip, visibly, not only to screen readers.
 - **Focus ring.** Two-tone on `:focus-visible`: 2px `dark-blue` outline, offset 2px, over a 2px white halo. A border colour is not a focus indicator; never `outline: none` on an input (put the ring on the pill shell instead).
-- **Type floor.** 14px for text that matters (verdicts, warnings, explanation, settings); 12px only for labels, meta lines, footers and copyright; 16px in inputs. No 13px. See Typography → Size floor.
+- **Type floor.** 14px for text that matters (verdicts, warnings, explanation, settings); 12px only for labels, meta lines, footers and copyright; 16px in inputs, placeholders included. No 13px. See Typography → Size floor.
 - **Touch targets.** 44px on the web, 44pt on iOS, 48dp on Android.
 - **Muted text and placeholders.** Light uses `grey-ink` `#5F6869` (`font-muted`, `placeholder`), never `dark-grey` `#6F797A` (4.48:1 on white, 4.33:1 on `#FBFBFB`): that is for borders and outlines. `grey-ink` is not for text on `surface-muted` (4.14:1). Dark: `font-muted` `#B8B8BA` (8.1:1 on `#202128`), `placeholder` `#8E9094` (5.0:1 on `#202128`, 4.8:1 on `#1A2340`, 6.1:1 on `#040B20`). A surface takes the `placeholder` role; it does not hard-code a grey.
 - **Dark pairs.** `ink-danger` `#FD5240` is 4.93:1 on `#202128` and 4.75:1 on `#1A2340` (`surface-muted`). `border` `#55565B` is 2.19:1 on `#202128`: decorative only (dividers, card edges), never the only sign of an input, control or state. Controls use `border-strong` (3.6:1 in dark).
@@ -303,7 +304,7 @@ Same on web, iOS and Android, in light and dark.
 - Track 52 × 32, pill. Thumb 24, white, 4 inset, same size on and off.
 - On: Bright Green track (#40EDAB). Off: track in `--c-border` (#DADBE0 light, #55565B dark).
 - Disabled: the whole row at 60% opacity.
-- Settings row: label Open Sans 15 / 20 in `font-body`, optional subtitle 12 / 16 in `font-muted`. Padding 12 × 16, min height 48, switch trailing. The whole row toggles.
+- Settings row: label Open Sans 15 / 20 in `font-body`, optional subtitle 14 / 20 in `font-muted` (the size floor: it explains the setting). Padding 12 × 16, min height 48, switch trailing. The whole row toggles.
 - iOS uses the system switch tinted Bright Green. Android uses the Material 3 `Switch` with these colours and no outline.
 
 ### App controls
@@ -319,7 +320,7 @@ The look is shared; where a control sits on a screen is up to each app, except t
 | Dialpad button fill / icon | Bright Green #40EDAB / Dark Blue #081748 | same |
 | Dialpad button, pressed | Calmido Blue #07369E / White | same |
 
-Search field: 44 high, pill, `search` icon 20, Open Sans 15. Dialpad button: 56 circle, `dialpad` icon 24, shadow black 30% blur 6 y 3 (Android elevation 6).
+Search field: 44 high, pill, `search` icon 20, Open Sans 16; the placeholder the same size. Dialpad button: 56 circle, `dialpad` icon 24, shadow black 30% blur 6 y 3 (Android elevation 6).
 
 **Screen margins** — **20 at the sides** (`sp-5`) on every screen of both apps: the top bar's title and buttons, text, list rows, section headers, fields, banners' content and cards all start 20 from the screen edge. A card's or banner's own inner padding is separate; full-bleed images ignore the margin. **Sheets** too: their content starts 20 from the sides and 20 below the title bar; the title bar itself stays the platform's own (iOS: centred title, buttons at the system inset). Not up to each app.
 
