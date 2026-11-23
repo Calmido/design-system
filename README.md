@@ -170,8 +170,15 @@ Decided 2026-11-23 (#82). The scale stays as it is.
 - **14 px minimum** (Body_M) for explanation, warning and settings text, and help lines under a setting. Never Body_S for it.
 - **12 px** (Body_S, Label_M, Label_S) only for labels, meta lines, footers and copyright.
 - **No 13 px.** It isn't on the scale: use 12 or 14.
-- **Inputs: 16 px**, the search field too. A placeholder takes its input's size, never Body_S; a field's label above it is a label (12).
+- **Inputs: 16 px**, the search field too. A placeholder takes its input's size, never Body_S. A field's label sits above it in Label_M (see Letter spacing below).
 - Text follows the system text size (Dynamic Type, `sp`).
+
+### Field label and letter spacing
+
+Decided 2026-11-23.
+
+- **Field label:** above the field, never a floating label inside it. Label_M (Open Sans 600, 12 / 16) in `font-muted`, 6 above the field, sentence case, no extra letter spacing. The help or error line under the field is Body_M (14), by the size floor.
+- **Letter spacing:** only Label_S is tracked (0.08em). The one exception is the caller card: its top label and meta line get 0.5 (pt / sp), as both apps already do. Nothing else adds letter spacing on top of a style.
 
 ### Alignment
 
