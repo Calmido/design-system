@@ -155,6 +155,15 @@ Three families — all free / Google Fonts:
 | Calm_Body_S | Open Sans 400 | 12 / 16 |
 | Calm_Label_S | Open Sans 400 | 12 / 16 · 0.08em tracked |
 
+### Size floor
+
+Decided 2026-11-23 (#82). The scale stays as it is.
+
+- **14 px minimum** (Body_M) for explanation, warning and settings text, and help lines under a setting. Never Body_S for it.
+- **12 px** (Body_S, Label_S) only for labels, meta lines, footers and copyright.
+- **No 13 px.** It isn't on the scale: use 12 or 14.
+- Text follows the system text size (Dynamic Type, `sp`).
+
 ### Alignment
 
 Text in the apps is **left-aligned** on both apps, as on Android, never centred, as iOS did. This covers help and explanation screens and empty states: the Contacts help, and the Reports and Recents help texts. Headings, paragraphs and lists start at the same left edge.
@@ -205,7 +214,7 @@ low vision, colour blindness, ADHD, anxiety and motor impairments.
 - **Caller-card gradients** carry white ink at ≥ 4.5:1 along the whole gradient: `caller-warning-start/end`, `caller-alert-start/end`.
 - **Verdict = icon + word.** A threat verdict is never only a colour or a position; show the verdict chip, visibly, not only to screen readers.
 - **Focus ring.** Two-tone on `:focus-visible`: 2px `dark-blue` outline, offset 2px, over a 2px white halo. A border colour is not a focus indicator; never `outline: none` on an input (put the ring on the pill shell instead).
-- **Type floor.** 12px minimum; 14px for meaningful text (verdicts, warnings, instructions); 16px in inputs.
+- **Type floor.** 14px for text that matters (verdicts, warnings, explanation, settings); 12px only for labels, meta lines, footers and copyright; 16px in inputs. No 13px. See Typography → Size floor.
 - **Touch targets.** 44px on the web, 44pt on iOS, 48dp on Android.
 - **Muted text and placeholders.** Light uses `grey-ink` `#5F6869` (`font-muted`, `placeholder`), never `dark-grey` `#6F797A` (4.48:1 on white, 4.33:1 on `#FBFBFB`): that is for borders and outlines. `grey-ink` is not for text on `surface-muted` (4.14:1). Dark: `font-muted` `#B8B8BA` (8.1:1 on `#202128`), `placeholder` `#8E9094` (5.0:1 on `#202128`, 4.8:1 on `#1A2340`, 6.1:1 on `#040B20`). A surface takes the `placeholder` role; it does not hard-code a grey.
 - **Dark pairs.** `ink-danger` `#FD5240` is 4.93:1 on `#202128` and 4.75:1 on `#1A2340` (`surface-muted`). `border` `#55565B` is 2.19:1 on `#202128`: decorative only (dividers, card edges), never the only sign of an input, control or state. Controls use `border-strong` (3.6:1 in dark).
