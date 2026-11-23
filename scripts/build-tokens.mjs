@@ -136,8 +136,42 @@ function composeHex(hex) {
   throw new Error(`Cannot convert hex to Compose ARGB: ${hex}`);
 }
 
-function ktObject(name, body) {
-  return [`object ${name} {`, ...body, '}', ''];
+// Palette colours Android doesn't use; the Kotlin output leaves them out.
+// A kept token that refers to one of them fails the build.
+const KT_SKIP_COLORS = new Set(['logo-blue', 'tonal-green', 'infocard-dark', 'dark-red', 'canvas', 'canvas-warm']);
+
+// ktfmt (kotlinlang style, 100 columns) is the judge: the output is already
+// formatted, so Android needs no spotlessApply after a regenerate.
+const KT_WIDTH = 100;
+
+// A comment wrapped at the line width, one `//` line per row.
+function ktComment(text, indent) {
+  const rows = [];
+  let row = '';
+  for (const word of text.split(' ')) {
+    if (row && `${indent}// ${row} ${word}`.length > KT_WIDTH) { rows.push(row); row = word; }
+    else row = row ? `${row} ${word}` : word;
+  }
+  rows.push(row);
+  return rows.map((r) => `${indent}// ${r}`);
+}
+
+// `val name = rhs`, broken after `=` when it doesn't fit, as ktfmt does.
+function ktVal(indent, name, rhs) {
+  const line = `${indent}val ${name} = ${rhs}`;
+  return line.length <= KT_WIDTH ? [line] : [`${indent}val ${name} =`, `${indent}    ${rhs}`];
+}
+
+// A colour value as Kotlin: a palette ref, a hex, or a font-ink ref resolved
+// to what it points at (there is no CalmidoFontInk object in Kotlin).
+function ktColor(value, bare = false) {
+  const m = /^\{([^.}]+)\.([^}]+)\}$/.exec(value);
+  if (!m) return `Color(${composeHex(value)})`;
+  const [, group, name] = m;
+  if (group === 'font-ink') return ktColor(tokens['font-ink'].find((t) => t.name === name).value, bare);
+  if (group !== 'color') throw new Error(`No Kotlin colour for ref: ${value}`);
+  if (KT_SKIP_COLORS.has(name)) throw new Error(`${value} is in KT_SKIP_COLORS but still used`);
+  return bare ? camel(name) : `CalmidoColors.${camel(name)}`;
 }
 
 function emitKotlin() {
@@ -156,63 +190,55 @@ function emitKotlin() {
     'import androidx.compose.ui.unit.sp',
     '',
   ];
+  const object = (name, body) => out.push(`object ${name} {`, ...body, '}', '');
 
+  // The group's opening comment is written for the web; the object name says
+  // it in Kotlin. A section comment is kept only when a val follows it.
   const colorBody = [];
-  for (const t of tokens.color) {
-    if (t.comment !== undefined) { colorBody.push(`    // ${t.comment}`); continue; }
-    // A {color.x} ref inside the colour group is an alias — a semantic name
-    // for a palette entry. Emit it as the sibling val rather than re-inlining
-    // the hex, so the alias can never drift from what it aliases. Bare name,
-    // not CalmidoColors.x: Kotlin initialises object properties in order, and
-    // an alias always follows its target.
-    const ref = colorRef(t.value);
-    const rhs = ref ? camel(ref) : `Color(${composeHex(t.value)})`;
-    const note = t.note ? `  // ${t.note}` : '';
-    colorBody.push(`    val ${camel(t.name)} = ${rhs}${note}`);
-  }
-  out.push(...ktObject('CalmidoColors', colorBody));
+  let pending = null;
+  tokens.color.forEach((t, i) => {
+    if (t.comment !== undefined) { pending = i === 0 ? null : t.comment; return; }
+    if (KT_SKIP_COLORS.has(t.name)) return;
+    if (pending) {
+      if (colorBody.length) colorBody.push('');
+      colorBody.push(...ktComment(pending, '    '));
+      pending = null;
+    }
+    if (t.note) colorBody.push(...ktComment(t.note, '    '));
+    // A {color.x} ref is an alias: the sibling val, bare, since Kotlin
+    // initialises object properties in order and an alias follows its target.
+    colorBody.push(...ktVal('    ', camel(t.name), ktColor(t.value, true)));
+  });
+  object('CalmidoColors', colorBody);
 
-  const inkBody = [];
-  for (const t of tokens['font-ink']) {
-    if (t.comment !== undefined) { inkBody.push(`    // ${t.comment}`); continue; }
-    const ref = colorRef(t.value);
-    const rhs = ref ? `CalmidoColors.${camel(ref)}` : `Color(${composeHex(t.value)})`;
-    const note = t.note ? `  // ${t.note}` : '';
-    inkBody.push(`    val ${camel(t.name)} = ${rhs}${note}`);
-  }
-  out.push(...ktObject('CalmidoFontInk', inkBody));
-
-  const spaceBody = tokens.spacing
+  object('CalmidoSpacing', tokens.spacing
     .filter((t) => t.name !== undefined)
-    .map((t) => `    val s${t.name} = ${parseInt(t.value, 10)}.dp`);
-  out.push(...ktObject('CalmidoSpacing', spaceBody));
+    .map((t) => `    val s${t.name} = ${parseInt(t.value, 10)}.dp`));
 
-  const radiusBody = tokens.radius
+  object('CalmidoRadius', tokens.radius
     .filter((t) => t.name !== undefined)
-    .map((t) => `    val ${camel(t.name)} = ${parseInt(t.value, 10)}.dp`);
-  out.push(...ktObject('CalmidoRadius', radiusBody));
+    .map((t) => `    val ${camel(t.name)} = ${parseInt(t.value, 10)}.dp`));
 
   const cap = (s) => s[0].toUpperCase() + s.slice(1);
-  out.push('// Type scale (README Typography → Scale). The app maps family to its FontFamily.');
-  out.push(`enum class CalmidoFontFamily { ${FAMILIES.map(cap).join(', ')} }`, '');
+  out.push('// Type scale. The app maps family to its FontFamily.');
+  out.push('enum class CalmidoFontFamily {', ...FAMILIES.map((f) => `    ${cap(f)},`), '}', '');
   out.push('data class CalmidoTypeToken(');
   out.push('    val family: CalmidoFontFamily,', '    val weight: FontWeight,', '    val size: TextUnit,');
   out.push('    val lineHeight: TextUnit,', '    val tracking: TextUnit = TextUnit.Unspecified,', ')', '');
-  out.push(...ktObject('CalmidoTypeScale', typeScale.map((t) => {
+  object('CalmidoTypeScale', typeScale.flatMap((t) => {
     const tracking = t.tracking === null ? '' : `, ${t.tracking}.em`;
-    return `    val ${t.field} = CalmidoTypeToken(CalmidoFontFamily.${cap(t.family)}, ` +
-      `FontWeight.${weightName(KT_WEIGHT, t.weight)}, ${t.size}.sp, ${t.lineHeight}.sp${tracking})`;
-  })));
+    return ktVal('    ', t.field, `CalmidoTypeToken(CalmidoFontFamily.${cap(t.family)}, ` +
+      `FontWeight.${weightName(KT_WEIGHT, t.weight)}, ${t.size}.sp, ${t.lineHeight}.sp${tracking})`);
+  }));
 
-  const ktColor = (v) => nativeColor(v, (hex) => `Color(${composeHex(hex)})`);
   out.push('// Theme roles: pick CalmidoThemeLight or CalmidoThemeDark from the system setting.');
   out.push('data class CalmidoThemeColors(');
   out.push(...themed.map((t) => `    val ${t.field}: Color,`));
   out.push(')', '');
   for (const [name, key] of [['CalmidoThemeLight', 'value'], ['CalmidoThemeDark', 'dark']]) {
-    out.push(`val ${name} = CalmidoThemeColors(`);
-    out.push(...themed.map((t) => `    ${t.field} = ${ktColor(t[key])},`));
-    out.push(')', '');
+    out.push(`val ${name} =`, '    CalmidoThemeColors(');
+    out.push(...themed.map((t) => `        ${t.field} = ${ktColor(t[key])},`));
+    out.push('    )', '');
   }
 
   return out.join('\n');
