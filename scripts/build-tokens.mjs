@@ -15,6 +15,8 @@ const OUT  = resolve(ROOT, 'tokens.css');
 const tokens = JSON.parse(readFileSync(SRC, 'utf8'));
 const prefixes = tokens.$prefixes;
 const groupKeys = Object.keys(tokens).filter(k => !k.startsWith('$'));
+// The type scale is native only for now; tokens.css leaves it out.
+const cssGroupKeys = groupKeys.filter(k => k !== 'type-scale');
 
 const cssVar = (group, name) => `${prefixes[group]}${name}`;
 
@@ -35,7 +37,7 @@ lines.push('/* AUTO-GENERATED from tokens.json by scripts/build-tokens.mjs.');
 lines.push(' * Do not edit by hand — run `npm run build:tokens` after changing tokens.json. */');
 lines.push(':root {');
 
-for (const group of groupKeys) {
+for (const group of cssGroupKeys) {
   const items = tokens[group];
   if (!Array.isArray(items)) {
     throw new Error(`Group "${group}" must be an array of {name,value}/{comment} entries`);
@@ -110,6 +112,21 @@ function nativeColor(value, literal) {
   return `${NATIVE_OBJECT[m[1]]}.${camel(m[2])}`;
 }
 
+// Type scale for the native emitters: family is a {font.x} ref, tracking in em.
+const typeScale = tokens['type-scale'].filter((t) => t.name !== undefined).map((t) => {
+  const family = /^\{font\.([^}]+)\}$/.exec(t.family)?.[1];
+  if (!tokens.font.some((f) => f.name === family)) throw new Error(`Unknown family: ${t.family}`);
+  if (t.tracking !== undefined && !t.tracking.endsWith('em')) throw new Error(`Tracking must be em: ${t.name}`);
+  return {
+    field: camel(t.name), family, weight: t.weight,
+    size: parseInt(t.size, 10), lineHeight: parseInt(t['line-height'], 10),
+    tracking: t.tracking === undefined ? null : parseFloat(t.tracking),
+  };
+});
+const FAMILIES = tokens.font.filter((f) => f.name !== undefined).map((f) => f.name);
+const weightName = (table, w) => table[w] ?? (() => { throw new Error(`No native weight for ${w}`); })();
+const KT_WEIGHT = { 300: 'Light', 400: 'Normal', 600: 'SemiBold', 700: 'Bold' };
+
 // #RRGGBB → 0xFFRRGGBB ; #RRGGBBAA → 0xAARRGGBB (Compose wants ARGB).
 function composeHex(hex) {
   const h = hex.replace('#', '').toUpperCase();
@@ -132,7 +149,11 @@ function emitKotlin() {
     'package com.calmido.app.ui.theme.generated',
     '',
     'import androidx.compose.ui.graphics.Color',
+    'import androidx.compose.ui.text.font.FontWeight',
+    'import androidx.compose.ui.unit.TextUnit',
     'import androidx.compose.ui.unit.dp',
+    'import androidx.compose.ui.unit.em',
+    'import androidx.compose.ui.unit.sp',
     '',
   ];
 
@@ -170,6 +191,18 @@ function emitKotlin() {
     .filter((t) => t.name !== undefined)
     .map((t) => `    val ${camel(t.name)} = ${parseInt(t.value, 10)}.dp`);
   out.push(...ktObject('CalmidoRadius', radiusBody));
+
+  const cap = (s) => s[0].toUpperCase() + s.slice(1);
+  out.push('// Type scale (README Typography → Scale). The app maps family to its FontFamily.');
+  out.push(`enum class CalmidoFontFamily { ${FAMILIES.map(cap).join(', ')} }`, '');
+  out.push('data class CalmidoTypeToken(');
+  out.push('    val family: CalmidoFontFamily,', '    val weight: FontWeight,', '    val size: TextUnit,');
+  out.push('    val lineHeight: TextUnit,', '    val tracking: TextUnit = TextUnit.Unspecified,', ')', '');
+  out.push(...ktObject('CalmidoTypeScale', typeScale.map((t) => {
+    const tracking = t.tracking === null ? '' : `, ${t.tracking}.em`;
+    return `    val ${t.field} = CalmidoTypeToken(CalmidoFontFamily.${cap(t.family)}, ` +
+      `FontWeight.${weightName(KT_WEIGHT, t.weight)}, ${t.size}.sp, ${t.lineHeight}.sp${tracking})`;
+  })));
 
   const ktColor = (v) => nativeColor(v, (hex) => `Color(${composeHex(hex)})`);
   out.push('// Theme roles: pick CalmidoThemeLight or CalmidoThemeDark from the system setting.');
@@ -263,6 +296,16 @@ function emitSwift() {
     .filter((t) => t.name !== undefined)
     .map((t) => `    static let ${camel(t.name)}: CGFloat = ${parseInt(t.value, 10)}`);
   out.push(...swiftEnum('CalmidoRadius', radiusBody));
+
+  out.push('// Type scale (README Typography → Scale). The app maps family + weight to a face;');
+  out.push('// weight is the CSS number (300 light … 700 bold), tracking is in em.');
+  out.push(`enum CalmidoFontFamily: Sendable { case ${FAMILIES.join(', ')} }`, '');
+  out.push('struct CalmidoTypeToken: Sendable {');
+  out.push('    let family: CalmidoFontFamily', '    let weight: Int', '    let size: CGFloat');
+  out.push('    let lineHeight: CGFloat', '    let trackingEm: CGFloat', '}', '');
+  out.push(...swiftEnum('CalmidoTypeScale', typeScale.map((t) =>
+    `    static let ${t.field} = CalmidoTypeToken(family: .${t.family}, weight: ${t.weight}, ` +
+    `size: ${t.size}, lineHeight: ${t.lineHeight}, trackingEm: ${t.tracking ?? 0})`)));
 
   const swColor = (v) => nativeColor(v, swiftColorLiteral);
   const init = (name, key) => [
