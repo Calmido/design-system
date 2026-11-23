@@ -154,6 +154,8 @@ Three families — all free / Google Fonts:
 | Calm_Body_L | Open Sans 400 | 16 / 24 |
 | Calm_Body_M | Open Sans 400 | 14 / 20 |
 | Calm_Body_S | Open Sans 400 | 12 / 16 |
+| Calm_Label_L | Open Sans 600 | 14 / 20 |
+| Calm_Label_M | Open Sans 600 | 12 / 16 |
 | Calm_Label_S | Open Sans 400 | 12 / 16 · 0.08em tracked |
 
 The values live in `tokens.json` → `type-scale`, named as the apps name them
@@ -166,7 +168,7 @@ carry them yet.
 Decided 2026-11-23 (#82). The scale stays as it is.
 
 - **14 px minimum** (Body_M) for explanation, warning and settings text, and help lines under a setting. Never Body_S for it.
-- **12 px** (Body_S, Label_S) only for labels, meta lines, footers and copyright.
+- **12 px** (Body_S, Label_M, Label_S) only for labels, meta lines, footers and copyright.
 - **No 13 px.** It isn't on the scale: use 12 or 14.
 - **Inputs: 16 px**, the search field too. A placeholder takes its input's size, never Body_S; a field's label above it is a label (12).
 - Text follows the system text size (Dynamic Type, `sp`).

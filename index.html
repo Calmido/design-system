@@ -71,6 +71,8 @@
   .t-body-l     { font-family: "Open Sans"; font-weight: 400; font-size: 16px; line-height: 24px; color: var(--c-font-body); }
   .t-body-m     { font-family: "Open Sans"; font-weight: 400; font-size: 14px; line-height: 20px; letter-spacing: 0.01em; color: var(--c-font-body); }
   .t-body-s     { font-family: "Open Sans"; font-weight: 400; font-size: 12px; line-height: 16px; letter-spacing: 0.02em; color: var(--c-font-body); }
+  .t-label-l    { font-family: "Open Sans"; font-weight: 600; font-size: 14px; line-height: 20px; color: var(--c-font-body); }
+  .t-label-m    { font-family: "Open Sans"; font-weight: 600; font-size: 12px; line-height: 16px; color: var(--c-font-body); }
   .t-label-s    { font-family: "Open Sans"; font-weight: 400; font-size: 12px; line-height: 16px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-font-body); }
 
   /* Inverse ink — re-binds the three semantic font tokens within scope.
@@ -1283,7 +1285,17 @@
         <span class="spec">Open Sans 400 · 12 / 16</span>
       </div>
       <div class="type-row">
-        <span class="tag">Calm_label s</span>
+        <span class="tag">Calm_Label L</span>
+        <span class="sample t-label-l">Section headers, sheet labels, chips</span>
+        <span class="spec">Open Sans 600 · 14 / 20</span>
+      </div>
+      <div class="type-row">
+        <span class="tag">Calm_Label M</span>
+        <span class="sample t-label-m">Status labels, small chips, progress steps</span>
+        <span class="spec">Open Sans 600 · 12 / 16</span>
+      </div>
+      <div class="type-row">
+        <span class="tag">Calm_Label S</span>
         <span class="sample t-label-s">TARIDE · attestation · verified</span>
         <span class="spec">Open Sans 400 · 12 / 16 · 0.08em</span>
       </div>
@@ -1293,7 +1305,7 @@
       <h3>Size floor</h3>
       <ul class="t-body-m" style="margin: 0; padding-left: 20px; color: var(--c-font-body);">
         <li><strong>14 px minimum</strong> (Body_M) for explanation, warning and settings text, and help lines under a setting. Never Body_S for it.</li>
-        <li><strong>12 px</strong> (Body_S, Label_S) only for labels, meta lines, footers and copyright.</li>
+        <li><strong>12 px</strong> (Body_S, Label_M, Label_S) only for labels, meta lines, footers and copyright.</li>
         <li><strong>No 13 px.</strong> It isn't on the scale: use 12 or 14.</li>
         <li><strong>Inputs: 16 px</strong>, the search field too. A placeholder takes its input's size, never Body_S; a field's label above it is a label (12).</li>
         <li>Text follows the system text size (Dynamic Type, <code>sp</code>).</li>
