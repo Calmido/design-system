@@ -827,7 +827,7 @@
   .tabbar__circle .ico-mask { width: 24px; height: 24px; }
   .tabbar__circle .ico-mask--brand { width: 30px; height: 30px; }
   .tabbar__label { font-family: var(--font-body, 'Open Sans', sans-serif); font-size: 12px; line-height: 16px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-font-body); white-space: nowrap; }
-  .app-search { display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 16px; box-sizing: border-box; border-radius: var(--r-pill); background: var(--c-surface-raised); border: 1px solid var(--c-border-strong); color: var(--c-font-muted); font: 400 15px "Open Sans"; }
+  .app-search { display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 16px; box-sizing: border-box; border-radius: var(--r-pill); background: var(--c-surface-raised); border: 1px solid var(--c-border-strong); color: var(--c-font-muted); font: 400 16px "Open Sans"; }
   .app-search .ico-mask { width: 20px; height: 20px; flex: 0 0 auto; }
   .app-search input { flex: 1; min-width: 0; padding: 0; border: 0; background: transparent; font: inherit; color: var(--c-font-body); caret-color: var(--c-ink-green); }
   .app-search input::placeholder { color: var(--c-placeholder); }
@@ -1295,6 +1295,7 @@
         <li><strong>14 px minimum</strong> (Body_M) for explanation, warning and settings text, and help lines under a setting. Never Body_S for it.</li>
         <li><strong>12 px</strong> (Body_S, Label_S) only for labels, meta lines, footers and copyright.</li>
         <li><strong>No 13 px.</strong> It isn't on the scale: use 12 or 14.</li>
+        <li><strong>Inputs: 16 px</strong>, the search field too. A placeholder takes its input's size, never Body_S; a field's label above it is a label (12).</li>
         <li>Text follows the system text size (Dynamic Type, <code>sp</code>).</li>
       </ul>
     </div>
@@ -1606,7 +1607,7 @@
         <li><b>On</b> — Bright Green track (#40EDAB) in light and dark.</li>
         <li><b>Off</b> — track in <code>border</code> (Light Grey #DADBE0 on light, #55565B on dark).</li>
         <li><b>Disabled</b> — the whole row at 60% opacity.</li>
-        <li><b>Row</b> — label Open Sans 15 / 20 in <code>font-body</code>; optional subtitle 12 / 16 in <code>font-muted</code>, 2 below. Padding 12 × 16, min height 48, switch trailing with 16 gap. The whole row toggles. No dividers between rows.</li>
+        <li><b>Row</b> — label Open Sans 15 / 20 in <code>font-body</code>; optional subtitle 14 / 20 in <code>font-muted</code> (the size floor: it explains the setting), 2 below. Padding 12 × 16, min height 48, switch trailing with 16 gap. The whole row toggles. No dividers between rows.</li>
         <li><b>Platforms</b> — iOS: the system switch tinted Bright Green. Android: Material 3 <code>Switch</code> with these colours, no outline (border transparent) and a thumb that keeps its size when off.</li>
       </ul>
     </div>
@@ -3202,7 +3203,7 @@
       <h3>Spec</h3>
       <ul class="t-body-m" style="margin:0; padding-left:18px; line-height:1.7;">
         <li><b>Search field</b> — 44 high, pill. Fill <code>surface-raised</code> (white on light, #040B20 on dark), 1 px border in <code>border-strong</code> (#6F797A).</li>
-        <li><b>Search · content</b> — <code>search</code> icon 20 in <code>font-muted</code>, 12 gap, padding 16 sides. Text Open Sans 15 in <code>font-body</code>; placeholder the same size in <code>font-muted</code>; cursor in <code>ink-green</code>.</li>
+        <li><b>Search · content</b> — <code>search</code> icon 20 in <code>font-muted</code>, 12 gap, padding 16 sides. Text Open Sans 16 in <code>font-body</code>; placeholder the same size in <code>font-muted</code>, never Body_S; cursor in <code>ink-green</code>.</li>
         <li><b>Search · focused</b> — border 1.5 px in <code>ink-green</code> (Green Ink on light, Bright Green on dark). The website adds the shared focus ring.</li>
         <li><b>Dialpad button</b> — 56 circle, Bright Green fill with a Dark Blue <code>dialpad</code> icon 24, in light and dark (11.4:1). Shadow black 30%, blur 6, y 3 (Android: elevation 6).</li>
         <li><b>Dialpad · pressed</b> — Calmido Blue (#07369E) fill with a white icon, as the filled button.</li>
