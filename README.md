@@ -53,8 +53,9 @@ artifact can't silently drift from `tokens.json`. See
 [`.github/workflows/ci.yml`](./.github/workflows/ci.yml).
 
 > **Native:** `build-tokens.mjs` also emits Kotlin and Swift
-> (`CalmidoColors` / `CalmidoFontInk` / `CalmidoSpacing` / `CalmidoRadius`,
-> plus `CalmidoThemeColors` with a light and a dark instance) straight into
+> (`CalmidoColors` / `CalmidoFontInk` / `CalmidoSpacing` / `CalmidoRadius` /
+> `CalmidoTypeScale`, plus `CalmidoThemeColors` with a light and a dark
+> instance) straight into
 > `calmido-phone-android/.../ui/theme/generated/CalmidoTokens.kt` and
 > `calmido-phone-ios/.../UI/Theme/generated/CalmidoTokens.swift` when those
 > checkouts sit alongside this repo (skipped on CI). Token names match the
@@ -154,6 +155,11 @@ Three families — all free / Google Fonts:
 | Calm_Body_M | Open Sans 400 | 14 / 20 |
 | Calm_Body_S | Open Sans 400 | 12 / 16 |
 | Calm_Label_S | Open Sans 400 | 12 / 16 · 0.08em tracked |
+
+The values live in `tokens.json` → `type-scale`, named as the apps name them
+(`display-large` = Calm_Display_XL … `label-small` = Calm_Label_S). The
+generator emits them to both apps as `CalmidoTypeScale`; `tokens.css` doesn't
+carry them yet.
 
 ### Size floor
 
