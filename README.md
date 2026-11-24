@@ -178,7 +178,7 @@ Decided 2026-11-23 (#82). The scale stays as it is.
 Decided 2026-11-23.
 
 - **Field label:** above the field, never a floating label inside it. Label_M (Open Sans 600, 12 / 16) in `font-muted`, 6 above the field, sentence case, no extra letter spacing. The help or error line under the field is Body_M (14), by the size floor.
-- **Letter spacing:** only small text in capitals is tracked: Label_S (0.08em, from the scale); the caller card's top label and meta line, 0.5 pt / sp; the dialpad key's letters (ABC…), 1.5 pt / sp. Nothing else is tracked: no button labels, no field labels.
+- **Letter spacing:** only small text in capitals is tracked: Label_S (0.08em, from the scale); the caller card's top label and meta line, 0.5 pt / sp; the dialpad key's letters (ABC…), 1.5 pt / sp. Nothing else is tracked: no button labels, no field labels. Spacing that lays out single characters is layout, not tracking: the code field's gap between digits, and the words spread around Android's avatar ring.
 
 ### Alignment
 
